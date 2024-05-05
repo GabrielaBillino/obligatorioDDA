@@ -4,10 +4,15 @@
  */
 package dominio;
 
-/**
- *
- * @author gabri
- */
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class Propietario {
+    private String cedula;
+    private String nombreCompleto;
+    private List<Vehiculo> vehiculos = new ArrayList<>();
+    private CuentaCorriente cuentaCorriente;
+    
     
 }

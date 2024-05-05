@@ -4,10 +4,17 @@
  */
 package dominio;
 
-/**
- *
- * @author gabri
- */
+import java.util.Date;
+
+
 public class Estadia {
+    private float factorDemanda;
+    private Date horaEntrada;
+    private Date horaSalida;
+    private float precioBase;
+    private Cochera cochera;
+    private Vehiculo vehiculo;
+    
+    
     
 }

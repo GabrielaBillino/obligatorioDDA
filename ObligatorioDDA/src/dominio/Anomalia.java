@@ -4,10 +4,7 @@
  */
 package dominio;
 
-/**
- *
- * @author gabri
- */
+
 public class Anomalia {
     
 }

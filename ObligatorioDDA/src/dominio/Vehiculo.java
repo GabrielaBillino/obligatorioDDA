@@ -4,10 +4,12 @@
  */
 package dominio;
 
-/**
- *
- * @author gabri
- */
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class Vehiculo {
-    
+    private String patente;
+    private TipoVehiculo tipoVehiculo;
+    List<Etiqueta> etiquetas = new ArrayList<>();
 }

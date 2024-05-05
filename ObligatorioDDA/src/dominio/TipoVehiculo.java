@@ -8,6 +8,6 @@ package dominio;
  *
  * @author gabri
  */
-public class TipoVechiculo {
+public class TipoVehiculo {
     
 }
