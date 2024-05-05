@@ -37,5 +37,7 @@ public class Vehiculo {
         this.etiquetas = etiquetas;
     }
     
-    
+    public float precioBase(){
+        return tipoVehiculo.precioBase();
+    }
 }

@@ -16,5 +16,8 @@ public class TipoVehiculo {
         this.tarifa = tarifa;
     }
     
+    public float precioBase(){
+        return tarifa.getValor();
+    }
     
 }
