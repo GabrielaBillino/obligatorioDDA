@@ -4,10 +4,17 @@
  */
 package dominio;
 
-/**
- *
- * @author gabri
- */
+
 public class TipoVehiculo {
+    private Tarifa tarifa;
+
+    public Tarifa getTarifa() {
+        return tarifa;
+    }
+
+    public void setTarifa(Tarifa tarifa) {
+        this.tarifa = tarifa;
+    }
+    
     
 }

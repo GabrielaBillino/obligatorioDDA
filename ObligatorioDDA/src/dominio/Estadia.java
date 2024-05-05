@@ -14,6 +14,21 @@ public class Estadia {
     private float precioBase;
     private Cochera cochera;
     private Vehiculo vehiculo;
+    private float valorEstadia;
+
+    public Estadia(Date horaEntrada, Date horaSalida, Cochera cochera, Vehiculo vehiculo) {
+        this.horaEntrada = horaEntrada;
+        this.horaSalida = horaSalida;
+        this.cochera = cochera;
+        this.vehiculo = vehiculo;
+    }
+    
+    public float getValorEstadia(){
+        //return 0;
+      return (precioBase * vehiculo.getTipoVehiculo().getTarifa().getValor() * factorDemanda); //+ multa;
+    }
+    
+    
     
     
     

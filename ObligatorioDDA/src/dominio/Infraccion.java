@@ -4,10 +4,16 @@
  */
 package dominio;
 
-/**
- *
- * @author gabri
- */
 public class Infraccion {
+    private float monto;
+
+    public float getMonto() {
+        return monto;
+    }
+
+    public void setMonto(float monto) {
+        this.monto = monto;
+    }
+    
     
 }
