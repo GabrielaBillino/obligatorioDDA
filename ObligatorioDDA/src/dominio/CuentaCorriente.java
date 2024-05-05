@@ -4,10 +4,8 @@
  */
 package dominio;
 
-/**
- *
- * @author gabri
- */
+
 public class CuentaCorriente {
+    private float saldo;
     
 }
