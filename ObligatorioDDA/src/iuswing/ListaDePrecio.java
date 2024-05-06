@@ -37,6 +37,8 @@ public class ListaDePrecio extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        lblListaPrecio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblListaPrecio.setForeground(new java.awt.Color(0, 51, 153));
         lblListaPrecio.setText("Lista de precios  -  ");
 
         tblTipoVehiculoPrecio.setModel(new javax.swing.table.DefaultTableModel(
@@ -61,6 +63,8 @@ public class ListaDePrecio extends javax.swing.JDialog {
 
         btnGuardar.setText("Guardar");
 
+        lblNombreParking.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNombreParking.setForeground(new java.awt.Color(0, 0, 153));
         lblNombreParking.setText("lblNombreParking");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -111,7 +115,7 @@ public class ListaDePrecio extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCerrar)
                     .addComponent(btnGuardar))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
