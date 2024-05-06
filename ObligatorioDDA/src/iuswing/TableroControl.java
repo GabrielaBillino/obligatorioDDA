@@ -261,23 +261,25 @@ public class TableroControl extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
-        int opcion = JOptionPane.showConfirmDialog(this, "Desea salir?");
+        Object[] options = {"Sí", "No"};
+        int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir?", "Salir",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         if (opcion == JOptionPane.YES_OPTION) {
             this.setVisible(false);
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
 
     private void btnPreciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPreciosMouseClicked
-       ListaDePrecio lista = new ListaDePrecio(null, false);
-       lista.setVisible(true);
+        ListaDePrecio lista = new ListaDePrecio(null, false);
+        lista.setVisible(true);
     }//GEN-LAST:event_btnPreciosMouseClicked
 
     private void btnCarteleraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarteleraMouseClicked
-       Cartelera cartelera = new Cartelera(null, false);
-       cartelera.setVisible(true);
+        Cartelera cartelera = new Cartelera(null, false);
+        cartelera.setVisible(true);
     }//GEN-LAST:event_btnCarteleraMouseClicked
 
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCartelera;
     private javax.swing.JButton btnCerrar;

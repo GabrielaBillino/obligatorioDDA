@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dominio;
 
 import java.util.ArrayList;
@@ -13,6 +9,20 @@ public class Propietario {
     private String nombreCompleto;
     private List<Vehiculo> vehiculos = new ArrayList<>();
     private CuentaCorriente cuentaCorriente;
-    
-    
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public List<Vehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    public CuentaCorriente getCuentaCorriente() {
+        return cuentaCorriente;
+    }
 }

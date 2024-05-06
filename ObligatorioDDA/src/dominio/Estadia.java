@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dominio;
 
 import java.util.ArrayList;
@@ -30,59 +26,29 @@ public class Estadia {
         return factorDemanda;
     }
 
-    public void setFactorDemanda(float factorDemanda) {
-        this.factorDemanda = factorDemanda;
-    }
-
     public Date getHoraEntrada() {
         return horaEntrada;
-    }
-
-    public void setHoraEntrada(Date horaEntrada) {
-        this.horaEntrada = horaEntrada;
     }
 
     public Date getHoraSalida() {
         return horaSalida;
     }
 
-    public void setHoraSalida(Date horaSalida) {
-        this.horaSalida = horaSalida;
-    }
-
     public Cochera getCochera() {
         return cochera;
-    }
-
-    public void setCochera(Cochera cochera) {
-        this.cochera = cochera;
     }
 
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
 
-    public void setVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
-    }
-
     public List<Anomalia> getAnomalias() {
         return anomalias;
-    }
-
-    public void setAnomalias(List<Anomalia> anomalias) {
-        this.anomalias = anomalias;
     }
 
     public List<Infraccion> getInfracciones() {
         return infracciones;
     }
-
-    public void setInfracciones(List<Infraccion> infracciones) {
-        this.infracciones = infracciones;
-    }
-    
-       
     
     //********* Confirmar con el profesor que esté correcto *****/////
     public float getValorEstadia(){        

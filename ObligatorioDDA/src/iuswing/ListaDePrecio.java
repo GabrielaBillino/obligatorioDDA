@@ -19,8 +19,7 @@ public class ListaDePrecio extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-
-  
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -122,14 +121,14 @@ public class ListaDePrecio extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
-         int opcion = JOptionPane.showConfirmDialog(this, "Desea salir?");
+        Object[] options = {"Sí", "No"};
+        int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir?", "Salir",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         if (opcion == JOptionPane.YES_OPTION) {
-           this.setVisible(false);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
 
-  
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;

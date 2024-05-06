@@ -19,7 +19,6 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
     }
 
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -30,7 +29,7 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMTablero.setText("Mostar tablero de control");
+        jMTablero.setText("Iniciar Sesión");
         jMTablero.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMTableroMouseClicked(evt);
@@ -63,18 +62,20 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMTableroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMTableroMouseClicked
-       TableroControl tablero = new TableroControl(this, false);
-       tablero.setVisible(true);
+        Login login = new Login(this, false);
+        login.setVisible(true);
     }//GEN-LAST:event_jMTableroMouseClicked
 
     private void jMSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMSalirMouseClicked
-         int opcion = JOptionPane.showConfirmDialog(this, "Desea salir?");
+        Object[] options = {"Sí", "No"};
+        int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir?", "Salir",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         if (opcion == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }//GEN-LAST:event_jMSalirMouseClicked
 
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMSalir;
     private javax.swing.JMenu jMTablero;
