@@ -6,10 +6,6 @@ package iuswing;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author gabri
- */
 public class Principal extends javax.swing.JFrame {
 
     /**
@@ -63,7 +59,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMTableroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMTableroMouseClicked
         Login login = new Login(this, false);
-        login.setVisible(true);
+        login.setVisible(true);       
+        
     }//GEN-LAST:event_jMTableroMouseClicked
 
     private void jMSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMSalirMouseClicked

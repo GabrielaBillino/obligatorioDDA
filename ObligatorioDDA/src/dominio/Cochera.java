@@ -5,11 +5,11 @@ import java.util.List;
 
 
 public class Cochera {
-    private int codigo;
-    private static int  lastCodigo = 1;
+    private int codigo;    
     private String estado;
-    private List<Etiqueta> etiquetas = new ArrayList<>();
-
+    private List<Etiqueta> etiquetas = new ArrayList<>();    
+    private static int  lastCodigo = 1;
+    
     public Cochera(String estado) {
         this.codigo = lastCodigo;
         this.estado = estado;

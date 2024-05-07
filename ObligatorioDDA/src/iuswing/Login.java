@@ -4,10 +4,7 @@
  */
 package iuswing;
 
-/**
- *
- * @author PC
- */
+
 public class Login extends javax.swing.JDialog {
 
     /**
