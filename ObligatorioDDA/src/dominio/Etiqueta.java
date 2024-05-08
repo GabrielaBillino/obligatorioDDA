@@ -1,7 +1,7 @@
 package dominio;
 
 
-public class Etiqueta {
+public  abstract class  Etiqueta {
     private String nombre;
 
     public String getNombre() {

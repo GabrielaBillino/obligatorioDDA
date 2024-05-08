@@ -1,7 +1,7 @@
 package dominio;
 
 
-public class TipoVehiculo {
+public abstract class TipoVehiculo {
     private Tarifa tarifa;
     private String nombre;
 
