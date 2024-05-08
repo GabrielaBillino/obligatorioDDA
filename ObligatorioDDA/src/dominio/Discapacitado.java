@@ -6,5 +6,7 @@ package dominio;
 
 
 public class Discapacitado extends Etiqueta{
+
+    
     
 }

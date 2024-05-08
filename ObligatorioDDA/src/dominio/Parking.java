@@ -16,6 +16,11 @@ public class Parking {
         this.tarifa = tarifa;
     }
 
+     public Parking(String nombre) {
+        this.nombre = nombre;
+       
+    }
+    
     public String getNombre() {
         return nombre;
     }

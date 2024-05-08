@@ -4,27 +4,25 @@
  */
 package iuswing;
 
+import dominio.Parking;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author gabri
- */
+
 public class ListaDePrecio extends javax.swing.JDialog {
 
-    /**
-     * Creates new form ListaDePrecio
-     */
-    public ListaDePrecio(java.awt.Frame parent, boolean modal) {
+    private Parking parking;
+    
+    public ListaDePrecio(java.awt.Frame parent, boolean modal, Parking parking) {
         super(parent, modal);
         initComponents();
+        this.parking = parking;
+        mostrarTitulo();
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblListaPrecio = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTipoVehiculoPrecio = new javax.swing.JTable();
         lblValor = new javax.swing.JLabel();
@@ -32,13 +30,8 @@ public class ListaDePrecio extends javax.swing.JDialog {
         btnCerrar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        lblNombreParking = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        lblListaPrecio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblListaPrecio.setForeground(new java.awt.Color(0, 51, 153));
-        lblListaPrecio.setText("Lista de precios  -  ");
 
         tblTipoVehiculoPrecio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -62,10 +55,6 @@ public class ListaDePrecio extends javax.swing.JDialog {
 
         btnGuardar.setText("Guardar");
 
-        lblNombreParking.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblNombreParking.setForeground(new java.awt.Color(0, 0, 153));
-        lblNombreParking.setText("lblNombreParking");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,11 +72,7 @@ public class ListaDePrecio extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(lblListaPrecio)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblNombreParking)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(288, 288, 288)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(136, 136, 136)
@@ -100,10 +85,7 @@ public class ListaDePrecio extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblListaPrecio)
-                    .addComponent(jLabel1)
-                    .addComponent(lblNombreParking))
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
@@ -114,7 +96,7 @@ public class ListaDePrecio extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCerrar)
                     .addComponent(btnGuardar))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
@@ -135,10 +117,16 @@ public class ListaDePrecio extends javax.swing.JDialog {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblListaPrecio;
-    private javax.swing.JLabel lblNombreParking;
     private javax.swing.JLabel lblValor;
     private javax.swing.JTable tblTipoVehiculoPrecio;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarTitulo() {
+       String titulo = "Lista de precios - " + parking.getNombre();
+              
+       setTitle(titulo);
+   }
+
+
 }

@@ -4,13 +4,11 @@
  */
 package iuswing;
 
+import dominio.Parking;
 import java.awt.event.ItemEvent;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author gabri
- */
+
 public class TableroControl extends javax.swing.JDialog {
 
     /**
@@ -20,6 +18,7 @@ public class TableroControl extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         tblAnomalia.setVisible(false);
+        setTitle("Tablero de control");
     }
 
     /**
@@ -35,7 +34,6 @@ public class TableroControl extends javax.swing.JDialog {
         jTable2 = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
-        lblTableroControl = new javax.swing.JLabel();
         lblEstadia = new javax.swing.JLabel();
         txtEstadia = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -77,10 +75,6 @@ public class TableroControl extends javax.swing.JDialog {
         jScrollPane3.setViewportView(jTable3);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        lblTableroControl.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTableroControl.setForeground(new java.awt.Color(0, 51, 153));
-        lblTableroControl.setText("Tablero de control");
 
         lblEstadia.setText("Estadias: ");
 
@@ -196,9 +190,6 @@ public class TableroControl extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblTableroControl)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblEstadia)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtEstadia, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,8 +215,7 @@ public class TableroControl extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lblTableroControl)
-                .addGap(18, 18, 18)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblEstadia)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -246,7 +236,7 @@ public class TableroControl extends javax.swing.JDialog {
                         .addComponent(chkAnomalia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCerrar)))
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -278,7 +268,9 @@ public class TableroControl extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCerrarMouseClicked
 
     private void btnPreciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPreciosMouseClicked
-        ListaDePrecio lista = new ListaDePrecio(null, false);
+        //esto hay que modificarlo por que se sepa cual parking seleccionó de la tabla
+        Parking parking = new Parking("The Best Parking");  
+        ListaDePrecio lista = new ListaDePrecio(null, false, parking);
         lista.setVisible(true);
     }//GEN-LAST:event_btnPreciosMouseClicked
 
@@ -309,7 +301,6 @@ public class TableroControl extends javax.swing.JDialog {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JLabel lblEstadia;
-    private javax.swing.JLabel lblTableroControl;
     private javax.swing.JTable tblAnomalia;
     private javax.swing.JTable tblDashboard;
     private javax.swing.JTextField txtEstadia;
