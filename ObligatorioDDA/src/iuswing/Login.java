@@ -83,8 +83,10 @@ public class Login extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-         boolean verificaTextoUsuario = true;
+        boolean verificaTextoUsuario = true;
+        boolean verificaTextoPassword = true;
         String username = txtUsuario.getText();
+        String password = String.valueOf(pwdContrasenia.getPassword());
         if (username.isBlank()) {
             JOptionPane.showMessageDialog(
                     this,
@@ -93,21 +95,27 @@ public class Login extends javax.swing.JDialog {
                     JOptionPane.ERROR_MESSAGE
             );
             verificaTextoUsuario = false;
-        }
-         String password = String.valueOf(pwdContrasenia.getPassword());
-        if (verificaTextoUsuario) {
-            Usuario usuario = fachada.login(username, password);
-            if (usuario != null) {
-                TableroControl tb = new TableroControl (null, false);
-                tb.setVisible(true);
-            }
-        } else {
+        } else if (password.isBlank()) {
             JOptionPane.showMessageDialog(
                     this,
                     "Ingrese la password",
                     "Error",
                     JOptionPane.ERROR_MESSAGE
             );
+            verificaTextoPassword = false;
+        } else if (verificaTextoUsuario && verificaTextoPassword) {
+            Usuario usuario = Sistema.getInstancia().login(username, password);
+            if (usuario != null) {
+                TableroControl tablero = new TableroControl(null, false);
+                tablero.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Usuario o contraseña incorrectos",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
         }
     }//GEN-LAST:event_btnLoginMouseClicked
 
