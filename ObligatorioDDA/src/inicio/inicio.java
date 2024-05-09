@@ -12,6 +12,7 @@ public class inicio {
 
   
     public static void main(String[] args) {
+       Precarga.cargarDatos();
        Principal principal = new Principal();
        principal.setVisible(true);
         

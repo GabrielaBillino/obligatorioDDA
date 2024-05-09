@@ -5,10 +5,16 @@
 package inicio;
 
 import dominio.Sistema;
+import dominio.Usuario;
 
 
 public class Precarga {
-    Sistema fachada = Sistema.getInstancia();
-    
+    public static void cargarDatos() {
+        Sistema fachada = Sistema.getInstancia();
+        
+        fachada.registrarUsuario(new Usuario("usuario1", "pwu1", "Usuario uno"));
+        fachada.registrarUsuario(new Usuario("usuario2", "pwu2", "Usuario dos"));
+        fachada.registrarUsuario(new Usuario("usuario3", "pwu3", "Usuario tres"));
+    }
     
 }

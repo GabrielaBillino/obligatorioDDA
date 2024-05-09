@@ -58,11 +58,10 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMTableroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMTableroMouseClicked
-       // Login login = new Login(this, false);
-       // login.setVisible(true);    
+       Login login = new Login(this, false);
+       login.setVisible(true);    
         
-        TableroControl tb = new TableroControl (this, false);
-        tb.setVisible(true);
+        
         
     }//GEN-LAST:event_jMTableroMouseClicked
 

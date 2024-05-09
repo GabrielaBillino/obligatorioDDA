@@ -275,7 +275,8 @@ public class TableroControl extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPreciosMouseClicked
 
     private void btnCarteleraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarteleraMouseClicked
-        Cartelera cartelera = new Cartelera(null, false);
+         Parking parking = new Parking("The Best Parking"); 
+        Cartelera cartelera = new Cartelera(null, false, parking);
         cartelera.setVisible(true);
     }//GEN-LAST:event_btnCarteleraMouseClicked
 

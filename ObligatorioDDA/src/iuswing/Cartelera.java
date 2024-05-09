@@ -4,20 +4,20 @@
  */
 package iuswing;
 
+import dominio.Parking;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author gabri
- */
-public class Cartelera extends javax.swing.JDialog {
 
-    /**
-     * Creates new form Cartelera
-     */
-    public Cartelera(java.awt.Frame parent, boolean modal) {
+public class Cartelera extends javax.swing.JDialog {
+    
+    private Parking parking;
+    
+    
+    public Cartelera(java.awt.Frame parent, boolean modal, Parking parking) {
         super(parent, modal);
         initComponents();
+        this.parking = parking;
+        mostrarTitulo();
     }
 
     /**
@@ -31,8 +31,6 @@ public class Cartelera extends javax.swing.JDialog {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        lblCartelera = new javax.swing.JLabel();
-        txtNombreParking = new javax.swing.JTextField();
         lblDisponibilidad = new javax.swing.JLabel();
         txtCantDisponibilidad = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -55,8 +53,6 @@ public class Cartelera extends javax.swing.JDialog {
         jScrollPane2.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        lblCartelera.setText("Cartelera electrónica  - ");
 
         lblDisponibilidad.setText("Disponibilidad: ");
 
@@ -105,34 +101,26 @@ public class Cartelera extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblDisponibilidad)
                         .addGap(37, 37, 37)
-                        .addComponent(txtCantDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblCartelera)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNombreParking, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(70, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCerrar)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(83, 83, 83))
+                        .addComponent(txtCantDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCerrar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCartelera)
-                    .addComponent(txtNombreParking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDisponibilidad)
                     .addComponent(txtCantDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -140,9 +128,9 @@ public class Cartelera extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnCerrar)
-                .addGap(26, 26, 26))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         pack();
@@ -165,10 +153,16 @@ public class Cartelera extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JLabel lblCartelera;
     private javax.swing.JLabel lblDisponibilidad;
     private javax.swing.JTable tblEtiquetas;
     private javax.swing.JTextField txtCantDisponibilidad;
-    private javax.swing.JTextField txtNombreParking;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarTitulo() {
+       String titulo = "Cartelera - " + parking.getNombre();
+              
+       setTitle(titulo);
+   }
+
+
 }
