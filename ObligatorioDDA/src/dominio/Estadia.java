@@ -6,13 +6,13 @@ import java.util.List;
 
 
 public class Estadia {
-    private float factorDemanda;
     private Date horaEntrada;
     private Date horaSalida;   
     private Cochera cochera;
     private Vehiculo vehiculo;
     private List<Anomalia> anomalias = new ArrayList<>();
     private List<Infraccion> infracciones = new ArrayList<>();
+    private float factorDemandaIngreso;
 
     public Estadia(Date horaEntrada, Date horaSalida, Cochera cochera, Vehiculo vehiculo) {
         this.horaEntrada = horaEntrada;
@@ -22,8 +22,8 @@ public class Estadia {
         
     }
 
-    public float getFactorDemanda() {
-        return factorDemanda;
+    public float getFactorDemandaIngreso() {
+        return factorDemandaIngreso;
     }
 
     public Date getHoraEntrada() {
@@ -52,7 +52,7 @@ public class Estadia {
     
     //********* Confirmar con el profesor que esté correcto *****/////
     public float getValorEstadia(){        
-      return (precioBase() *tiempoEstadia() * factorDemanda)+ totalMultas();
+      return (precioBase() *tiempoEstadia() * factorDemandaIngreso)+ totalMultas();
     }
     
     private float tiempoEstadia(){
@@ -60,6 +60,7 @@ public class Estadia {
     }
     
     //******************************************///////////////////////
+    
     private float precioBase(){
         return vehiculo.precioBase();
     }

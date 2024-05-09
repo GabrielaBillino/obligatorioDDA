@@ -22,6 +22,6 @@ public class Vehiculo {
     }
     
     public float precioBase(){
-        return tipoVehiculo.precioBase();
+        return tipoVehiculo.getPrecioBase();
     }
 }
