@@ -9,8 +9,6 @@ public abstract class TipoVehiculo {
         return nombre;
     }
     
-    public float getPrecioBase(){
-        return precioBase;
-    }
+    public abstract float getPrecioBase();
     
 }

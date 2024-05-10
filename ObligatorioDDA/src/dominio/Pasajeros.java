@@ -6,5 +6,10 @@ package dominio;
 
 
 public class Pasajeros extends TipoVehiculo {
+
+    @Override
+    public double getPrecioBase() {
+         return 0.1;
+    }
     
 }

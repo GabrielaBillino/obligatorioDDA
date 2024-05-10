@@ -51,7 +51,7 @@ public class Estadia {
     }
     
     //********* Confirmar con el profesor que esté correcto *****/////
-    public float getValorEstadia(){        
+    public double getValorEstadia(){        
       return (precioBase() *tiempoEstadia() * factorDemandaIngreso)+ totalMultas();
     }
     
@@ -61,7 +61,7 @@ public class Estadia {
     
     //******************************************///////////////////////
     
-    private float precioBase(){
+    private double precioBase(){
         return vehiculo.precioBase();
     }
     

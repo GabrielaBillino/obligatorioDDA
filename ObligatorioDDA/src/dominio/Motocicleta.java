@@ -6,5 +6,10 @@ package dominio;
 
 
 public class Motocicleta extends TipoVehiculo {
+
+    @Override
+    public double getPrecioBase() {
+        return 0.05;
+    }
     
 }

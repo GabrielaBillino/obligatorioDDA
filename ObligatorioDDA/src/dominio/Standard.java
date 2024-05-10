@@ -7,4 +7,8 @@ package dominio;
 
 public class Standard extends TipoVehiculo {
     
+     @Override
+    public double getPrecioBase() {
+         return 0.1;
+    }
 }

@@ -6,5 +6,9 @@ package dominio;
 
 
 public class Carga extends TipoVehiculo{
-    
+   
+    @Override
+    public double getPrecioBase() {
+         return 0.1;
+    }
 }

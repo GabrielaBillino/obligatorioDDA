@@ -21,7 +21,7 @@ public class Vehiculo {
         return etiquetas;
     }
     
-    public float precioBase(){
+    public double precioBase(){
         return tipoVehiculo.getPrecioBase();
     }
 }
