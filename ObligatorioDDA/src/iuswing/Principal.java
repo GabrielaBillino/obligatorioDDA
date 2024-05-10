@@ -25,7 +25,7 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMTablero.setText("Iniciar Sesión");
+        jMTablero.setText("Tablero de control");
         jMTablero.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMTableroMouseClicked(evt);
@@ -58,10 +58,10 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMTableroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMTableroMouseClicked
-       Login login = new Login(this, false);
-       login.setVisible(true);    
-        
-        
+       TableroControl tb= new TableroControl(this, false);
+       
+       tb.setVisible(true);         
+       
         
     }//GEN-LAST:event_jMTableroMouseClicked
 

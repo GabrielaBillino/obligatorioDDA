@@ -19,6 +19,8 @@ public class TableroControl extends javax.swing.JDialog {
         initComponents();
         tblAnomalia.setVisible(false);
         setTitle("Tablero de control");
+        
+        //TODO crear id para que principal lo tenga cuando se cierra y lo borro de la sesion
     }
 
     /**
@@ -75,6 +77,11 @@ public class TableroControl extends javax.swing.JDialog {
         jScrollPane3.setViewportView(jTable3);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         lblEstadia.setText("Estadias: ");
 
@@ -287,6 +294,11 @@ public class TableroControl extends javax.swing.JDialog {
             tblAnomalia.setVisible(false);
         }
     }//GEN-LAST:event_chkAnomaliaItemStateChanged
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        //ELIMINARLO DE LA SESION
+    }//GEN-LAST:event_formWindowClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

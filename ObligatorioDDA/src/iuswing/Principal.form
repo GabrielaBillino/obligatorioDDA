@@ -6,7 +6,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMTablero">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Iniciar Sesi&#xf3;n"/>
+            <Property name="text" type="java.lang.String" value="Tablero de control"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMTableroMouseClicked"/>
