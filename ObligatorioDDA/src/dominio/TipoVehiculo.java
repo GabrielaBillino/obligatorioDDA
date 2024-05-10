@@ -2,13 +2,13 @@ package dominio;
 
 
 public abstract class TipoVehiculo {
-    private float precioBase;
+    private double precioBase;
     private String nombre;
     
     public String getNombre(){
         return nombre;
     }
     
-    public abstract float getPrecioBase();
+    public abstract double getPrecioBase();
     
 }
