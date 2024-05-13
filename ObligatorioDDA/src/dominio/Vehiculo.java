@@ -9,7 +9,14 @@ import simuladortransito.Transitable;
 public class Vehiculo implements Transitable{
     private String patente;
     private TipoVehiculo tipoVehiculo;
-    List<Etiqueta> etiquetas = new ArrayList<>();
+    private List<Etiqueta> etiquetas = new ArrayList<>();
+
+    
+    public Vehiculo(String patente, TipoVehiculo tipoVehiculo, List<Etiqueta> etiquetas) {
+        this.patente = patente;
+        this.tipoVehiculo = tipoVehiculo;
+        this.etiquetas = etiquetas;
+    }
 
     
     @Override
