@@ -46,6 +46,10 @@ public class Cochera  implements Estacionable{
     public boolean esEmpleado() {
         return Utilidades.tieneEtiqueta("Empleado",etiquetas);
     }
+
+    public void setEtiquetas(List<Etiqueta> etiquetasCochera) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
    
 }

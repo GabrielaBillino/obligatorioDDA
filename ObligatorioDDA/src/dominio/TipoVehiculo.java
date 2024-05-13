@@ -9,6 +9,7 @@ public abstract class TipoVehiculo {
         return nombre;
     }
     
+    
     public abstract double getPrecioBase();
     
 }
