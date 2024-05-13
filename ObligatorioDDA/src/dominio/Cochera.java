@@ -1,10 +1,12 @@
 package dominio;
 
+import Utilidades.Utilidades;
 import java.util.ArrayList;
 import java.util.List;
+import simuladortransito.Estacionable;
 
 
-public class Cochera {
+public class Cochera  implements Estacionable{
     private int codigo;    
     private String estado;
     private List<Etiqueta> etiquetas = new ArrayList<>();    
@@ -15,10 +17,7 @@ public class Cochera {
         this.estado = estado;
         lastCodigo++;        
     }    
-    
-    public int getCodigo() {
-        return codigo;
-    }
+      
 
     public String getEstado() {
         return estado;
@@ -27,4 +26,26 @@ public class Cochera {
     public List<Etiqueta> getEtiquetas() {
         return etiquetas;
     }
+
+    @Override
+    public String getCodigo() {
+       return String.valueOf(codigo);
+    }
+
+    @Override
+    public boolean esDiscapacitado() {    
+        return Utilidades.tieneEtiqueta("Discapacitado", etiquetas);
+    }
+
+    @Override
+    public boolean esElectrico() {
+        return Utilidades.tieneEtiqueta("Electrico", etiquetas);
+    }
+
+    @Override
+    public boolean esEmpleado() {
+        return Utilidades.tieneEtiqueta("Empleado",etiquetas);
+    }
+    
+   
 }

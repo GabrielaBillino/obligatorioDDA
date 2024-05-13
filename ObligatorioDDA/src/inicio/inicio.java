@@ -1,6 +1,7 @@
 package inicio;
 
 import iuswing.Principal;
+import simuladortransito.SimuladorTransito;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -11,6 +12,8 @@ import iuswing.Principal;
 public class inicio {
 
   
+    private static SimuladorTransito simulador;
+    
     public static void main(String[] args) {
        Precarga.cargarDatos();
        Principal principal = new Principal();
