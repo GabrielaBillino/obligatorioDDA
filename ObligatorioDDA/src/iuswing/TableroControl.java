@@ -5,12 +5,18 @@
 package iuswing;
 
 import dominio.Parking;
+import java.awt.Component;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
+import java.util.EventObject;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.CellEditorListener;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
 
 
 public class TableroControl extends javax.swing.JDialog {
@@ -25,10 +31,46 @@ public class TableroControl extends javax.swing.JDialog {
         this.parkings = parkings;
         
         cargarTabla(parkings);
+        for (int columnIndex = 0; columnIndex < tblDashboard.getColumnCount(); columnIndex++) {
+            TableColumn column = tblDashboard.getColumnModel().getColumn(columnIndex);
+            column.setCellEditor(tablaNoEditable);
+        }
+        
         //TODO crear id para que principal lo tenga cuando se cierra y lo borro de la sesion
     }
 
 
+    TableCellEditor tablaNoEditable = new TableCellEditor() {
+            @Override
+            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+                return null;
+            }
+            @Override
+            public Object getCellEditorValue() {
+                return null;
+            }
+            @Override
+            public boolean isCellEditable(EventObject anEvent) {
+                return false;
+            }
+            @Override
+            public boolean shouldSelectCell(EventObject anEvent) {
+                return true;
+            }
+            @Override
+            public boolean stopCellEditing() {
+                return true;
+            }
+            @Override
+            public void cancelCellEditing() {
+            }
+            @Override
+            public void addCellEditorListener(CellEditorListener l) {
+            }
+            @Override
+            public void removeCellEditorListener(CellEditorListener l) {
+            }
+        };
 //Le falta la lógica de datos de parking ************
     private void cargarTabla(List<Parking> parkings) {
         String[] columnNames = {"Parking", "#Ocupadas", "#Libres","Estado","Factor de Demanda","Estadias","Multas","SubTotal"};
