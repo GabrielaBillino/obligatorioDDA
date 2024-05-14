@@ -17,6 +17,7 @@ public class Parking {
         this.nombre = nombre;
         this.direccion = direccion;
         this.tarifa = tarifa;
+        this.cocheras = new ArrayList<Cochera>();
     }
 
      public Parking(String nombre) {
@@ -52,8 +53,18 @@ public class Parking {
         return tendenciaActual;
     }
     
-    public float calcularOcupacion() {
-        return 0;
+    public int calcularCocherasOcupadas() {
+        int resultado = 0;
+        for(Cochera c : cocheras) {
+            if (c.getOcupada()) {
+                resultado++;
+            }
+        }
+        return resultado;
+    }
+    
+    public int calcularCocherasLibres() {
+        return cocheras.size() - calcularCocherasOcupadas();
     }
     
     public void evaluarTendencia() {

@@ -7,20 +7,21 @@ import simuladortransito.Estacionable;
 
 
 public class Cochera  implements Estacionable{
-    private int codigo;    
-    private String estado;
-    private List<Etiqueta> etiquetas = new ArrayList<>();    
+    private int codigo;
+    //private String estado;
+    private boolean ocupada;
+    private List<Etiqueta> etiquetas = new ArrayList<>();
     private static int  lastCodigo = 1;
     
-    public Cochera(String estado) {
+    public Cochera(boolean estado) {
         this.codigo = lastCodigo;
-        this.estado = estado;
+        this.ocupada = estado;
         lastCodigo++;        
     }    
       
 
-    public String getEstado() {
-        return estado;
+    public boolean getOcupada() {
+        return ocupada;
     }
 
     public List<Etiqueta> getEtiquetas() {

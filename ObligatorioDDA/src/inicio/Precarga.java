@@ -28,7 +28,7 @@ import simuladortransito.Transitable;
 public class Precarga {
     private static Sistema fachada = Sistema.getInstancia();
    
-    public static List<Parking> cargarParkings (){
+    public static List<Parking> cargarParkings(){
         List<Parking> parkings = new ArrayList<>();
         Parking parking1 = new Parking("the Best Parking", "Cuarem 1215", new Tarifa (100, new Motocicleta(200, "Honda")));
         fachada.cargarParking(parking1);
@@ -99,7 +99,7 @@ public class Precarga {
 
         for (int i = 0; i < 100; i++) {
             // Genera el estado aleatorio (50% de probabilidad de estar libre u ocupada)
-            String estado = random.nextBoolean() ? "Libre" : "Ocupada";
+            boolean estado = random.nextBoolean();
 
             // Crea una lista de etiquetas aleatorias para la cochera
             List<Etiqueta> etiquetasCochera = new ArrayList<>();
