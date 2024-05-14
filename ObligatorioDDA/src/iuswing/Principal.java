@@ -4,15 +4,18 @@
  */
 package iuswing;
 
+import dominio.Parking;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class Principal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Principal
-     */
-    public Principal() {
+   private List<Parking> parkings = new ArrayList<>();
+   
+    public Principal(List<Parking> parkings) {
         initComponents();
+        this.parkings = parkings;
     }
 
     @SuppressWarnings("unchecked")
@@ -58,7 +61,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMTableroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMTableroMouseClicked
-       TableroControl tb= new TableroControl(this, false);
+       TableroControl tb= new TableroControl(this, false, parkings);
        
        tb.setVisible(true);         
        

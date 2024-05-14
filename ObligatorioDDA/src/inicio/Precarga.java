@@ -11,9 +11,11 @@ import dominio.Electrico;
 import dominio.Empleado;
 import dominio.Etiqueta;
 import dominio.Motocicleta;
+import dominio.Parking;
 import dominio.Pasajeros;
 import dominio.Sistema;
 import dominio.Standard;
+import dominio.Tarifa;
 import dominio.TipoVehiculo;
 import dominio.Vehiculo;
 import java.util.ArrayList;
@@ -24,16 +26,23 @@ import simuladortransito.Transitable;
 
 
 public class Precarga {
-    Sistema fachada = Sistema.getInstancia();
+    private static Sistema fachada = Sistema.getInstancia();
    
-     
+    public static List<Parking> cargarParkings (){
+        List<Parking> parkings = new ArrayList<>();
+        Parking parking1 = new Parking("the Best Parking", "Cuarem 1215", new Tarifa (100, new Motocicleta(200, "Honda")));
+        fachada.cargarParking(parking1);
+        parkings.add(parking1);
+        return  parkings;
+    }
+        
         
     //*******HAY QUE MODIFICARLO PARA QUE PASE POR LA FACHADA Y HAGA LAS VALIDACIONES ********
     public static List<Transitable> cargarVehiculos(){
         List<Transitable> vehiculos = new ArrayList<>();
 
         // Tipos de vehículos disponibles
-        TipoVehiculo[] tipos = {new Motocicleta(), new Carga(), new Pasajeros(), new Standard()};
+        TipoVehiculo[] tipos = {new Motocicleta(200,"MOTO"), new Carga(300,"CARGA"), new Pasajeros(300,"BUS"), new Standard(100,"COMUN")};
 
        // Etiquetas disponibles
         Etiqueta[] etiquetas = {new Discapacitado(), new Electrico(), new Empleado()};

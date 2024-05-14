@@ -1,5 +1,6 @@
 package inicio;
 
+import dominio.Parking;
 import iuswing.Principal;
 import java.util.List;
 import simuladortransito.Estacionable;
@@ -16,10 +17,12 @@ public class inicio {
 
   
     private static SimuladorTransito simulador;
+   
     
     public static void main(String[] args) {
+        
        //1. Configurar simulador
-       List<Transitable> vehiculos = Precarga.cargarVehiculos();
+      List<Transitable> vehiculos = Precarga.cargarVehiculos();
        List<Estacionable> cocheras = Precarga.cargarCocheras();
        
        simulador = SimuladorTransito.getInstancia();
@@ -27,9 +30,10 @@ public class inicio {
        simulador.addEstacionables(cocheras);
        
        
+       List<Parking> parkings = Precarga.cargarParkings();
        
        //******Mostrar vista principal******
-       Principal principal = new Principal();
+       Principal principal = new Principal(parkings);
        principal.setVisible(true);
         
     }

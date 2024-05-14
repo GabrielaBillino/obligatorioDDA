@@ -8,7 +8,7 @@ package dominio;
 public class Sistema {
     
     private static Sistema instancia = new Sistema();
-    private ControladorParking controladorParking = new ControladorParking();
+    private static ControladorParking controladorParking = new ControladorParking();
     private ControladorEstadia controladorEstadia = new ControladorEstadia();
     private ControladorUsuario controladorUsuario = new ControladorUsuario();
 
@@ -22,5 +22,9 @@ public class Sistema {
     
      public void registrarUsuario(Usuario usuario) {
         controladorUsuario.registrarUsuario(usuario);
+    }
+
+    public static void cargarParking(Parking parking) {
+        controladorParking.cargarParking(parking);
     }
 }

@@ -6,6 +6,10 @@ package dominio;
 
 
 public class Standard extends TipoVehiculo {
+
+    public Standard(double precioBase, String nombre) {
+        super(precioBase, nombre);
+    }
     
      @Override
     public double getPrecioBase() {

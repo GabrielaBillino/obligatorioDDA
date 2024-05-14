@@ -6,21 +6,41 @@ package iuswing;
 
 import dominio.Parking;
 import java.awt.event.ItemEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+
+import javax.swing.table.DefaultTableModel;
 
 
 public class TableroControl extends javax.swing.JDialog {
 
-    /**
-     * Creates new form TableroControl
-     */
-    public TableroControl(java.awt.Frame parent, boolean modal) {
+    private List<Parking> parkings = new ArrayList<>();
+    
+    public TableroControl(java.awt.Frame parent, boolean modal, List<Parking> parkings) {
         super(parent, modal);
         initComponents();
         tblAnomalia.setVisible(false);
         setTitle("Tablero de control");
+        this.parkings = parkings;
         
+        cargarTabla(parkings);
         //TODO crear id para que principal lo tenga cuando se cierra y lo borro de la sesion
+    }
+
+
+//Le falta la lógica de datos de parking ************
+    private void cargarTabla(List<Parking> parkings) {
+        String[] columnNames = {"Parking", "#Ocupadas", "#Libres","Estado","Factor de Demanda","Estadias","Multas","SubTotal"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        for (Parking parking : parkings) {
+            Object[] row = {parking.getNombre(), parking.calcularOcupacion(), "Falta", "Falta", parking.getFactorDemandaActual(), "Falta", "Falta", parking.getTarifa().getValor()};
+            model.addRow(row);
+        }
+
+        tblDashboard.setModel(model);
+        tblDashboard.setVisible(true);
     }
 
     /**
@@ -97,6 +117,7 @@ public class TableroControl extends javax.swing.JDialog {
 
         tblDashboard.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -194,6 +215,17 @@ public class TableroControl extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(chkAnomalia)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(102, 102, 102)
+                                .addComponent(btnCerrar)
+                                .addGap(47, 47, 47))))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
@@ -206,18 +238,7 @@ public class TableroControl extends javax.swing.JDialog {
                                 .addComponent(txtMoneda)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtFacturacion, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(chkAnomalia)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(102, 102, 102)
-                                .addComponent(btnCerrar)
-                                .addGap(47, 47, 47))))))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
