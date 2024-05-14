@@ -30,7 +30,7 @@ public class inicio {
        simulador.addEstacionables(cocheras);
        
        
-       List<Parking> parkings = Precarga.cargarParkings();
+       List<Parking> parkings = Precarga.cargarParkingsSimulador();
        
        //******Mostrar vista principal******
        Principal principal = new Principal(parkings);

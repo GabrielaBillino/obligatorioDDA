@@ -4,6 +4,8 @@
  */
 package dominio;
 
+import java.util.List;
+
 
 public class Sistema {
     
@@ -24,7 +26,11 @@ public class Sistema {
         controladorUsuario.registrarUsuario(usuario);
     }
 
-    public static void cargarParking(Parking parking) {
-        controladorParking.cargarParking(parking);
+    public static void cargarParkings(List<Parking> parkings) {
+        controladorParking.cargarParkings(parkings);
+    }
+    
+    public static void cargarCocheras(List<Cochera> cocheras) {
+        controladorParking.cargarCocheras(cocheras);
     }
 }

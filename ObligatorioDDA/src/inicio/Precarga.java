@@ -24,27 +24,32 @@ import java.util.Random;
 import simuladortransito.Estacionable;
 import simuladortransito.Transitable;
 
-
 public class Precarga {
+
     private static Sistema fachada = Sistema.getInstancia();
-   
-    public static List<Parking> cargarParkings(){
+
+    public static List<Parking> cargarParkingsSimulador() {
         List<Parking> parkings = new ArrayList<>();
-        Parking parking1 = new Parking("the Best Parking", "Cuarem 1215", new Tarifa (100, new Motocicleta(200, "Honda")));
-        fachada.cargarParking(parking1);
+        Parking parking1 = new Parking("the Best Parking", "Cuareim 1215", new Tarifa(100, new Motocicleta(200, "Honda")), retornarCocheras(cargarCocheras()));
+        Parking parking2 = new Parking("the Best Parking2", "San José 2281", new Tarifa(250, new Pasajeros(300, "Volvo")), retornarCocheras(cargarCocheras()));
+        Parking parking3 = new Parking("the Best Parking3", "Av. Italia 1621", new Tarifa(175, new Standard(250, "Peugeot")), retornarCocheras(cargarCocheras()));
+
         parkings.add(parking1);
-        return  parkings;
+        parkings.add(parking2);
+        parkings.add(parking3);
+
+        fachada.cargarParkings(parkings);
+        return parkings;
     }
-        
-        
+
     //*******HAY QUE MODIFICARLO PARA QUE PASE POR LA FACHADA Y HAGA LAS VALIDACIONES ********
-    public static List<Transitable> cargarVehiculos(){
+    public static List<Transitable> cargarVehiculos() {
         List<Transitable> vehiculos = new ArrayList<>();
 
         // Tipos de vehículos disponibles
-        TipoVehiculo[] tipos = {new Motocicleta(200,"MOTO"), new Carga(300,"CARGA"), new Pasajeros(300,"BUS"), new Standard(100,"COMUN")};
+        TipoVehiculo[] tipos = {new Motocicleta(200, "MOTO"), new Carga(300, "CARGA"), new Pasajeros(300, "BUS"), new Standard(100, "COMUN")};
 
-       // Etiquetas disponibles
+        // Etiquetas disponibles
         Etiqueta[] etiquetas = {new Discapacitado(), new Electrico(), new Empleado()};
 
         Random random = new Random();
@@ -70,9 +75,9 @@ public class Precarga {
             vehiculos.add(vehiculo);
         }
         return vehiculos;
-        
+
     }
-    
+
     public static String generarPatente() {
         StringBuilder patente = new StringBuilder();
         Random random = new Random();
@@ -90,8 +95,8 @@ public class Precarga {
 
         return patente.toString();
     }
-    
-    public static List<Estacionable> cargarCocheras (){
+
+    public static List<Estacionable> cargarCocheras() {
         List<Estacionable> cocheras = new ArrayList<>();
         // Etiquetas disponibles
         Etiqueta[] etiquetas = {new Discapacitado(), new Electrico(), new Empleado()};
@@ -116,5 +121,14 @@ public class Precarga {
             cocheras.add(cochera);
         }
         return cocheras;
+    }
+
+    private static List<Cochera> retornarCocheras(List<Estacionable> cocheras) {
+        List<Cochera> listaCocheras = new ArrayList();
+        for (Estacionable c : cocheras) {
+            listaCocheras.add((Cochera) c);
+        }
+        fachada.cargarCocheras(listaCocheras);
+        return listaCocheras;
     }
 }

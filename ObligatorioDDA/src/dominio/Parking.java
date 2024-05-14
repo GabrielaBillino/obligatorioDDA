@@ -13,11 +13,11 @@ public class Parking {
     private float factorDemandaActual;
     private String tendenciaActual;
 
-    public Parking(String nombre, String direccion, Tarifa tarifa) {
+    public Parking(String nombre, String direccion, Tarifa tarifa, List<Cochera> cocheras) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.tarifa = tarifa;
-        this.cocheras = new ArrayList<Cochera>();
+        this.cocheras = cocheras;
     }
 
      public Parking(String nombre) {

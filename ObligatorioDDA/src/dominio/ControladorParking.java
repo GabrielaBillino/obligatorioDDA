@@ -11,9 +11,14 @@ import java.util.List;
 public class ControladorParking {
 
     private static List<Parking> parkings = new ArrayList<>();
+    private static List<Cochera> cocheras = new ArrayList<>();
     
-    public static void cargarParking(Parking parking) {
-        parkings.add(parking);
+    public static void cargarParkings(List<Parking> parkingsParaAgregar) {
+        parkings.addAll(parkingsParaAgregar);
+    }
+    
+    public static void cargarCocheras(List<Cochera> cocherasParaAgregar) {
+        cocheras.addAll(cocherasParaAgregar);
     }
     
 }

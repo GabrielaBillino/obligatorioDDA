@@ -19,7 +19,6 @@ public class Cochera  implements Estacionable{
         lastCodigo++;        
     }    
       
-
     public boolean getOcupada() {
         return ocupada;
     }
