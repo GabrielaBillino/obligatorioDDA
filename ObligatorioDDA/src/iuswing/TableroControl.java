@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.Popup;
 import javax.swing.event.CellEditorListener;
 
 import javax.swing.table.DefaultTableModel;
@@ -185,6 +187,11 @@ public class TableroControl extends javax.swing.JDialog {
                 btnPreciosMouseClicked(evt);
             }
         });
+        btnPrecios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPreciosActionPerformed(evt);
+            }
+        });
 
         btnCartelera.setText("Cartelera");
         btnCartelera.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -338,16 +345,27 @@ public class TableroControl extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCerrarMouseClicked
 
     private void btnPreciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPreciosMouseClicked
-        //esto hay que modificarlo por que se sepa cual parking seleccionó de la tabla
-        Parking parking = new Parking("The Best Parking");  
-        ListaDePrecio lista = new ListaDePrecio(null, false, parking);
-        lista.setVisible(true);
+            
+        int filaIndex = tblDashboard.getSelectedRow();
+        if(filaIndex == -1){
+             JOptionPane.showMessageDialog(this, "Tiene que tener un parking seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            Parking parking = parkings.get(filaIndex);
+            ListaDePrecio lista = new ListaDePrecio(null, false, parking);
+            lista.setVisible(true);
+        }
+       
     }//GEN-LAST:event_btnPreciosMouseClicked
 
     private void btnCarteleraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarteleraMouseClicked
-         Parking parking = new Parking("The Best Parking"); 
-        Cartelera cartelera = new Cartelera(null, false, parking);
-        cartelera.setVisible(true);
+        int filaIndex = tblDashboard.getSelectedRow();
+        if(filaIndex == -1){
+             JOptionPane.showMessageDialog(this, "Tiene que tener un parking seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            Parking parking = parkings.get(filaIndex);
+            Cartelera cartelera = new Cartelera(null, false, parking);
+            cartelera.setVisible(true);
+        }
     }//GEN-LAST:event_btnCarteleraMouseClicked
 
     private void chkAnomaliaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkAnomaliaItemStateChanged
@@ -362,6 +380,10 @@ public class TableroControl extends javax.swing.JDialog {
         // TODO add your handling code here:
         //ELIMINARLO DE LA SESION
     }//GEN-LAST:event_formWindowClosed
+
+    private void btnPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreciosActionPerformed
+        
+    }//GEN-LAST:event_btnPreciosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
