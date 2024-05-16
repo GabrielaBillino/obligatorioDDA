@@ -1,9 +1,14 @@
 package inicio;
 
 import dominio.Parking;
+import dominio.SensorParking;
 import iuswing.Principal;
 import java.util.List;
+import simuladortransito.ConfiguracionException;
 import simuladortransito.Estacionable;
+import simuladortransito.FlujoEgreso;
+import simuladortransito.FlujoIngreso;
+import simuladortransito.Periodo;
 import simuladortransito.SimuladorTransito;
 import simuladortransito.Transitable;
 
@@ -28,6 +33,19 @@ public class inicio {
        simulador = SimuladorTransito.getInstancia();
        simulador.addTransitables(vehiculos);
        simulador.addEstacionables(cocheras);
+       
+        try {
+            //Agrego ingresos y egresos
+            simulador.programar(new FlujoIngreso("I1",new Periodo(3,10), 20));
+            simulador.programar(new FlujoEgreso("E1",new Periodo(15,10), 20));
+            //INICIO SIMULACION
+            simulador.iniciar(new SensorParking());
+        } catch (ConfiguracionException ex) {
+            ex.printStackTrace();
+        }
+       
+       
+       
        
        
        List<Parking> parkings = Precarga.cargarParkingsSimulador();

@@ -5,6 +5,12 @@
 package dominio;
 
 
-public class Sensor {
+public abstract class Tendencia {
+    private String nombre;
+
+    public Tendencia(String nombre) {
+        this.nombre = nombre;
+    }
+     
     
 }

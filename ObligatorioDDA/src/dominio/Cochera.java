@@ -50,6 +50,10 @@ public class Cochera  implements Estacionable{
     public void setEtiquetas(List<Etiqueta> etiquetasCochera) {
         this.etiquetas = etiquetasCochera;
     }
+
+    public void setOcupada(boolean ocupada) {
+        this.ocupada = ocupada;
+    }
     
    
 }

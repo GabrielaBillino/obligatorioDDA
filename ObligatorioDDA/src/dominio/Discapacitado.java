@@ -6,7 +6,18 @@ package dominio;
 
 
 public class Discapacitado extends Etiqueta{
+    
 
+    public Discapacitado() {
+        super("Discapacitado");
+        
+    }
+
+    @Override
+    public String getNombre() {
+        return "Discapacitado";
+    }
+    
     
     
 }

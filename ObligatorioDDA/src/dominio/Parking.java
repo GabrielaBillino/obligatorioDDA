@@ -11,7 +11,7 @@ public class Parking {
     private List<Cochera> cocheras = new ArrayList<>();
     private List<Estadia> estadias = new ArrayList<>();
     private float factorDemandaActual;
-    private String tendenciaActual;
+    private Tendencia tendenciaActual; // crear tentendia
 
     public Parking(String nombre, String direccion, Tarifa tarifa, List<Cochera> cocheras) {
         this.nombre = nombre;
@@ -49,7 +49,7 @@ public class Parking {
         return factorDemandaActual;
     }
 
-    public String getTendenciaActual() {
+    public Tendencia getTendenciaActual() {
         return tendenciaActual;
     }
     

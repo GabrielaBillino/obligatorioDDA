@@ -6,5 +6,14 @@ package dominio;
 
 
 public class Electrico extends Etiqueta{
+
+    public Electrico() {
+        super("Electrico");
+    }
+
+    @Override
+    public String getNombre() {
+        return "Electrico";
+    }
     
 }

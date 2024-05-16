@@ -6,9 +6,13 @@ import java.util.Objects;
 public  abstract class  Etiqueta {
     private String nombre;
 
-    public String getNombre() {
-        return nombre;
+    public Etiqueta(String nombre) {
+        this.nombre = nombre;
     }
+
+    
+    public abstract String getNombre();
+       
 
    
 

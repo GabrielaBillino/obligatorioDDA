@@ -5,17 +5,10 @@
 package dominio;
 
 
-public class Empleado extends Etiqueta {
-
-    public Empleado() {
-        super("Empleado");
-    }
-
-    @Override
-    public String getNombre() {
-        return "Empleado";
-    }
+public class Estable extends Tendencia{
     
-    
+    public Estable(String nombre) {
+        super(nombre);
+    }
     
 }
