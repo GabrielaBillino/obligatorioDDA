@@ -6,11 +6,16 @@ package dominio;
 
 
 public abstract class Tendencia {
-    private String nombre;
+   protected double factorDemanda;
 
-    public Tendencia(String nombre) {
-        this.nombre = nombre;
+    public Tendencia(double factorDemanda) {
+        this.factorDemanda = factorDemanda;
     }
-     
+
+    public double getFactorDemanda() {
+        return factorDemanda;
+    }
+
+    public abstract void actualizarFactorDemanda(int ocupacion, int capacidad, int diferenciaIngresosEgresos);
     
 }

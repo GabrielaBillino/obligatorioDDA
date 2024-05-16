@@ -79,7 +79,7 @@ public class TableroControl extends javax.swing.JDialog {
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
         for (Parking parking : parkings) {
-            Object[] row = {parking.getNombre(), parking.calcularCocherasOcupadas(), parking.calcularCocherasLibres(), "Falta", parking.getFactorDemandaActual(), "Falta", "Falta", parking.getTarifa().getValor()};
+            Object[] row = {parking.getNombre(), parking.calcularCocherasOcupadas(), parking.calcularCocherasLibres(), "Falta", parking.getFactorDemanda(), "Falta", "Falta", parking.getTarifa().getValor()};
             model.addRow(row);
         }
 

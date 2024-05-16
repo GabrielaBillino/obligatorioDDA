@@ -1,23 +1,31 @@
 package dominio;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 
 public class Parking {
     private String nombre;
     private String direccion;
     private Tarifa tarifa;
+    private int capacidad;
+    private int ocupacion;
     private List<Cochera> cocheras = new ArrayList<>();
     private List<Estadia> estadias = new ArrayList<>();
-    private float factorDemandaActual;
-    private Tendencia tendenciaActual; // crear tentendia
+    private Queue<Integer> ingresosEgresos;
+    private Tendencia tendenciaActual; 
 
     public Parking(String nombre, String direccion, Tarifa tarifa, List<Cochera> cocheras) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.tarifa = tarifa;
         this.cocheras = cocheras;
+        this.capacidad = cocheras.size();
+        this.ocupacion = 0;
+        this.ingresosEgresos = new LinkedList<>();
+        this.tendenciaActual = new Estable(1.0);
     }
 
      public Parking(String nombre) {
@@ -45,10 +53,10 @@ public class Parking {
         return estadias;
     }
 
-    public float getFactorDemandaActual() {
-        return factorDemandaActual;
+    public double getFactorDemanda() {
+        return tendenciaActual.getFactorDemanda();
     }
-
+    
     public Tendencia getTendenciaActual() {
         return tendenciaActual;
     }
@@ -67,41 +75,37 @@ public class Parking {
         return cocheras.size() - calcularCocherasOcupadas();
     }
     
-    public void evaluarTendencia() {
-        
+    public void ingresarVehiculo() {
+        ocupacion++;
+        actualizarTendencia(1);
     }
-    
-    public void actualizarFactorDemanda() {
-        
-    }
-    
-    /*
-       
-       +-----------------+     *      +-----------------+
-       |     Estadia     |<>----------|     Cochera     |
-       +-----------------+            +-----------------+
-       | - fechaIngreso  |            | - numeroCochera |
-       | - fechaSalida   |            | - estadias      |
-       | - factorDemandaIngreso |     +-----------------+
-       +-----------------+                 |
-              ^                             |
-              |                             |
-              |                             |
-              |                             |
-              |                             |
-       +-----------------+                 |
-       |     Parking     |-----------------+
-       +-----------------+
-       | - cocheras      |
-       | - capacidadTotal|
-       | - factorDemandaActual |
-       | - tendenciaActual: string |
-       +-----------------+
-       | + calcularOcupacion() : decimal |
-       | + evaluarTendencia() : void |
-       | + actualizarFactorDemanda() : void |
-       +-----------------+
 
-    */
+    public void egresarVehiculo() {
+        ocupacion--;
+        actualizarTendencia(-1);
+    }
+
+    private void actualizarTendencia(int cambio) {
+        if (ingresosEgresos.size() >= 10) {
+            ingresosEgresos.poll();
+        }
+        
+        ingresosEgresos.offer(cambio);
+
+        int sumaIngresosEgresos = ingresosEgresos.stream().mapToInt(Integer::intValue).sum();
+        int diferenciaIngresosEgresos = Math.abs(sumaIngresosEgresos);
+
+        if (diferenciaIngresosEgresos <= 0.1 * capacidad) {
+            tendenciaActual = new Estable(tendenciaActual.getFactorDemanda());
+        } else if (sumaIngresosEgresos > 0) {
+            tendenciaActual = new Positiva(tendenciaActual.getFactorDemanda());
+        } else {
+            tendenciaActual = new Negativa(tendenciaActual.getFactorDemanda());
+        }
+
+        tendenciaActual.actualizarFactorDemanda(ocupacion, capacidad, diferenciaIngresosEgresos);
+    }
+    
+   
 
 }

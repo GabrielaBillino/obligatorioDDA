@@ -6,9 +6,18 @@ package dominio;
 
 
 public class Estable extends Tendencia{
-    
-    public Estable(String nombre) {
-        super(nombre);
+
+    public Estable(double factorDemanda) {
+        super(factorDemanda);
+    }
+
+   
+    @Override
+    public void actualizarFactorDemanda(int ocupacion, int capacidad, int diferenciaIngresosEgresos) {
+        if (diferenciaIngresosEgresos <= 0.1 * capacidad) {
+            factorDemanda = Math.max(0.25, factorDemanda - 0.01);
+        }
     }
     
+  
 }
