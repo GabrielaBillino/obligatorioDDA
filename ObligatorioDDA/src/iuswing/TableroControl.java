@@ -38,6 +38,7 @@ public class TableroControl extends javax.swing.JDialog {
             column.setCellEditor(tablaNoEditable);
         }
         
+        
         //TODO crear id para que principal lo tenga cuando se cierra y lo borro de la sesion
     }
 
@@ -101,7 +102,6 @@ public class TableroControl extends javax.swing.JDialog {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         lblEstadia = new javax.swing.JLabel();
-        txtEstadia = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtFacturacion = new javax.swing.JTextField();
         txtMoneda = new javax.swing.JLabel();
@@ -113,6 +113,7 @@ public class TableroControl extends javax.swing.JDialog {
         tblAnomalia = new javax.swing.JTable();
         chkAnomalia = new javax.swing.JCheckBox();
         btnCerrar = new javax.swing.JButton();
+        lblCantEstadia = new javax.swing.JLabel();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -148,12 +149,6 @@ public class TableroControl extends javax.swing.JDialog {
         });
 
         lblEstadia.setText("Estadias: ");
-
-        txtEstadia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEstadiaActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Facturación:");
 
@@ -279,8 +274,8 @@ public class TableroControl extends javax.swing.JDialog {
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblEstadia)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtEstadia, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblCantEstadia, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -294,9 +289,10 @@ public class TableroControl extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEstadia)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtEstadia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblEstadia)
+                        .addComponent(lblCantEstadia, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtFacturacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1)
                         .addComponent(txtMoneda)))
@@ -318,10 +314,6 @@ public class TableroControl extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtEstadiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadiaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEstadiaActionPerformed
 
     private void btnCarteleraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarteleraActionPerformed
         // TODO add your handling code here:
@@ -398,10 +390,10 @@ public class TableroControl extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
+    private javax.swing.JLabel lblCantEstadia;
     private javax.swing.JLabel lblEstadia;
     private javax.swing.JTable tblAnomalia;
     private javax.swing.JTable tblDashboard;
-    private javax.swing.JTextField txtEstadia;
     private javax.swing.JTextField txtFacturacion;
     private javax.swing.JLabel txtMoneda;
     // End of variables declaration//GEN-END:variables

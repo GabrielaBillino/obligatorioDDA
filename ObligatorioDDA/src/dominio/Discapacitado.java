@@ -17,7 +17,12 @@ public class Discapacitado extends Etiqueta{
     public String getNombre() {
         return "Discapacitado";
     }
+
+    @Override
+    public double multa(double montoEstadia, float tiempoEstadiaUT) {
+        return 250;
+    }
     
-    
+  
     
 }

@@ -1,6 +1,7 @@
 package dominio;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -112,6 +113,14 @@ public class Parking {
         }
 
         tendenciaActual.actualizarFactorDemanda(ocupacion, capacidad, diferenciaIngresosEgresos);
+    }
+
+    public void cargarEstadia(Cochera c, Vehiculo v) {
+        Date horaEntrada = new Date();
+        Date horaSalida = new Date();
+        Estadia estadia = new Estadia (horaEntrada, horaSalida, c, v);
+        
+        estadias.add(estadia);        
     }
     
    

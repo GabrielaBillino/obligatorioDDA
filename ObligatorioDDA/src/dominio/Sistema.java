@@ -33,4 +33,8 @@ public class Sistema {
     public static void cargarCocheras(List<Cochera> cocheras) {
         controladorParking.cargarCocheras(cocheras);
     }
+
+    public void cargarEstadia(Cochera c, Vehiculo v, Parking p) {
+        controladorParking.cargarEstadia( c,  v,  p);
+    }
 }

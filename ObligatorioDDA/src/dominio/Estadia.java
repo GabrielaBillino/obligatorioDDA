@@ -49,8 +49,7 @@ public class Estadia {
     public List<Infraccion> getInfracciones() {
         return infracciones;
     }
-    
-    //********* Confirmar con el profesor que esté correcto *****/////
+      
     public double getValorEstadia(){        
       return (precioBase() *tiempoEstadia() * factorDemandaIngreso)+ totalMultas();
     }
@@ -66,12 +65,25 @@ public class Estadia {
     }
     
     private float totalMultas(){
-        float ret = 0;
+        float totalMulta = 0;
+        List<Etiqueta> etiquetasCocheras = cochera.getEtiquetas();
+        List<Etiqueta> etiquetasVehiculos = vehiculo.getEtiquetas();
         
-        for(Infraccion i : infracciones){
-            ret += i.getMonto();
+        for(Etiqueta etiquetaCochera : etiquetasCocheras){
+           for (Etiqueta etiquetaVehiculo : etiquetasVehiculos){
+               if(!etiquetaCochera.getNombre().equals(etiquetaVehiculo.getNombre())){
+                    if("Discapacitado".equals(etiquetaCochera.getNombre())){                       
+                        totalMulta += etiquetaCochera.multa(precioBase(), tiempoEstadia());
+                    }else if("Electrico".equals(etiquetaCochera.getNombre())){
+                          totalMulta += etiquetaCochera.multa(precioBase(), tiempoEstadia());
+                    }else if("Empleado".equals(etiquetaCochera.getNombre())){
+                          totalMulta += etiquetaCochera.multa(precioBase(), tiempoEstadia());
+                    }
+               }
+           }
+           
         }
-        return ret;
+        return totalMulta;
     }
     
     

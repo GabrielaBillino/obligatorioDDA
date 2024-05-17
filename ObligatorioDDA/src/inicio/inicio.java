@@ -1,7 +1,9 @@
 package inicio;
 
+import dominio.Cochera;
 import dominio.Parking;
 import dominio.SensorParking;
+import dominio.Vehiculo;
 import iuswing.Principal;
 import java.util.List;
 import simuladortransito.ConfiguracionException;
@@ -27,7 +29,7 @@ public class inicio {
     public static void main(String[] args) {
         
        //1. Configurar simulador
-      List<Transitable> vehiculos = Precarga.cargarVehiculos();
+       List<Transitable> vehiculos = Precarga.cargarVehiculos();
        List<Estacionable> cocheras = Precarga.cargarCocheras();
        
        simulador = SimuladorTransito.getInstancia();
@@ -50,6 +52,11 @@ public class inicio {
        
        List<Parking> parkings = Precarga.cargarParkingsSimulador();
        
+       Vehiculo v = (Vehiculo) vehiculos.get(0);
+       Cochera c = (Cochera) cocheras.get(0);
+       Parking p = parkings.get(0);
+       
+       Precarga.cargarEstadia(c, v, p);
        //******Mostrar vista principal******
        Principal principal = new Principal(parkings);
        principal.setVisible(true);

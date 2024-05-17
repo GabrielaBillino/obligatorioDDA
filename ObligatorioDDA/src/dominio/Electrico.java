@@ -15,5 +15,10 @@ public class Electrico extends Etiqueta{
     public String getNombre() {
         return "Electrico";
     }
+
+    @Override
+    public double multa(double montoEstadia, float tiempoEstadiaUT) {
+        return montoEstadia * 0.5;
+    }
     
 }

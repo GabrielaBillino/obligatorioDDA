@@ -16,6 +16,13 @@ public class Empleado extends Etiqueta {
         return "Empleado";
     }
     
-    
+    public double multa(){
+        return 1;
+    }
+
+    @Override
+    public double multa(double montoEstadia, float tiempoEstadiaUT) {
+        return tiempoEstadiaUT / 10;
+    }
     
 }

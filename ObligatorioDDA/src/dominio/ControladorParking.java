@@ -20,5 +20,9 @@ public class ControladorParking {
     public static void cargarCocheras(List<Cochera> cocherasParaAgregar) {
         cocheras.addAll(cocherasParaAgregar);
     }
+
+    public void cargarEstadia(Cochera c, Vehiculo v, Parking p) {
+       p.cargarEstadia(c,v);
+    }
     
 }

@@ -42,7 +42,7 @@ public class Precarga {
         return parkings;
     }
 
-    //*******HAY QUE MODIFICARLO PARA QUE PASE POR LA FACHADA Y HAGA LAS VALIDACIONES ********
+  
     public static List<Transitable> cargarVehiculos() {
         List<Transitable> vehiculos = new ArrayList<>();
 
@@ -130,5 +130,9 @@ public class Precarga {
         }
         fachada.cargarCocheras(listaCocheras);
         return listaCocheras;
+    }
+    
+    public static void cargarEstadia(Cochera c, Vehiculo v, Parking p){
+        fachada.cargarEstadia(c,v,p);
     }
 }
