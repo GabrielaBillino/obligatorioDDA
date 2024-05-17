@@ -61,6 +61,14 @@ public class Parking {
         return tendenciaActual;
     }
     
+     public int getOcupacion() {
+        return ocupacion;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
+    }
+    
     public int calcularCocherasOcupadas() {
         int resultado = 0;
         for(Cochera c : cocheras) {
