@@ -326,10 +326,13 @@
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCantEstadia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="lblCantEstadia"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblTotalFacturado">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel2"/>
+        <Property name="text" type="java.lang.String" value="lblTotalFacturado"/>
       </Properties>
     </Component>
   </SubComponents>

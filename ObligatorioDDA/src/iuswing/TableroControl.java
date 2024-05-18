@@ -253,7 +253,9 @@ public class TableroControl extends javax.swing.JDialog {
             }
         });
 
-        lblTotalFacturado.setText("jLabel2");
+        lblCantEstadia.setText("lblCantEstadia");
+
+        lblTotalFacturado.setText("lblTotalFacturado");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
