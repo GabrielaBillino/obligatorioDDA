@@ -78,12 +78,20 @@ public class TableroControl extends javax.swing.JDialog {
     private void cargarTabla(List<Parking> parkings) {
         String[] columnNames = {"Parking", "#Ocupadas", "#Libres","Estado","Factor de Demanda","Estadias","Multas","SubTotal"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-
+        int totalEstadias =0;
+        double totalFacturado =0;
+        
         for (Parking parking : parkings) {
-            Object[] row = {parking.getNombre(), parking.calcularCocherasOcupadas(), parking.calcularCocherasLibres(), "Falta", parking.getFactorDemanda(), "Falta", "Falta", parking.getTarifa().getValor()};
+            Object[] row = {parking.getNombre(), parking.calcularCocherasOcupadas(), parking.calcularCocherasLibres(), parking.getTendenciaActual().getNombre(), parking.getFactorDemanda(), parking.getEstadias().size(), parking.totalMultas(), parking.totalFacturado()};
             model.addRow(row);
+            totalEstadias += parking.getEstadias().size();
+            totalFacturado += parking.totalFacturado();
         }
-
+        String txtCantEstadia = String.valueOf(totalEstadias);
+        String txtTotalFacturado = String.valueOf(totalFacturado);
+        
+        lblCantEstadia.setText(txtCantEstadia);
+        lblTotalFacturado.setText(txtTotalFacturado);
         tblDashboard.setModel(model);
         tblDashboard.setVisible(true);
     }
@@ -103,7 +111,6 @@ public class TableroControl extends javax.swing.JDialog {
         jTable3 = new javax.swing.JTable();
         lblEstadia = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        txtFacturacion = new javax.swing.JTextField();
         txtMoneda = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDashboard = new javax.swing.JTable();
@@ -114,6 +121,7 @@ public class TableroControl extends javax.swing.JDialog {
         chkAnomalia = new javax.swing.JCheckBox();
         btnCerrar = new javax.swing.JButton();
         lblCantEstadia = new javax.swing.JLabel();
+        lblTotalFacturado = new javax.swing.JLabel();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -245,6 +253,8 @@ public class TableroControl extends javax.swing.JDialog {
             }
         });
 
+        lblTotalFacturado.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -274,14 +284,15 @@ public class TableroControl extends javax.swing.JDialog {
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblEstadia)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblCantEstadia, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtMoneda)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtFacturacion, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTotalFacturado)
+                                .addGap(49, 49, 49)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -293,10 +304,10 @@ public class TableroControl extends javax.swing.JDialog {
                         .addComponent(lblEstadia)
                         .addComponent(lblCantEstadia, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtFacturacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1)
-                        .addComponent(txtMoneda)))
-                .addGap(18, 18, 18)
+                        .addComponent(txtMoneda)
+                        .addComponent(lblTotalFacturado)))
+                .addGap(21, 21, 21)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -309,7 +320,7 @@ public class TableroControl extends javax.swing.JDialog {
                         .addComponent(chkAnomalia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCerrar)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -392,9 +403,9 @@ public class TableroControl extends javax.swing.JDialog {
     private javax.swing.JTable jTable3;
     private javax.swing.JLabel lblCantEstadia;
     private javax.swing.JLabel lblEstadia;
+    private javax.swing.JLabel lblTotalFacturado;
     private javax.swing.JTable tblAnomalia;
     private javax.swing.JTable tblDashboard;
-    private javax.swing.JTextField txtFacturacion;
     private javax.swing.JLabel txtMoneda;
     // End of variables declaration//GEN-END:variables
 }

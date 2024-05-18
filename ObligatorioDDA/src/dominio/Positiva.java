@@ -10,6 +10,10 @@ public class Positiva extends Tendencia{
     public Positiva(double factorDemanda) {
         super(factorDemanda);
     }
+    
+     public String getNombre() {
+        return "Positiva";
+    }
 
     @Override
     public void actualizarFactorDemanda(int ocupacion, int capacidad, int diferenciaIngresosEgresos) {

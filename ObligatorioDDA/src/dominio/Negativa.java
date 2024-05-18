@@ -10,6 +10,10 @@ public class Negativa extends Estable{
     public Negativa(double factorDemanda) {
         super(factorDemanda);
     }
+
+    public String getNombre() {
+        return "Negativa";
+    }
     
      @Override
     public void actualizarFactorDemanda(int ocupacion, int capacidad, int diferenciaIngresosEgresos) {

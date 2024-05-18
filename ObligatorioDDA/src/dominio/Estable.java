@@ -11,6 +11,9 @@ public class Estable extends Tendencia{
         super(factorDemanda);
     }
 
+     public String getNombre() {
+        return "Estable";
+    }
    
     @Override
     public void actualizarFactorDemanda(int ocupacion, int capacidad, int diferenciaIngresosEgresos) {

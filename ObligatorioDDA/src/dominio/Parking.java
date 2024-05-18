@@ -112,17 +112,31 @@ public class Parking {
             tendenciaActual = new Negativa(tendenciaActual.getFactorDemanda());
         }
 
-        tendenciaActual.actualizarFactorDemanda(ocupacion, capacidad, diferenciaIngresosEgresos);
+        tendenciaActual.actualizarFactorDemanda(ocupacion, capacidad, diferenciaIngresosEgresos);        
     }
 
     public void cargarEstadia(Cochera c, Vehiculo v) {
         Date horaEntrada = new Date();
         Date horaSalida = new Date();
         Estadia estadia = new Estadia (horaEntrada, horaSalida, c, v);
-        
+        estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
         estadias.add(estadia);        
     }
     
+   public float totalMultas(){
+       float total=0;
+       
+       for(Estadia estadia : estadias){
+           total += estadia.totalMultas();
+       }
+       return total;
+   }
    
-
+   public double totalFacturado(){
+       double total=0;
+       for(Estadia estadia : estadias){
+           total+= estadia.getValorEstadia();
+       }
+       return total;
+   }
 }

@@ -41,6 +41,7 @@ public class inicio {
             simulador.programar(new FlujoIngreso("I1",new Periodo(3,10), 20));
             simulador.programar(new FlujoEgreso("E1",new Periodo(15,10), 20));
             //INICIO SIMULACION
+           
             simulador.iniciar(new SensorParking());
         } catch (ConfiguracionException ex) {
             ex.printStackTrace();
@@ -57,6 +58,7 @@ public class inicio {
        Parking p = parkings.get(0);
        
        Precarga.cargarEstadia(c, v, p);
+       
        //******Mostrar vista principal******
        Principal principal = new Principal(parkings);
        principal.setVisible(true);

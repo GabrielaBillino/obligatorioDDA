@@ -11,8 +11,8 @@ public class Estadia {
     private Cochera cochera;
     private Vehiculo vehiculo;
     private List<Anomalia> anomalias = new ArrayList<>();
-    private List<Infraccion> infracciones = new ArrayList<>();
-    private float factorDemandaIngreso;
+   // private List<Infraccion> infracciones = new ArrayList<>();
+    private double factorDemandaIngreso;
 
     public Estadia(Date horaEntrada, Date horaSalida, Cochera cochera, Vehiculo vehiculo) {
         this.horaEntrada = horaEntrada;
@@ -22,8 +22,12 @@ public class Estadia {
         
     }
 
-    public float getFactorDemandaIngreso() {
+    public double getFactorDemandaIngreso() {        
         return factorDemandaIngreso;
+    }
+
+    public void setFactorDemandaIngreso(double factorDemandaIngreso) {
+        this.factorDemandaIngreso = factorDemandaIngreso;
     }
 
     public Date getHoraEntrada() {
@@ -46,9 +50,7 @@ public class Estadia {
         return anomalias;
     }
 
-    public List<Infraccion> getInfracciones() {
-        return infracciones;
-    }
+ 
       
     public double getValorEstadia(){        
       return (precioBase() *tiempoEstadia() * factorDemandaIngreso)+ totalMultas();
@@ -64,7 +66,7 @@ public class Estadia {
         return vehiculo.precioBase();
     }
     
-    private float totalMultas(){
+    public float totalMultas(){
         float totalMulta = 0;
         List<Etiqueta> etiquetasCocheras = cochera.getEtiquetas();
         List<Etiqueta> etiquetasVehiculos = vehiculo.getEtiquetas();
