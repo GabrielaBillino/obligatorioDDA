@@ -15,10 +15,6 @@ public class Empleado extends Etiqueta {
     public String getNombre() {
         return "Empleado";
     }
-    
-    public double multa(){
-        return 1;
-    }
 
     @Override
     public double multa(double montoEstadia, float tiempoEstadiaUT) {

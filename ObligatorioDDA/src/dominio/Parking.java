@@ -1,13 +1,17 @@
 package dominio;
 
+import java.util.Random;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-
 public class Parking {
+
     private String nombre;
     private String direccion;
     private Tarifa tarifa;
@@ -16,7 +20,7 @@ public class Parking {
     private List<Cochera> cocheras = new ArrayList<>();
     private List<Estadia> estadias = new ArrayList<>();
     private Queue<Integer> ingresosEgresos;
-    private Tendencia tendenciaActual; 
+    private Tendencia tendenciaActual;
 
     public Parking(String nombre, String direccion, Tarifa tarifa, List<Cochera> cocheras) {
         this.nombre = nombre;
@@ -29,11 +33,11 @@ public class Parking {
         this.tendenciaActual = new Estable(1.0);
     }
 
-     public Parking(String nombre) {
+    public Parking(String nombre) {
         this.nombre = nombre;
-       
+
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -49,7 +53,7 @@ public class Parking {
     public List<Cochera> getCocheras() {
         return cocheras;
     }
-    
+
     public List<Estadia> getEstadias() {
         return estadias;
     }
@@ -57,33 +61,33 @@ public class Parking {
     public double getFactorDemanda() {
         return tendenciaActual.getFactorDemanda();
     }
-    
+
     public Tendencia getTendenciaActual() {
         return tendenciaActual;
     }
-    
-     public int getOcupacion() {
+
+    public int getOcupacion() {
         return ocupacion;
     }
 
     public int getCapacidad() {
         return capacidad;
     }
-    
+
     public int calcularCocherasOcupadas() {
         int resultado = 0;
-        for(Cochera c : cocheras) {
+        for (Cochera c : cocheras) {
             if (c.getOcupada()) {
                 resultado++;
             }
         }
         return resultado;
     }
-    
+
     public int calcularCocherasLibres() {
         return cocheras.size() - calcularCocherasOcupadas();
     }
-    
+
     public void ingresarVehiculo() {
         ocupacion++;
         actualizarTendencia(1);
@@ -98,7 +102,7 @@ public class Parking {
         if (ingresosEgresos.size() >= 10) {
             ingresosEgresos.poll();
         }
-        
+
         ingresosEgresos.offer(cambio);
 
         int sumaIngresosEgresos = ingresosEgresos.stream().mapToInt(Integer::intValue).sum();
@@ -112,31 +116,32 @@ public class Parking {
             tendenciaActual = new Negativa(tendenciaActual.getFactorDemanda());
         }
 
-        tendenciaActual.actualizarFactorDemanda(ocupacion, capacidad, diferenciaIngresosEgresos);        
+        tendenciaActual.actualizarFactorDemanda(ocupacion, capacidad, diferenciaIngresosEgresos);
     }
 
+    //TODO: Las horas hay que manejarlas correctamente.
     public void cargarEstadia(Cochera c, Vehiculo v) {
-        Date horaEntrada = new Date();
-        Date horaSalida = new Date();
-        Estadia estadia = new Estadia (horaEntrada, horaSalida, c, v);
+        Random random = new Random();
+        LocalDateTime horaEntrada = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
+        LocalDateTime horaSalida = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12) + 12, random.nextInt(60), random.nextInt(60)));
+        Estadia estadia = new Estadia(horaEntrada, horaSalida, c, v);
         estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
-        estadias.add(estadia);        
+        estadias.add(estadia);
     }
-    
-   public float totalMultas(){
-       float total=0;
-       
-       for(Estadia estadia : estadias){
-           total += estadia.totalMultas();
-       }
-       return total;
-   }
-   
-   public double totalFacturado(){
-       double total=0;
-       for(Estadia estadia : estadias){
-           total+= estadia.getValorEstadia();
-       }
-       return total;
-   }
+
+    public float totalMultas() {
+        float total = 0;
+        for (Estadia estadia : estadias) {
+            total += estadia.totalMultas();
+        }
+        return total;
+    }
+
+    public double totalFacturado() {
+        double total = 0;
+        for (Estadia estadia : estadias) {
+            total += estadia.getValorEstadia();
+        }
+        return total;
+    }
 }

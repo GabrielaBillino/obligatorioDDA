@@ -14,12 +14,10 @@ public  abstract class  Etiqueta {
     public abstract String getNombre();
    
     public abstract double multa(double montoEstadia, float tiempoEstadiaUT);
+    
     @Override
     public boolean equals(Object obj) {
         Etiqueta other = (Etiqueta) obj;
         return this.nombre.equals(other.nombre);
     }
-    
-    
-   
 }

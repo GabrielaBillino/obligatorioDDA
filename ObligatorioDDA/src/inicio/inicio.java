@@ -32,7 +32,7 @@ public class inicio {
        List<Transitable> vehiculos = Precarga.cargarVehiculos();
        List<Estacionable> cocheras = Precarga.cargarCocheras();
        
-       simulador = SimuladorTransito.getInstancia();
+       /*simulador = SimuladorTransito.getInstancia();
        simulador.addTransitables(vehiculos);
        simulador.addEstacionables(cocheras);
        
@@ -45,7 +45,7 @@ public class inicio {
             simulador.iniciar(new SensorParking());
         } catch (ConfiguracionException ex) {
             ex.printStackTrace();
-        }
+        }*/
        
        
        

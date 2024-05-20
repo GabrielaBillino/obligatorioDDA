@@ -1,28 +1,30 @@
 package dominio;
 
+import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
-
 public class Estadia {
-    private Date horaEntrada;
-    private Date horaSalida;   
+
+    private LocalDateTime horaEntrada;
+    private LocalDateTime horaSalida;
     private Cochera cochera;
     private Vehiculo vehiculo;
     private List<Anomalia> anomalias = new ArrayList<>();
-   // private List<Infraccion> infracciones = new ArrayList<>();
+    // private List<Infraccion> infracciones = new ArrayList<>();
     private double factorDemandaIngreso;
 
-    public Estadia(Date horaEntrada, Date horaSalida, Cochera cochera, Vehiculo vehiculo) {
+    public Estadia(LocalDateTime horaEntrada, LocalDateTime horaSalida, Cochera cochera, Vehiculo vehiculo) {
         this.horaEntrada = horaEntrada;
         this.horaSalida = horaSalida;
         this.cochera = cochera;
         this.vehiculo = vehiculo;
-        
+
     }
 
-    public double getFactorDemandaIngreso() {        
+    public double getFactorDemandaIngreso() {
         return factorDemandaIngreso;
     }
 
@@ -30,11 +32,11 @@ public class Estadia {
         this.factorDemandaIngreso = factorDemandaIngreso;
     }
 
-    public Date getHoraEntrada() {
+    public LocalDateTime getHoraEntrada() {
         return horaEntrada;
     }
 
-    public Date getHoraSalida() {
+    public LocalDateTime getHoraSalida() {
         return horaSalida;
     }
 
@@ -50,43 +52,37 @@ public class Estadia {
         return anomalias;
     }
 
- 
-      
-    public double getValorEstadia(){        
-      return (precioBase() *tiempoEstadia() * factorDemandaIngreso)+ totalMultas();
+    public double getValorEstadia() {
+        return (precioBase() * tiempoEstadia() * factorDemandaIngreso) + totalMultas();
     }
-    
-    private float tiempoEstadia(){
-        return (horaSalida.getTime() - horaEntrada.getTime())/1000;        
+
+    private float tiempoEstadia() {
+        Duration duration = Duration.between(horaEntrada, horaSalida);
+        return duration.toMinutes();
     }
-    
+
     //******************************************///////////////////////
-    
-    private double precioBase(){
+    private double precioBase() {
         return vehiculo.precioBase();
     }
-    
-    public float totalMultas(){
+
+    public float totalMultas() {
         float totalMulta = 0;
         List<Etiqueta> etiquetasCocheras = cochera.getEtiquetas();
         List<Etiqueta> etiquetasVehiculos = vehiculo.getEtiquetas();
-        
-        for(Etiqueta etiquetaCochera : etiquetasCocheras){
-           for (Etiqueta etiquetaVehiculo : etiquetasVehiculos){
-               if(!etiquetaCochera.getNombre().equals(etiquetaVehiculo.getNombre())){
-                    if("Discapacitado".equals(etiquetaCochera.getNombre())){                       
-                        totalMulta += etiquetaCochera.multa(precioBase(), tiempoEstadia());
-                    }else if("Electrico".equals(etiquetaCochera.getNombre())){
-                          totalMulta += etiquetaCochera.multa(precioBase(), tiempoEstadia());
-                    }else if("Empleado".equals(etiquetaCochera.getNombre())){
-                          totalMulta += etiquetaCochera.multa(precioBase(), tiempoEstadia());
-                    }
-               }
-           }
-           
+        for (Etiqueta etiquetaCochera : etiquetasCocheras) {
+            boolean etiquetaCorrespondienteEncontrada = false;
+            for (Etiqueta etiquetaVehiculo : etiquetasVehiculos) {
+                if (etiquetaCochera.equals(etiquetaVehiculo)) {
+                    etiquetaCorrespondienteEncontrada = true;
+                    break;
+                }
+            }
+            if (!etiquetaCorrespondienteEncontrada) {
+                totalMulta += etiquetaCochera.multa(precioBase(), tiempoEstadia());
+            }
         }
         return totalMulta;
     }
-    
-    
+
 }
