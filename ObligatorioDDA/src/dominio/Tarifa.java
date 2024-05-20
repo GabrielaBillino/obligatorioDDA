@@ -10,6 +10,10 @@ public class Tarifa {
         this.tipoVehiculo = tipoVehiculo;
     }
 
+    public void setValor(float valor) {
+        this.valor = valor;
+    }
+
     
     public float getValor() {
         return valor;

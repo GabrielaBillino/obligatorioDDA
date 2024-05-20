@@ -5,7 +5,11 @@
 package iuswing;
 
 import dominio.Parking;
+import dominio.Sistema;
+import dominio.Tarifa;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 public class ListaDePrecio extends javax.swing.JDialog {
@@ -17,6 +21,7 @@ public class ListaDePrecio extends javax.swing.JDialog {
         initComponents();
         this.parking = parking;
         mostrarTitulo();
+        cargarTabla(parking);
     }
     
     @SuppressWarnings("unchecked")
@@ -54,6 +59,11 @@ public class ListaDePrecio extends javax.swing.JDialog {
         });
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGuardarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,6 +112,19 @@ public class ListaDePrecio extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     private void cargarTabla(Parking parking) {
+       String[] columnNames = {"Tipo de Vehiculo", "Precio/<UT>"};
+       DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+      
+       List<Tarifa> tarifas = parking.getTarifa();
+       for(Tarifa tarifa : tarifas){
+            Object[] row = {tarifa.getTipoVehiculo().getNombre(), tarifa.getValor()};
+            model.addRow(row); 
+       }                 
+               
+       tblTipoVehiculoPrecio.setModel(model);
+       tblTipoVehiculoPrecio.setVisible(true);
+    }
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
         Object[] options = {"Sí", "No"};
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir?", "Salir",
@@ -110,6 +133,14 @@ public class ListaDePrecio extends javax.swing.JDialog {
             this.setVisible(false);
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
+
+    private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
+       float nuevoPrecio = Integer.valueOf(txtValor.getText());
+       int indexTipo = tblTipoVehiculoPrecio.getSelectedRow();
+       Sistema.getInstancia().actualizarValorTipoVehiculo(nuevoPrecio, indexTipo, parking);
+       cargarTabla(parking);
+       
+    }//GEN-LAST:event_btnGuardarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

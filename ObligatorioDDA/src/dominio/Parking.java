@@ -14,7 +14,7 @@ public class Parking {
 
     private String nombre;
     private String direccion;
-    private Tarifa tarifa;
+    private List<Tarifa> tarifas = new ArrayList<>();
     private int capacidad;
     private int ocupacion;
     private List<Cochera> cocheras = new ArrayList<>();
@@ -22,10 +22,10 @@ public class Parking {
     private Queue<Integer> ingresosEgresos;
     private Tendencia tendenciaActual;
 
-    public Parking(String nombre, String direccion, Tarifa tarifa, List<Cochera> cocheras) {
+    public Parking(String nombre, String direccion, List<Tarifa> tarifa, List<Cochera> cocheras) {
         this.nombre = nombre;
         this.direccion = direccion;
-        this.tarifa = tarifa;
+        this.tarifas = tarifa;
         this.cocheras = cocheras;
         this.capacidad = cocheras.size();
         this.ocupacion = 0;
@@ -46,8 +46,8 @@ public class Parking {
         return direccion;
     }
 
-    public Tarifa getTarifa() {
-        return tarifa;
+    public List<Tarifa> getTarifa() {
+        return tarifas;
     }
 
     public List<Cochera> getCocheras() {
@@ -143,5 +143,10 @@ public class Parking {
             total += estadia.getValorEstadia();
         }
         return total;
+    }
+
+    public void actualizarValorTipoVehiculo(float nuevoPrecio, int indexTipo) {
+        Tarifa unaTarifa = tarifas.get(indexTipo);
+        unaTarifa.setValor(nuevoPrecio);
     }
 }

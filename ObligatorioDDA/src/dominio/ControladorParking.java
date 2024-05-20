@@ -24,5 +24,9 @@ public class ControladorParking {
     public void cargarEstadia(Cochera c, Vehiculo v, Parking p) {
        p.cargarEstadia(c,v);
     }
+
+    public void actualizarValorTipoVehiculo(float nuevoPrecio, int indexTipo, Parking parking) {
+        parking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo);
+    }
     
 }

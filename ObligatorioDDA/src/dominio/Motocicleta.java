@@ -7,8 +7,8 @@ package dominio;
 
 public class Motocicleta extends TipoVehiculo {
 
-    public Motocicleta(double precioBase, String nombre) {
-        super(precioBase, nombre);
+    public Motocicleta(double precioBase) {
+        super(precioBase, "Motocicleta");
     }
 
     @Override

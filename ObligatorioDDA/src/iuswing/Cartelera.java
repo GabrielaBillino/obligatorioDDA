@@ -36,7 +36,7 @@ public class Cartelera extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEtiquetas = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblTipoVehiculo = new javax.swing.JTable();
         btnCerrar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -77,7 +77,7 @@ public class Cartelera extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tblEtiquetas);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblTipoVehiculo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -87,7 +87,7 @@ public class Cartelera extends javax.swing.JDialog {
                 "Tipo de vehiculo", "Precio/<UT>"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(tblTipoVehiculo);
 
         btnCerrar.setText("Cerrar");
         btnCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -152,9 +152,9 @@ public class Cartelera extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblDisponibilidad;
     private javax.swing.JTable tblEtiquetas;
+    private javax.swing.JTable tblTipoVehiculo;
     private javax.swing.JTextField txtCantDisponibilidad;
     // End of variables declaration//GEN-END:variables
 

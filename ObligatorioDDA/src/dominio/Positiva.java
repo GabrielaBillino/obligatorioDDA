@@ -11,6 +11,7 @@ public class Positiva extends Tendencia{
         super(factorDemanda);
     }
     
+    @Override
      public String getNombre() {
         return "Positiva";
     }

@@ -46,8 +46,7 @@ public class inicio {
         } catch (ConfiguracionException ex) {
             ex.printStackTrace();
         }*/
-       
-       
+             
        
        
        
