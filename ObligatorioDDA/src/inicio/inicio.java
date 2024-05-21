@@ -52,11 +52,10 @@ public class inicio {
        
        List<Parking> parkings = Precarga.cargarParkingsSimulador();
        
-       Vehiculo v = (Vehiculo) vehiculos.get(0);
-       Cochera c = (Cochera) cocheras.get(0);
-       Parking p = parkings.get(0);
-       
-       Precarga.cargarEstadia(c, v, p);
+       Precarga.cargarEstadia((Cochera)cocheras.get(0), (Vehiculo)vehiculos.get(0), parkings.get(0));
+       Precarga.cargarEstadia((Cochera)cocheras.get(1), (Vehiculo)vehiculos.get(1), parkings.get(1));
+       Precarga.cargarEstadia((Cochera)cocheras.get(2), (Vehiculo)vehiculos.get(3), parkings.get(2));
+
        
        //******Mostrar vista principal******
        Principal principal = new Principal(parkings);
