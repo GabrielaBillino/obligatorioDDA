@@ -10,6 +10,7 @@ import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -20,77 +21,89 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 
-
 public class TableroControl extends javax.swing.JDialog {
 
     private List<Parking> parkings = new ArrayList<>();
-    
+
     public TableroControl(java.awt.Frame parent, boolean modal, List<Parking> parkings) {
         super(parent, modal);
         initComponents();
         tblAnomalia.setVisible(false);
         setTitle("Tablero de control");
         this.parkings = parkings;
-        
+
         cargarTabla(parkings);
-        
+
         for (int columnIndex = 0; columnIndex < tblDashboard.getColumnCount(); columnIndex++) {
             TableColumn column = tblDashboard.getColumnModel().getColumn(columnIndex);
             column.setCellEditor(tablaNoEditable);
         }
-        
-        
+
         //TODO crear id para que principal lo tenga cuando se cierra y lo borro de la sesion
     }
 
-
     TableCellEditor tablaNoEditable = new TableCellEditor() {
-            @Override
-            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-                return null;
-            }
-            @Override
-            public Object getCellEditorValue() {
-                return null;
-            }
-            @Override
-            public boolean isCellEditable(EventObject anEvent) {
-                return false;
-            }
-            @Override
-            public boolean shouldSelectCell(EventObject anEvent) {
-                return true;
-            }
-            @Override
-            public boolean stopCellEditing() {
-                return true;
-            }
-            @Override
-            public void cancelCellEditing() {
-            }
-            @Override
-            public void addCellEditorListener(CellEditorListener l) {
-            }
-            @Override
-            public void removeCellEditorListener(CellEditorListener l) {
-            }
-        };
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            return null;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return null;
+        }
+
+        @Override
+        public boolean isCellEditable(EventObject anEvent) {
+            return false;
+        }
+
+        @Override
+        public boolean shouldSelectCell(EventObject anEvent) {
+            return true;
+        }
+
+        @Override
+        public boolean stopCellEditing() {
+            return true;
+        }
+
+        @Override
+        public void cancelCellEditing() {
+        }
+
+        @Override
+        public void addCellEditorListener(CellEditorListener l) {
+        }
+
+        @Override
+        public void removeCellEditorListener(CellEditorListener l) {
+        }
+    };
 
     private void cargarTabla(List<Parking> parkings) {
-        String[] columnNames = {"Parking", "#Ocupadas", "#Libres","Estado","Factor de Demanda","Estadias","Multas","SubTotal"};
+        String[] columnNames = {"Parking", "#Ocupadas", "#Libres", "Estado", "Factor de Demanda", "Estadias", "Multas", "SubTotal"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-        int totalEstadias =0;
-        double totalFacturado =0;
-        
+        int totalEstadias = 0;
+        double totalFacturado = 0;
+        DecimalFormat df = new DecimalFormat("#.00");
+
         for (Parking parking : parkings) {
-            Object[] row = {parking.getNombre(), parking.calcularCocherasOcupadas(), parking.calcularCocherasLibres(), parking.getTendenciaActual().getNombre(), parking.getFactorDemanda(), parking.getEstadias().size(), parking.totalMultas(), parking.totalFacturado()};
+            Object[] row = {parking.getNombre(),
+                parking.calcularCocherasOcupadas(),
+                parking.calcularCocherasLibres(),
+                parking.getTendenciaActual().getNombre(),
+                parking.getFactorDemanda(),
+                parking.getEstadias().size(),
+                parking.totalMultas(),
+                df.format(parking.totalFacturado())};
             model.addRow(row);
             totalEstadias += parking.getEstadias().size();
             totalFacturado += parking.totalFacturado();
         }
         String txtCantEstadia = String.valueOf(totalEstadias);
-        String txtTotalFacturado = String.valueOf(totalFacturado);
-        
+        String txtTotalFacturado = String.format("%.2f", totalFacturado);
+
         lblCantEstadia.setText(txtCantEstadia);
         lblTotalFacturado.setText(txtTotalFacturado);
         tblDashboard.setModel(model);
@@ -351,23 +364,23 @@ public class TableroControl extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCerrarMouseClicked
 
     private void btnPreciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPreciosMouseClicked
-            
+
         int filaIndex = tblDashboard.getSelectedRow();
-        if(filaIndex == -1){
-             JOptionPane.showMessageDialog(this, "Tiene que tener un parking seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
+        if (filaIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Tiene que tener un parking seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
             Parking parking = parkings.get(filaIndex);
             ListaDePrecio lista = new ListaDePrecio(null, false, parking);
             lista.setVisible(true);
         }
-       
+
     }//GEN-LAST:event_btnPreciosMouseClicked
 
     private void btnCarteleraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarteleraMouseClicked
         int filaIndex = tblDashboard.getSelectedRow();
-        if(filaIndex == -1){
-             JOptionPane.showMessageDialog(this, "Tiene que tener un parking seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
+        if (filaIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Tiene que tener un parking seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
             Parking parking = parkings.get(filaIndex);
             Cartelera cartelera = new Cartelera(null, false, parking);
             cartelera.setVisible(true);
@@ -375,9 +388,9 @@ public class TableroControl extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCarteleraMouseClicked
 
     private void chkAnomaliaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkAnomaliaItemStateChanged
-        if(evt.getStateChange() == ItemEvent.SELECTED){
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
             tblAnomalia.setVisible(true);
-        }else{
+        } else {
             tblAnomalia.setVisible(false);
         }
     }//GEN-LAST:event_chkAnomaliaItemStateChanged
@@ -388,7 +401,7 @@ public class TableroControl extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreciosActionPerformed
-        
+
     }//GEN-LAST:event_btnPreciosActionPerformed
 
 
