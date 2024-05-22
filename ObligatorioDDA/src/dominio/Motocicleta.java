@@ -1,19 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dominio;
-
 
 public class Motocicleta extends TipoVehiculo {
 
-    public Motocicleta(double precioBase) {
-        super(precioBase, "Motocicleta");
+    public Motocicleta() {
+        super("Motocicleta");
+        setPrecioBaseInicial();
     }
 
     @Override
-    public double getPrecioBase() {
+    protected double calcularPrecioBase() {
         return 0.05;
     }
-    
 }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package inicio;
 
 import dominio.Carga;
@@ -30,19 +26,29 @@ public class Precarga {
 
     public static List<Parking> cargarParkingsSimulador() {
         List<Tarifa> tarifas1 = new ArrayList<>();
-        Tarifa t1 = new Tarifa (100, new Motocicleta(200));
-        Tarifa t2 = new Tarifa(250, new Pasajeros(30));
-        Tarifa t3 = new Tarifa(175, new Standard(250));
-         Tarifa t4 = new Tarifa(175, new Carga(500));
+        Tarifa t1 = new Tarifa(new Motocicleta());
+        Tarifa t2 = new Tarifa(new Pasajeros());
+        Tarifa t3 = new Tarifa(new Standard());
+        Tarifa t4 = new Tarifa(new Carga());
         tarifas1.add(t1);
         tarifas1.add(t2);
         tarifas1.add(t3);
         tarifas1.add(t4);
         
+        List<Tarifa> tarifas2 = new ArrayList<>();
+        Tarifa t5 = new Tarifa(new Motocicleta());
+        Tarifa t6 = new Tarifa(new Pasajeros());
+        Tarifa t7 = new Tarifa(new Standard());
+        Tarifa t8 = new Tarifa(new Carga());
+        tarifas2.add(t5);
+        tarifas2.add(t6);
+        tarifas2.add(t7);
+        tarifas2.add(t8);
+        
         List<Parking> parkings = new ArrayList<>();
-        Parking parking1 = new Parking("the Best Parking", "Cuareim 1215", tarifas1, retornarCocheras(cargarCocheras()));
-        Parking parking2 = new Parking("the Best Parking2", "San José 2281", tarifas1, retornarCocheras(cargarCocheras()));
-        Parking parking3 = new Parking("the Best Parking3", "Av. Italia 1621", tarifas1, retornarCocheras(cargarCocheras()));
+        Parking parking1 = new Parking("the Best Parking", "Cuareim 1215", generarListaDeTarifas(), retornarCocheras(cargarCocheras()));
+        Parking parking2 = new Parking("the Best Parking2", "San José 2281", generarListaDeTarifas(), retornarCocheras(cargarCocheras()));
+        Parking parking3 = new Parking("the Best Parking3", "Av. Italia 1621", generarListaDeTarifas(), retornarCocheras(cargarCocheras()));
 
         parkings.add(parking1);
         parkings.add(parking2);
@@ -52,12 +58,24 @@ public class Precarga {
         return parkings;
     }
 
+    private static List<Tarifa> generarListaDeTarifas() {
+        List<Tarifa> tarifas = new ArrayList<Tarifa>();
+        Tarifa t1 = new Tarifa(new Motocicleta());
+        Tarifa t2 = new Tarifa(new Pasajeros());
+        Tarifa t3 = new Tarifa(new Standard());
+        Tarifa t4 = new Tarifa(new Carga());
+        tarifas.add(t1);
+        tarifas.add(t2);
+        tarifas.add(t3);
+        tarifas.add(t4);
+        return tarifas;
+    }
   
     public static List<Transitable> cargarVehiculos() {
         List<Transitable> vehiculos = new ArrayList<>();
 
         // Tipos de vehículos disponibles
-        TipoVehiculo[] tipos = {new Motocicleta(200), new Carga(300), new Pasajeros(300), new Standard(100)};
+        TipoVehiculo[] tipos = {new Motocicleta(), new Carga(), new Pasajeros(), new Standard()};
 
         // Etiquetas disponibles
         Etiqueta[] etiquetas = {new Discapacitado(), new Electrico(), new Empleado()};

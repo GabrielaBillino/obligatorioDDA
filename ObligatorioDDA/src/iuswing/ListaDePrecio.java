@@ -11,11 +11,10 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class ListaDePrecio extends javax.swing.JDialog {
 
     private Parking parking;
-    
+
     public ListaDePrecio(java.awt.Frame parent, boolean modal, Parking parking) {
         super(parent, modal);
         initComponents();
@@ -23,7 +22,7 @@ public class ListaDePrecio extends javax.swing.JDialog {
         mostrarTitulo();
         cargarTabla(parking);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -112,18 +111,18 @@ public class ListaDePrecio extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-     private void cargarTabla(Parking parking) {
-       String[] columnNames = {"Tipo de Vehiculo", "Precio/<UT>"};
-       DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-      
-       List<Tarifa> tarifas = parking.getTarifa();
-       for(Tarifa tarifa : tarifas){
-            Object[] row = {tarifa.getTipoVehiculo().getNombre(), tarifa.getValor()};
-            model.addRow(row); 
-       }                 
-               
-       tblTipoVehiculoPrecio.setModel(model);
-       tblTipoVehiculoPrecio.setVisible(true);
+    private void cargarTabla(Parking parking) {
+        String[] columnNames = {"Tipo de Vehiculo", "Precio/<UT>"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        List<Tarifa> tarifas = parking.getTarifa();
+        for (Tarifa tarifa : tarifas) {
+            Object[] row = {tarifa.getNombreVehiculo(), tarifa.getValor()};
+            model.addRow(row);
+        }
+
+        tblTipoVehiculoPrecio.setModel(model);
+        tblTipoVehiculoPrecio.setVisible(true);
     }
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
         Object[] options = {"Sí", "No"};
@@ -135,11 +134,14 @@ public class ListaDePrecio extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCerrarMouseClicked
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
-       float nuevoPrecio = Integer.valueOf(txtValor.getText());
-       int indexTipo = tblTipoVehiculoPrecio.getSelectedRow();
-       Sistema.getInstancia().actualizarValorTipoVehiculo(nuevoPrecio, indexTipo, parking);
-       cargarTabla(parking);
-       
+        int indexTipo = tblTipoVehiculoPrecio.getSelectedRow();
+        if (indexTipo >= 0) {
+            double nuevoPrecio = Double.parseDouble(txtValor.getText());
+            Sistema.getInstancia().actualizarValorTipoVehiculo(nuevoPrecio, indexTipo, parking);
+            cargarTabla(parking);
+        } else {
+            JOptionPane.showMessageDialog(this, "Tiene que tener un tipo de vehículo seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnGuardarMouseClicked
 
 
@@ -154,10 +156,9 @@ public class ListaDePrecio extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void mostrarTitulo() {
-       String titulo = "Lista de precios - " + parking.getNombre();
-              
-       setTitle(titulo);
-   }
+        String titulo = "Lista de precios - " + parking.getNombre();
 
+        setTitle(titulo);
+    }
 
 }

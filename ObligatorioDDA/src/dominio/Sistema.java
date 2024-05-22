@@ -38,7 +38,7 @@ public class Sistema {
         controladorParking.cargarEstadia( c,  v,  p);
     }
 
-    public void actualizarValorTipoVehiculo(float nuevoPrecio, int indexTipo, Parking parking) {
-        controladorParking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo,parking);
+    public void actualizarValorTipoVehiculo(double nuevoPrecio, int indexTipo, Parking parking) {
+        controladorParking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo, parking);
     }
 }

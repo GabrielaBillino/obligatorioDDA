@@ -14,7 +14,9 @@ public class ControladorParking {
     private static List<Cochera> cocheras = new ArrayList<>();
     
     public static void cargarParkings(List<Parking> parkingsParaAgregar) {
-        parkings.addAll(parkingsParaAgregar);
+        if (parkingsParaAgregar != null) {
+            parkings.addAll(parkingsParaAgregar);
+        }
     }
     
     public static void cargarCocheras(List<Cochera> cocherasParaAgregar) {
@@ -25,7 +27,7 @@ public class ControladorParking {
        p.cargarEstadia(c,v);
     }
 
-    public void actualizarValorTipoVehiculo(float nuevoPrecio, int indexTipo, Parking parking) {
+    public void actualizarValorTipoVehiculo(double nuevoPrecio, int indexTipo, Parking parking) {
         parking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo);
     }
     

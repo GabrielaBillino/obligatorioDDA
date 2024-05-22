@@ -1,18 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dominio;
 
+public class Carga extends TipoVehiculo {
 
-public class Carga extends TipoVehiculo{
-
-    public Carga(double precioBase) {
-        super(precioBase, "Carga");
+    public Carga() {
+        super("Carga");
+        setPrecioBaseInicial();
     }
-   
+
     @Override
-    public double getPrecioBase() {
-         return 0.1;
+    protected double calcularPrecioBase() {
+        return 0.1;
     }
 }

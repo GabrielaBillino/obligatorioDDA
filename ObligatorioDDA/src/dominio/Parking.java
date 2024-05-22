@@ -145,8 +145,8 @@ public class Parking {
         return total;
     }
 
-    public void actualizarValorTipoVehiculo(float nuevoPrecio, int indexTipo) {
+    public void actualizarValorTipoVehiculo(double nuevoPrecio, int indexTipo) {
         Tarifa unaTarifa = tarifas.get(indexTipo);
-        unaTarifa.setValor(nuevoPrecio);
+        unaTarifa.actualizarPrecio(nuevoPrecio);
     }
 }

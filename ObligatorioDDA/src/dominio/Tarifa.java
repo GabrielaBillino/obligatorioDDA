@@ -2,25 +2,25 @@ package dominio;
 
 
 public class Tarifa {
-    private float valor;
     private TipoVehiculo tipoVehiculo;
 
-    public Tarifa(float valor, TipoVehiculo tipoVehiculo) {
-        this.valor = valor;
+    public Tarifa(TipoVehiculo tipoVehiculo) {
         this.tipoVehiculo = tipoVehiculo;
-    }
-
-    public void setValor(float valor) {
-        this.valor = valor;
-    }
-
-    
-    public float getValor() {
-        return valor;
     }
 
     public TipoVehiculo getTipoVehiculo() {
         return tipoVehiculo;
     }
+
+    public void actualizarPrecio(double nuevoPrecio) {
+        tipoVehiculo.setPrecioBase(nuevoPrecio);
+    }
     
+    public double getValor() {
+        return tipoVehiculo.getPrecioBase();
+    }
+    
+    public String getNombreVehiculo() {
+        return tipoVehiculo.getNombre();
+    }
 }
