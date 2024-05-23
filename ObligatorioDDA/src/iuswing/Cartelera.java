@@ -4,8 +4,12 @@
  */
 package iuswing;
 
+import dominio.Cochera;
 import dominio.Parking;
+import dominio.Tarifa;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 public class Cartelera extends javax.swing.JDialog {
@@ -18,8 +22,41 @@ public class Cartelera extends javax.swing.JDialog {
         initComponents();
         this.parking = parking;
         mostrarTitulo();
+        cargarTablaTipoVehiculo(parking);
+      //  cargarTablaCocheras(parking);
+        int disponibilidad = parking.calcularCocherasLibres();
+        lblCantDisponibilidad.setText(String.valueOf(disponibilidad));
     }
+    
+    private void cargarTablaTipoVehiculo(Parking parking) {
+        String[] columnNames = {"Tipo de Vehiculo", "Precio/<UT>"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
+        List<Tarifa> tarifas = parking.getTarifa();
+        for (Tarifa tarifa : tarifas) {
+            Object[] row = {tarifa.getNombreVehiculo(), tarifa.getValor()};
+            model.addRow(row);
+        }
+
+        tblTipoVehiculo.setModel(model);
+        tblTipoVehiculo.setVisible(true);
+    }
+    
+//    private void cargarTablaCocheras(Parking parking) {
+//        String[] columnNames = {"Cocheras", "Disponibles"};
+//        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+//
+//        List<Cochera> cocheras = parking.getCocheras();
+//        
+//        for (Cochera cochera : cocheras) {
+//            Object[] row = {cochera.getCodigo(), };
+//            model.addRow(row);
+//        }
+//
+//        tblEtiquetas.setModel(model);
+//        tblEtiquetas.setVisible(true);
+//    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,12 +69,12 @@ public class Cartelera extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         lblDisponibilidad = new javax.swing.JLabel();
-        txtCantDisponibilidad = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEtiquetas = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblTipoVehiculo = new javax.swing.JTable();
         btnCerrar = new javax.swing.JButton();
+        lblCantDisponibilidad = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -96,6 +133,8 @@ public class Cartelera extends javax.swing.JDialog {
             }
         });
 
+        lblCantDisponibilidad.setText("lblCantDisponibilidad");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,9 +144,8 @@ public class Cartelera extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblDisponibilidad)
-                        .addGap(37, 37, 37)
-                        .addComponent(txtCantDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblCantDisponibilidad))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,17 +158,17 @@ public class Cartelera extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDisponibilidad)
-                    .addComponent(txtCantDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblCantDisponibilidad))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnCerrar)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         pack();
@@ -152,10 +190,10 @@ public class Cartelera extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblCantDisponibilidad;
     private javax.swing.JLabel lblDisponibilidad;
     private javax.swing.JTable tblEtiquetas;
     private javax.swing.JTable tblTipoVehiculo;
-    private javax.swing.JTextField txtCantDisponibilidad;
     // End of variables declaration//GEN-END:variables
 
     private void mostrarTitulo() {

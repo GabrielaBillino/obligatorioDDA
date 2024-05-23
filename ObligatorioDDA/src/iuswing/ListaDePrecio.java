@@ -124,6 +124,7 @@ public class ListaDePrecio extends javax.swing.JDialog {
         tblTipoVehiculoPrecio.setModel(model);
         tblTipoVehiculoPrecio.setVisible(true);
     }
+    
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
         Object[] options = {"Sí", "No"};
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir?", "Salir",
