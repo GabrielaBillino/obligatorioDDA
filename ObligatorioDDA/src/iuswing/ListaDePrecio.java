@@ -4,12 +4,14 @@
  */
 package iuswing;
 
+import Utilidades.Utilidades;
 import dominio.Parking;
 import dominio.Sistema;
 import dominio.Tarifa;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 public class ListaDePrecio extends javax.swing.JDialog {
 
@@ -120,11 +122,16 @@ public class ListaDePrecio extends javax.swing.JDialog {
             Object[] row = {tarifa.getNombreVehiculo(), tarifa.getValor()};
             model.addRow(row);
         }
-
+        
         tblTipoVehiculoPrecio.setModel(model);
         tblTipoVehiculoPrecio.setVisible(true);
+        
+        for (int columnIndex = 0; columnIndex < tblTipoVehiculoPrecio.getColumnCount(); columnIndex++) {
+            TableColumn column = tblTipoVehiculoPrecio.getColumnModel().getColumn(columnIndex);
+            column.setCellEditor(Utilidades.getTablaNoEditable());
+        }
     }
-    
+
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
         Object[] options = {"Sí", "No"};
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir?", "Salir",
@@ -137,14 +144,33 @@ public class ListaDePrecio extends javax.swing.JDialog {
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
         int indexTipo = tblTipoVehiculoPrecio.getSelectedRow();
         if (indexTipo >= 0) {
-            double nuevoPrecio = Double.parseDouble(txtValor.getText());
-            Sistema.getInstancia().actualizarValorTipoVehiculo(nuevoPrecio, indexTipo, parking);
-            cargarTabla(parking);
+            String textoValor = txtValor.getText().trim();
+            if (!esNumerico(textoValor) || textoValor.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Tiene que ingresar un número", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                double nuevoPrecio = Double.parseDouble(txtValor.getText());
+                Sistema.getInstancia().actualizarValorTipoVehiculo(nuevoPrecio, indexTipo, parking);
+                cargarTabla(parking);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Tiene que tener un tipo de vehículo seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGuardarMouseClicked
 
+    private boolean esNumerico(String text) {
+        try {
+            Double.parseDouble(text);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private void mostrarTitulo() {
+        String titulo = "Lista de precios - " + parking.getNombre();
+
+        setTitle(titulo);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
@@ -155,11 +181,5 @@ public class ListaDePrecio extends javax.swing.JDialog {
     private javax.swing.JTable tblTipoVehiculoPrecio;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
-
-    private void mostrarTitulo() {
-        String titulo = "Lista de precios - " + parking.getNombre();
-
-        setTitle(titulo);
-    }
 
 }

@@ -4,7 +4,6 @@
  */
 package iuswing;
 
-import dominio.Cochera;
 import dominio.Parking;
 import dominio.Tarifa;
 import java.util.List;

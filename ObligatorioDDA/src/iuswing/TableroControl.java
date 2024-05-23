@@ -4,6 +4,7 @@
  */
 package iuswing;
 
+import Utilidades.Utilidades;
 import dominio.Parking;
 import java.awt.Component;
 import java.awt.event.ItemEvent;
@@ -36,57 +37,17 @@ public class TableroControl extends javax.swing.JDialog {
 
         for (int columnIndex = 0; columnIndex < tblDashboard.getColumnCount(); columnIndex++) {
             TableColumn column = tblDashboard.getColumnModel().getColumn(columnIndex);
-            column.setCellEditor(tablaNoEditable);
+            column.setCellEditor(Utilidades.getTablaNoEditable());
         }
 
         //TODO crear id para que principal lo tenga cuando se cierra y lo borro de la sesion
     }
-
-    TableCellEditor tablaNoEditable = new TableCellEditor() {
-        @Override
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-            return null;
-        }
-
-        @Override
-        public Object getCellEditorValue() {
-            return null;
-        }
-
-        @Override
-        public boolean isCellEditable(EventObject anEvent) {
-            return false;
-        }
-
-        @Override
-        public boolean shouldSelectCell(EventObject anEvent) {
-            return true;
-        }
-
-        @Override
-        public boolean stopCellEditing() {
-            return true;
-        }
-
-        @Override
-        public void cancelCellEditing() {
-        }
-
-        @Override
-        public void addCellEditorListener(CellEditorListener l) {
-        }
-
-        @Override
-        public void removeCellEditorListener(CellEditorListener l) {
-        }
-    };
 
     private void cargarTabla(List<Parking> parkings) {
         String[] columnNames = {"Parking", "#Ocupadas", "#Libres", "Estado", "Factor de Demanda", "Estadias", "Multas", "SubTotal"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         int totalEstadias = 0;
         double totalFacturado = 0;
-        DecimalFormat df = new DecimalFormat("#.00");
 
         for (Parking parking : parkings) {
             Object[] row = {parking.getNombre(),
@@ -95,8 +56,8 @@ public class TableroControl extends javax.swing.JDialog {
                 parking.getTendenciaActual().getNombre(),
                 parking.getFactorDemanda(),
                 parking.getEstadias().size(),
-                parking.totalMultas(),
-                df.format(parking.totalFacturado())};
+                String.format("%.2f", parking.totalMultas()),
+                String.format("%.2f",parking.totalFacturado())};
             model.addRow(row);
             totalEstadias += parking.getEstadias().size();
             totalFacturado += parking.totalFacturado();
@@ -189,7 +150,7 @@ public class TableroControl extends javax.swing.JDialog {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {

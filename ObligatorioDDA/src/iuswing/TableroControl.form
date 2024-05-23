@@ -186,7 +186,7 @@
                 <Column editable="true" title="Estado" type="java.lang.String"/>
                 <Column editable="true" title="Factor Demanda" type="java.lang.Double"/>
                 <Column editable="true" title="#Estad&#xed;as" type="java.lang.Integer"/>
-                <Column editable="true" title="Multas" type="java.lang.Integer"/>
+                <Column editable="true" title="Multas" type="java.lang.Double"/>
                 <Column editable="true" title="SubTotal" type="java.lang.Double"/>
               </Table>
             </Property>
