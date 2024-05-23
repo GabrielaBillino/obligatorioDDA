@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Utilidades;
 
 import dominio.Etiqueta;
@@ -46,6 +42,10 @@ public class Utilidades {
         public void removeCellEditorListener(CellEditorListener l) {
         }
     };
+    
+    public static TableCellEditor getTablaNoEditable() {
+        return tablaNoEditable;
+    }
 
     public static boolean tieneEtiqueta (String nombreEtiqueta, List<Etiqueta> etiquetas){
         for(Etiqueta et : etiquetas){
@@ -54,9 +54,5 @@ public class Utilidades {
             }
         }
         return false;
-    }
-    
-    public static TableCellEditor getTablaNoEditable() {
-        return tablaNoEditable;
     }
 }

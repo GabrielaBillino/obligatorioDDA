@@ -1,8 +1,5 @@
 package dominio;
 
-import java.util.Objects;
-
-
 public  abstract class  Etiqueta {
     private String nombre;
 
