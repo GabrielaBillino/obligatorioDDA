@@ -1,10 +1,12 @@
 package iuswing;
 
+import Utilidades.Utilidades;
 import dominio.Parking;
 import dominio.Tarifa;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 
 public class Cartelera extends javax.swing.JDialog {
@@ -18,7 +20,18 @@ public class Cartelera extends javax.swing.JDialog {
         this.parking = parking;
         mostrarTitulo();
         cargarTablaTipoVehiculo(parking);
-      //  cargarTablaCocheras(parking);
+        //cargarTablaCocheras(parking);
+        
+        for (int columnIndex = 0; columnIndex < tblEtiquetas.getColumnCount(); columnIndex++) {
+            TableColumn column = tblEtiquetas.getColumnModel().getColumn(columnIndex);
+            column.setCellEditor(Utilidades.getTablaNoEditable());
+        }
+        
+        for (int columnIndex = 0; columnIndex < tblTipoVehiculo.getColumnCount(); columnIndex++) {
+            TableColumn column = tblTipoVehiculo.getColumnModel().getColumn(columnIndex);
+            column.setCellEditor(Utilidades.getTablaNoEditable());
+        }
+        
         int disponibilidad = parking.calcularCocherasLibres();
         lblCantDisponibilidad.setText(String.valueOf(disponibilidad));
     }
