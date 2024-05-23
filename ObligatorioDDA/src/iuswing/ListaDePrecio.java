@@ -1,6 +1,6 @@
 package iuswing;
 
-import Utilidades.Utilidades;
+import Utilidades.TablaNoEditable;
 import dominio.Parking;
 import dominio.Sistema;
 import dominio.Tarifa;
@@ -124,7 +124,7 @@ public class ListaDePrecio extends javax.swing.JDialog {
         
         for (int columnIndex = 0; columnIndex < tblTipoVehiculoPrecio.getColumnCount(); columnIndex++) {
             TableColumn column = tblTipoVehiculoPrecio.getColumnModel().getColumn(columnIndex);
-            column.setCellEditor(Utilidades.getTablaNoEditable());
+            column.setCellEditor(TablaNoEditable.getTablaNoEditable());
         }
     }
 

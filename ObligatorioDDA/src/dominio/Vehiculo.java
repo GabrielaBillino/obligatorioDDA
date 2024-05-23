@@ -1,6 +1,6 @@
 package dominio;
 
-import Utilidades.Utilidades;
+import Utilidades.UtilidadesVarias;
 import java.util.ArrayList;
 import java.util.List;
 import simuladortransito.Transitable;
@@ -38,17 +38,17 @@ public class Vehiculo implements Transitable{
 
       @Override
     public boolean esDiscapacitado() {    
-        return Utilidades.tieneEtiqueta("Discapacitado", etiquetas);
+        return UtilidadesVarias.tieneEtiqueta("Discapacitado", etiquetas);
     }
 
     @Override
     public boolean esElectrico() {
-        return Utilidades.tieneEtiqueta("Electrico", etiquetas);
+        return UtilidadesVarias.tieneEtiqueta("Electrico", etiquetas);
     }
 
     @Override
     public boolean esEmpleado() {
-        return Utilidades.tieneEtiqueta("Empleado",etiquetas);
+        return UtilidadesVarias.tieneEtiqueta("Empleado",etiquetas);
     }
 
     void setEstacionado(boolean b) {

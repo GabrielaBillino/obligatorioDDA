@@ -1,6 +1,6 @@
 package iuswing;
 
-import Utilidades.Utilidades;
+import Utilidades.TablaNoEditable;
 import dominio.Parking;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class TableroControl extends javax.swing.JDialog {
 
         for (int columnIndex = 0; columnIndex < tblDashboard.getColumnCount(); columnIndex++) {
             TableColumn column = tblDashboard.getColumnModel().getColumn(columnIndex);
-            column.setCellEditor(Utilidades.getTablaNoEditable());
+            column.setCellEditor(TablaNoEditable.getTablaNoEditable());
         }
 
         //TODO crear id para que principal lo tenga cuando se cierra y lo borro de la sesion
