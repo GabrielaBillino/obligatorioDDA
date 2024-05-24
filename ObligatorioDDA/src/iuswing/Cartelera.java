@@ -4,6 +4,7 @@ import Utilidades.Utilidades;
 import dominio.Parking;
 import dominio.Tarifa;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -11,7 +12,7 @@ import javax.swing.table.TableColumn;
 
 public class Cartelera extends javax.swing.JDialog {
     
-    private Parking parking;
+    private final Parking parking;
     
     
     public Cartelera(java.awt.Frame parent, boolean modal, Parking parking) {
@@ -20,7 +21,7 @@ public class Cartelera extends javax.swing.JDialog {
         this.parking = parking;
         mostrarTitulo();
         cargarTablaTipoVehiculo(parking);
-        //cargarTablaCocheras(parking);
+        cargarTablaCocheras(parking);
         
         for (int columnIndex = 0; columnIndex < tblEtiquetas.getColumnCount(); columnIndex++) {
             TableColumn column = tblEtiquetas.getColumnModel().getColumn(columnIndex);
@@ -50,20 +51,21 @@ public class Cartelera extends javax.swing.JDialog {
         tblTipoVehiculo.setVisible(true);
     }
     
-//    private void cargarTablaCocheras(Parking parking) {
-//        String[] columnNames = {"Cocheras", "Disponibles"};
-//        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-//
-//        List<Cochera> cocheras = parking.getCocheras();
-//        
-//        for (Cochera cochera : cocheras) {
-//            Object[] row = {cochera.getCodigo(), };
-//            model.addRow(row);
-//        }
-//
-//        tblEtiquetas.setModel(model);
-//        tblEtiquetas.setVisible(true);
-//    }
+    private void cargarTablaCocheras(Parking parking) {
+        String[] columnNames = {"Cocheras", "Disponibles"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        Map<String, Integer> listado = parking.contarCocherasEtiquetas();
+        
+        for (Map.Entry<String,Integer> lista : listado.entrySet()) {
+                        
+            Object[] row = {lista.getKey(), lista.getValue()};
+            model.addRow(row);
+        }
+
+        tblEtiquetas.setModel(model);
+        tblEtiquetas.setVisible(true);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.

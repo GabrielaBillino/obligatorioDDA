@@ -55,5 +55,4 @@ public class Cochera  implements Estacionable{
         this.ocupada = ocupada;
     }
     
-   
-}
+   }

@@ -5,8 +5,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 public class Parking {
@@ -124,6 +126,7 @@ public class Parking {
         LocalDateTime horaEntrada = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
         LocalDateTime horaSalida = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12) + 12, random.nextInt(60), random.nextInt(60)));
         Estadia estadia = new Estadia(horaEntrada, horaSalida, c, v);
+        c.setOcupada(true);
         estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
         estadias.add(estadia);
     }
@@ -147,5 +150,23 @@ public class Parking {
     public void actualizarValorTipoVehiculo(double nuevoPrecio, int indexTipo) {
         Tarifa unaTarifa = tarifas.get(indexTipo);
         unaTarifa.actualizarPrecio(nuevoPrecio);
+    }
+    
+     public Map<String, Integer> contarCocherasEtiquetas() {
+        Map<String, Integer> contadorEtiquetas = new HashMap<>();
+        contadorEtiquetas.put("Discapacitado", 0);
+        contadorEtiquetas.put("Electrico", 0);
+        contadorEtiquetas.put("Empleado", 0);
+
+        for (Cochera cochera : cocheras) {
+            for (Etiqueta etiqueta : cochera.getEtiquetas()) {
+                String nombreEtiqueta = etiqueta.getNombre();
+                if (contadorEtiquetas.containsKey(nombreEtiqueta) && !cochera.getOcupada()) {
+                    contadorEtiquetas.put(nombreEtiqueta, contadorEtiquetas.get(nombreEtiqueta) + 1);
+                }
+            }
+        }
+
+        return contadorEtiquetas;
     }
 }

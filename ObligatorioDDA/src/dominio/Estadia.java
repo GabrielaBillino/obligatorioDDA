@@ -11,8 +11,7 @@ public class Estadia {
     private LocalDateTime horaSalida;
     private Cochera cochera;
     private Vehiculo vehiculo;
-    private List<Anomalia> anomalias = new ArrayList<>();
-    // private List<Infraccion> infracciones = new ArrayList<>();
+    private List<Anomalia> anomalias = new ArrayList<>();   
     private double factorDemandaIngreso;
 
     public Estadia(LocalDateTime horaEntrada, LocalDateTime horaSalida, Cochera cochera, Vehiculo vehiculo) {
