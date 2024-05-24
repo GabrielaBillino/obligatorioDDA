@@ -1,15 +1,12 @@
 package Utilidades;
 
-import dominio.Etiqueta;
 import java.awt.Component;
 import java.util.EventObject;
-import java.util.List;
 import javax.swing.JTable;
 import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 
-
-public class Utilidades {
+public class TablaNoEditable {
     
     private static TableCellEditor tablaNoEditable = new TableCellEditor() {
         @Override
@@ -45,14 +42,5 @@ public class Utilidades {
     
     public static TableCellEditor getTablaNoEditable() {
         return tablaNoEditable;
-    }
-
-    public static boolean tieneEtiqueta (String nombreEtiqueta, List<Etiqueta> etiquetas){
-        for(Etiqueta et : etiquetas){
-            if(et.getNombre().equals(nombreEtiqueta)){
-                return true;
-            }
-        }
-        return false;
     }
 }

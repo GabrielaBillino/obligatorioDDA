@@ -1,6 +1,6 @@
 package iuswing;
 
-import Utilidades.Utilidades;
+import Utilidades.TablaNoEditable;
 import dominio.Parking;
 import dominio.Tarifa;
 import java.util.List;
@@ -25,12 +25,12 @@ public class Cartelera extends javax.swing.JDialog {
         
         for (int columnIndex = 0; columnIndex < tblEtiquetas.getColumnCount(); columnIndex++) {
             TableColumn column = tblEtiquetas.getColumnModel().getColumn(columnIndex);
-            column.setCellEditor(Utilidades.getTablaNoEditable());
+            column.setCellEditor(TablaNoEditable.getTablaNoEditable());
         }
         
         for (int columnIndex = 0; columnIndex < tblTipoVehiculo.getColumnCount(); columnIndex++) {
             TableColumn column = tblTipoVehiculo.getColumnModel().getColumn(columnIndex);
-            column.setCellEditor(Utilidades.getTablaNoEditable());
+            column.setCellEditor(TablaNoEditable.getTablaNoEditable());
         }
         
         int disponibilidad = parking.calcularCocherasLibres();
