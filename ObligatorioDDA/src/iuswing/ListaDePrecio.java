@@ -1,6 +1,9 @@
 package iuswing;
 
+import Utilidades.Observable;
+import Utilidades.Observador;
 import Utilidades.TablaNoEditable;
+import dominio.EventoTarifa;
 import dominio.Parking;
 import dominio.Sistema;
 import dominio.Tarifa;
@@ -9,7 +12,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-public class ListaDePrecio extends javax.swing.JDialog {
+public class ListaDePrecio 
+        extends javax.swing.JDialog
+        implements Observador {
 
     private Parking parking;
 
@@ -17,6 +22,7 @@ public class ListaDePrecio extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.parking = parking;
+        this.parking.agregar(this);
         mostrarTitulo();
         cargarTabla(parking);
     }
@@ -133,6 +139,7 @@ public class ListaDePrecio extends javax.swing.JDialog {
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir?", "Salir",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         if (opcion == JOptionPane.YES_OPTION) {
+            parking.quitar(this);
             this.setVisible(false);
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
@@ -145,7 +152,7 @@ public class ListaDePrecio extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Tiene que ingresar un número", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 double nuevoPrecio = Double.parseDouble(txtValor.getText());
-                Sistema.getInstancia().actualizarValorTipoVehiculo(nuevoPrecio, indexTipo, parking);
+                parking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo);               
                 cargarTabla(parking);
             }
         } else {
@@ -177,5 +184,13 @@ public class ListaDePrecio extends javax.swing.JDialog {
     private javax.swing.JTable tblTipoVehiculoPrecio;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actualizar(Observable origen, Object evento) {
+        if(evento.equals(EventoTarifa.NUEVO_PRECIO)){
+            cargarTabla(parking);
+            mostrarTitulo();
+        }
+    }
 
 }

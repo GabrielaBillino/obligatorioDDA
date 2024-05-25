@@ -1,5 +1,6 @@
 package dominio;
 
+import Utilidades.Observable;
 import java.util.Random;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-public class Parking {
+public class Parking extends Observable{
 
     private String nombre;
     private String direccion;
@@ -150,6 +151,7 @@ public class Parking {
     public void actualizarValorTipoVehiculo(double nuevoPrecio, int indexTipo) {
         Tarifa unaTarifa = tarifas.get(indexTipo);
         unaTarifa.actualizarPrecio(nuevoPrecio);
+        this.avisar(EventoTarifa.NUEVO_PRECIO); 
     }
     
      public Map<String, Integer> contarCocherasEtiquetas() {

@@ -1,9 +1,10 @@
 package dominio;
 
+import Utilidades.Observable;
 import java.util.List;
 
 
-public class Sistema {
+public class Sistema extends Observable{
     
     private static Sistema instancia = new Sistema();
     private static ControladorParking controladorParking = new ControladorParking();

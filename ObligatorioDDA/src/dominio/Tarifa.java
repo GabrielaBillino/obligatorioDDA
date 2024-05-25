@@ -1,7 +1,11 @@
 package dominio;
 
+import Utilidades.Observable;
 
-public class Tarifa {
+
+
+
+public class Tarifa extends Observable{
     private TipoVehiculo tipoVehiculo;
 
     public Tarifa(TipoVehiculo tipoVehiculo) {
@@ -14,6 +18,9 @@ public class Tarifa {
 
     public void actualizarPrecio(double nuevoPrecio) {
         tipoVehiculo.setPrecioBase(nuevoPrecio);
+        this.avisar(EventoTarifa.NUEVO_PRECIO);
+        Sistema.getInstancia().avisar(EventoSistema.NUEVO_PRECIO);
+       
     }
     
     public double getValor() {
