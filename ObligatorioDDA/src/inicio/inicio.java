@@ -29,7 +29,7 @@ public class inicio {
        //1. Configurar simulador
        List<Transitable> vehiculos = Precarga.cargarVehiculos();
        List<Estacionable> cocheras = Precarga.cargarCocheras();
-       
+   /*    
        simulador = SimuladorTransito.getInstancia();
        simulador.addTransitables(vehiculos);
        simulador.addEstacionables(cocheras);
@@ -61,18 +61,53 @@ public class inicio {
         } catch (ConfiguracionException ex) {
             ex.printStackTrace();
         }
-             
+           */  
        
        
        
-       List<Parking> parkings = Precarga.cargarParkingsSimulador();
+       List<Parking> parkings = Precarga.cargarParkingsSimulador(cocheras);
+      
+       Cochera nuevaCochera = (Cochera)cocheras.get(0);
+       Cochera nuevaCochera2 = (Cochera)cocheras.get(1);
+       Cochera nuevaCochera3 = (Cochera)cocheras.get(2);
        
-       Precarga.cargarPropietarios();
+       Vehiculo nuevoVehiculo = (Vehiculo)vehiculos.get(0);
+       Vehiculo nuevoVehiculo2 = (Vehiculo)vehiculos.get(1);
+       Vehiculo nuevoVehiculo3 = (Vehiculo)vehiculos.get(2);
        
-       Precarga.ingresarVehiculo((Cochera)cocheras.get(0).getCodigo(), (Vehiculo)vehiculos.get(0).getPatente(), parkings.get(0));
-//       Precarga.cargarEstadia((Cochera)cocheras.get(1), (Vehiculo)vehiculos.get(1), parkings.get(1));
-//       Precarga.cargarEstadia((Cochera)cocheras.get(2), (Vehiculo)vehiculos.get(3), parkings.get(2));
+       //*********INGRESOS VEHICULOS EN PARKING PRIMERO EN LA LISTA******************
+       Precarga.ingresarVehiculo(nuevaCochera.getCodigo(), nuevoVehiculo.getPatente(), parkings.get(0));
+       Precarga.ingresarVehiculo(nuevaCochera2.getCodigo(), nuevoVehiculo2.getPatente(), parkings.get(0));
+       Precarga.ingresarVehiculo(nuevaCochera3.getCodigo(), nuevoVehiculo3.getPatente(), parkings.get(0));
 
+       
+       Cochera nuevaCochera4 = (Cochera)cocheras.get(3);
+       Cochera nuevaCochera5 = (Cochera)cocheras.get(4);
+       Cochera nuevaCochera6 = (Cochera)cocheras.get(5);
+       
+       Vehiculo nuevoVehiculo4 = (Vehiculo)vehiculos.get(3);
+       Vehiculo nuevoVehiculo5 = (Vehiculo)vehiculos.get(4);
+       Vehiculo nuevoVehiculo6 = (Vehiculo)vehiculos.get(5);
+       //*********INGRESOS VEHICULOS EN PARKING SEGUNDO EN LA LISTA******************
+       Precarga.ingresarVehiculo(nuevaCochera4.getCodigo(), nuevoVehiculo4.getPatente(), parkings.get(1));
+       Precarga.ingresarVehiculo(nuevaCochera5.getCodigo(), nuevoVehiculo5.getPatente(), parkings.get(1));
+       Precarga.ingresarVehiculo(nuevaCochera6.getCodigo(), nuevoVehiculo6.getPatente(), parkings.get(1));
+       
+       
+       Cochera nuevaCochera7 = (Cochera)cocheras.get(6);
+       Cochera nuevaCochera8 = (Cochera)cocheras.get(7);
+       Cochera nuevaCochera9 = (Cochera)cocheras.get(8);
+       
+       Vehiculo nuevoVehiculo7 = (Vehiculo)vehiculos.get(6);
+       Vehiculo nuevoVehiculo8 = (Vehiculo)vehiculos.get(7);
+       Vehiculo nuevoVehiculo9 = (Vehiculo)vehiculos.get(8);
+       //*********INGRESOS VEHICULOS EN PARKING SEGUNDO EN LA LISTA******************
+       Precarga.ingresarVehiculo(nuevaCochera7.getCodigo(), nuevoVehiculo7.getPatente(), parkings.get(2));
+       Precarga.ingresarVehiculo(nuevaCochera8.getCodigo(), nuevoVehiculo8.getPatente(), parkings.get(2));
+       Precarga.ingresarVehiculo(nuevaCochera9.getCodigo(), nuevoVehiculo9.getPatente(), parkings.get(2));
+       
+       
+       
        
        //******Mostrar vista principal******
        Principal principal = new Principal(parkings);

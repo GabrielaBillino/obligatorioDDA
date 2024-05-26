@@ -24,14 +24,14 @@ public class ControladorParking {
         cocheras.addAll(cocherasParaAgregar);
     }
 
-    public static void ingresarVehiculo(int c, String v, Parking p) {
+    public static void ingresarVehiculo(String c, String v, Parking p) {
        Vehiculo vh = retornarVehiculo(v);
        p.ingresarVehiculo(c,vh);
     }
 
     private static Vehiculo retornarVehiculo(String patente){
         for(Vehiculo v : vehiculos){
-            if(v.equals(patente)){
+            if(v.getPatente().equals(patente)){
                 return v;
             }
         }

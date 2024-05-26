@@ -2,6 +2,7 @@ package dominio;
 
 import Utilidades.Observable;
 import java.util.List;
+import simuladortransito.Transitable;
 
 
 public class Sistema extends Observable{
@@ -28,11 +29,13 @@ public class Sistema extends Observable{
         controladorParking.cargarVehiculos(vehiculos);
     }
 
-    public void ingresarVehiculo(int c, String v, Parking p) {
+    public void ingresarVehiculo(String c, String v, Parking p) {
         controladorParking.ingresarVehiculo( c,  v,  p);
     }
 
     public void actualizarValorTipoVehiculo(double nuevoPrecio, int indexTipo, Parking parking) {
         controladorParking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo, parking);
     }
+
+   
 }

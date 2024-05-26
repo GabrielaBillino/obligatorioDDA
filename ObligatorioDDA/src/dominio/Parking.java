@@ -122,7 +122,7 @@ public class Parking extends Observable{
     }
 
     //TODO: Las horas hay que manejarlas correctamente.
-    public void ingresarVehiculo(int codCochera, Vehiculo v) {
+    public void ingresarVehiculo(String codCochera, Vehiculo v) {
         Cochera c = retornarCochera(codCochera);
         Random random = new Random();
         LocalDateTime horaEntrada = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
@@ -145,9 +145,9 @@ public class Parking extends Observable{
         }
     }
     
-    private Cochera retornarCochera(int codCochera){
+    private Cochera retornarCochera(String codCochera){
         for(Cochera c: cocheras){
-            if(c.equals(codCochera)){
+            if(c.retornarCodigo().equals(codCochera)){
                 return c;
             }
         }
@@ -192,5 +192,16 @@ public class Parking extends Observable{
         }
 
         return contadorEtiquetas;
+    }
+    
+    public List<Estadia> estadiasConAnomalia (){
+        List<Estadia> ret = new ArrayList<>();
+        
+        for(Estadia e : estadias){
+            if(e.getAnomalias().size() !=0){
+                ret.add(e);
+            }
+        }
+        return ret;
     }
 }

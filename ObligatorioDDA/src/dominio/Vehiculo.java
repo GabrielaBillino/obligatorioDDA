@@ -3,6 +3,7 @@ package dominio;
 import Utilidades.UtilidadesVarias;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import simuladortransito.Transitable;
 
 
@@ -13,10 +14,11 @@ public class Vehiculo implements Transitable{
     private boolean estacionado;   
     private Propietario propietario;
     
-    public Vehiculo(String patente, TipoVehiculo tipoVehiculo, List<Etiqueta> etiquetas) {
+    public Vehiculo(String patente, TipoVehiculo tipoVehiculo, List<Etiqueta> etiquetas, Propietario prop) {
         this.patente = patente;
         this.tipoVehiculo = tipoVehiculo;
         this.etiquetas = etiquetas;
+        this.propietario = prop;
     }
 
     
@@ -60,7 +62,14 @@ public class Vehiculo implements Transitable{
         return propietario;
     }
     
-    public void setPropietario(Propietario propietario) {
-        this.propietario = propietario;
+
+
+    @Override
+    public boolean equals(Object obj) {
+        Vehiculo other = (Vehiculo) obj;
+        return this.patente.equals(other.patente);
     }
+    
+
+    
 }

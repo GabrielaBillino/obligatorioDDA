@@ -1,6 +1,8 @@
 package iuswing;
 
 import Utilidades.TablaNoEditable;
+import dominio.Anomalia;
+import dominio.Estadia;
 import dominio.Parking;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
@@ -45,7 +47,8 @@ public class TableroControl extends javax.swing.JDialog {
                 parking.getFactorDemanda(),
                 parking.getEstadias().size(),
                 String.format("%.2f", parking.totalMultas()),
-                String.format("%.2f",parking.totalFacturado())};
+                String.format("%.2f",parking.totalFacturado())
+            };
             model.addRow(row);
             totalEstadias += parking.getEstadias().size();
             totalFacturado += parking.totalFacturado();
@@ -356,9 +359,33 @@ public class TableroControl extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Tiene que tener un parking seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             Parking parking = parkings.get(filaIndex);
+            List<Estadia> estadiasAnomalias = parking.estadiasConAnomalia();
+            if(estadiasAnomalias.isEmpty()){
+                JOptionPane.showMessageDialog(this, "No hay anomalias para el parking seleccionado"  , "Error", JOptionPane.ERROR_MESSAGE);
+            }else{
+                  armarTablaAnomalias(estadiasAnomalias);
+            }
+          
             
-            tblAnomalia.setVisible(true);
         }
+    }
+    
+    private void armarTablaAnomalias (List<Estadia> estadiasAnomalias){
+        String[] columnNames = {"Fecha/Hora", "Propietario", "Código de anomalía", "Cochera"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        
+         for (Estadia unaEstadia : estadiasAnomalias) {
+             for(Anomalia unaAnomalia : unaEstadia.getAnomalias()){
+                Object[] row = {unaEstadia.getHoraEntrada(),
+                    unaEstadia.getVehiculo().getPropietario().getNombreCompleto(),
+                    unaAnomalia.getCodigo(),
+                    unaEstadia.getCochera().getCodigo()             
+                 };
+                model.addRow(row);
+             }
+          }  
+        tblAnomalia.setModel(model);
+        tblAnomalia.setVisible(true);
     }
     
     private void btnPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreciosActionPerformed

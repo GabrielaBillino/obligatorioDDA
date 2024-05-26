@@ -38,4 +38,8 @@ public class Propietario {
     public void aumentarSaldo(double monto){
         this.cuentaCorriente.aumentarSaldo(monto);
     }
+
+    public void agregarVehiculo(Vehiculo vehiculo) {
+        this.vehiculos.add(vehiculo);
+    }
 }

@@ -25,7 +25,7 @@ public class Precarga {
 
     private static Sistema fachada = Sistema.getInstancia();
 
-    public static List<Parking> cargarParkingsSimulador() {
+    public static List<Parking> cargarParkingsSimulador(List<Estacionable> cocherasParkings) {
         List<Tarifa> tarifas1 = new ArrayList<>();
         Tarifa t1 = new Tarifa(new Motocicleta());
         Tarifa t2 = new Tarifa(new Pasajeros());
@@ -47,9 +47,9 @@ public class Precarga {
         tarifas2.add(t8);
         
         List<Parking> parkings = new ArrayList<>();
-        Parking parking1 = new Parking("the Best Parking", "Cuareim 1215", generarListaDeTarifas(), retornarCocheras(cargarCocheras()));
-        Parking parking2 = new Parking("the Best Parking2", "San José 2281", generarListaDeTarifas(), retornarCocheras(cargarCocheras()));
-        Parking parking3 = new Parking("the Best Parking3", "Av. Italia 1621", generarListaDeTarifas(), retornarCocheras(cargarCocheras()));
+        Parking parking1 = new Parking("the Best Parking", "Cuareim 1215", generarListaDeTarifas(), retornarCocheras(cocherasParkings));
+        Parking parking2 = new Parking("the Best Parking2", "San José 2281", generarListaDeTarifas(), retornarCocheras(cocherasParkings));
+        Parking parking3 = new Parking("the Best Parking3", "Av. Italia 1621", generarListaDeTarifas(), retornarCocheras(cocherasParkings));
 
         parkings.add(parking1);
         parkings.add(parking2);
@@ -74,7 +74,8 @@ public class Precarga {
   
     public static List<Transitable> cargarVehiculos() {
         List<Transitable> vehiculos = new ArrayList<>();
-
+        
+        List<Propietario> propietarios = generarPropietariosAleatorios(100);
         // Tipos de vehículos disponibles
         TipoVehiculo[] tipos = {new Motocicleta(), new Carga(), new Pasajeros(), new Standard()};
 
@@ -98,16 +99,19 @@ public class Precarga {
 
             // Genera una patente aleatoria
             String patente = generarPatente();
-
+            Propietario unPropietario = propietarios.get(random.nextInt(propietarios.size()));
             // Crea el vehículo con la patente, tipo y etiquetas generadas
-            Vehiculo vehiculo = new Vehiculo(patente, tipo, etiquetasVehiculo);
+            Vehiculo vehiculo = new Vehiculo(patente, tipo, etiquetasVehiculo, unPropietario);
+            unPropietario.agregarVehiculo(vehiculo);
             vehiculos.add(vehiculo);
         }
+        
+       retornarVehiculosList(vehiculos);
         return vehiculos;
 
     }
 
-    public static String generarPatente() {
+    private static String generarPatente() {
         StringBuilder patente = new StringBuilder();
         Random random = new Random();
 
@@ -125,8 +129,27 @@ public class Precarga {
         return patente.toString();
     }
 
+    private static List<Propietario> generarPropietariosAleatorios(int cantidad) {
+        List<Propietario> propietarios = new ArrayList<>();
+        Random random = new Random();
+
+        String[] nombres = {"Juan", "María", "Carlos", "Ana", "Luis", "Laura", "Pedro", "Sofía", "Jorge", "Marta"};
+        String[] apellidos = {"García", "Rodríguez", "Martínez", "López", "González", "Pérez", "Sánchez", "Ramírez", "Cruz", "Hernández"};
+
+        for (int i = 0; i < cantidad; i++) {
+            // Genera una cédula de 8 dígitos
+            String cedula = String.valueOf(10000000 + random.nextInt(90000000));
+            String nombreCompleto = nombres[random.nextInt(nombres.length)] + " " + apellidos[random.nextInt(apellidos.length)];
+            List<Vehiculo> vehiculos = new ArrayList<>();
+            Propietario propietario = new Propietario(cedula, nombreCompleto, vehiculos);
+            propietarios.add(propietario);
+        }
+
+        return propietarios;
+    }
+     
     public static List<Estacionable> cargarCocheras() {
-        List<Estacionable> cocheras = new ArrayList<>();
+        List<Estacionable> listCocherasEst = new ArrayList<>();
         // Etiquetas disponibles
         Etiqueta[] etiquetas = {new Discapacitado(), new Electrico(), new Empleado()};
         Random random = new Random();
@@ -146,64 +169,43 @@ public class Precarga {
 
             // Crea la cochera con el estado y etiquetas generadas
             Cochera cochera = new Cochera(estado);
-            cochera.setEtiquetas(etiquetasCochera);
-            cocheras.add(cochera);
+            cochera.setEtiquetas(etiquetasCochera);          
+            
+            listCocherasEst.add(cochera);
         }
-        return cocheras;
+        return listCocherasEst;
     }
 
-    private static List<Cochera> retornarCocheras(List<Estacionable> cocheras) {
-        List<Cochera> listaCocheras = new ArrayList();
+   private static List<Cochera> retornarCocheras(List<Estacionable> cocheras) {
+      List<Cochera> listaCocheras = new ArrayList();
         for (Estacionable c : cocheras) {
-            listaCocheras.add((Cochera) c);
-        }
-        fachada.cargarCocheras(listaCocheras);
-        return listaCocheras;
+           Cochera unaCochera = (Cochera) c;
+           // unaCochera.setCodigo(c.getCodigo());
+            
+            listaCocheras.add(unaCochera);
+       }
+//        fachada.cargarCocheras(listaCocheras);
+       return listaCocheras;
     }
     
-      private static List<Vehiculo> retornarVehiculosList(List<Transitable> vehiculos) {
+   public static void agregarCocheras(List<Cochera> cocherasCargar){
+       fachada.cargarCocheras(cocherasCargar);
+   }
+   
+    public static void retornarVehiculosList(List<Transitable> vehiculos) {
         List<Vehiculo> listaVehiculos = new ArrayList();
-        for (Transitable v : vehiculos) {
+        for (Transitable v : vehiculos) {            
             listaVehiculos.add((Vehiculo) v);
         }
         fachada.cargarVehiculos(listaVehiculos);
-        return listaVehiculos;
+      //  return listaVehiculos;
     }
       
-    public static void cargarPropietarios(){
-        List<Propietario> propietarios = new ArrayList<>();
-        List<Transitable> vehiculosT = cargarVehiculos();
-        
-        List<Vehiculo> vehiculos = new ArrayList<>();
-        vehiculos.add((Vehiculo)vehiculosT.get(0));
-        vehiculos.add((Vehiculo)vehiculosT.get(1));
-        vehiculos.add((Vehiculo)vehiculosT.get(2));
-        vehiculos.add((Vehiculo)vehiculosT.get(3));
-        
-        Propietario propietario1 = new Propietario ("40504274", "Gabriela Billino", vehiculos);
-       
-        cargarPropietarioAVehiculo(vehiculos, propietario1);
-        
-        propietarios.add(propietario1);
-        
-        List<Vehiculo> vehiculos2 = new ArrayList<>();
-        vehiculos2.add((Vehiculo)vehiculosT.get(4));
-        vehiculos2.add((Vehiculo)vehiculosT.get(5));
-        vehiculos2.add((Vehiculo)vehiculosT.get(6));
-        vehiculos2.add((Vehiculo)vehiculosT.get(7));
-        Propietario propietario2 = new Propietario ("40276360", "Agustin Pesci", vehiculos2);
-        propietarios.add(propietario2);
-       
-        cargarPropietarioAVehiculo(vehiculos2, propietario2);
-    }
+   
     
-    private static void cargarPropietarioAVehiculo(List<Vehiculo> vehiculos, Propietario propietario){
-        for(Vehiculo v : vehiculos){
-            v.setPropietario(propietario);
-        }
-    }
+ 
     
-    public static void ingresarVehiculo(int codCochera, String patente, Parking p){
+    public static void ingresarVehiculo(String codCochera, String patente, Parking p){
         fachada.ingresarVehiculo(codCochera,patente,p);
     }
 }
