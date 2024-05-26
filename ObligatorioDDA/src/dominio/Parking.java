@@ -122,14 +122,36 @@ public class Parking extends Observable{
     }
 
     //TODO: Las horas hay que manejarlas correctamente.
-    public void cargarEstadia(Cochera c, Vehiculo v) {
+    public void ingresarVehiculo(int codCochera, Vehiculo v) {
+        Cochera c = retornarCochera(codCochera);
         Random random = new Random();
         LocalDateTime horaEntrada = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
         LocalDateTime horaSalida = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12) + 12, random.nextInt(60), random.nextInt(60)));
         Estadia estadia = new Estadia(horaEntrada, horaSalida, c, v);
+        if(c.getOcupada()){
+            Anomalia unaAnomalia = new Anomalia("HOUDINI");
+            estadia.setAnomalias(unaAnomalia);
+            
+        }
         c.setOcupada(true);
         estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
         estadias.add(estadia);
+        
+         // Aumentar la cuenta corriente del propietario
+        Propietario propietario = v.getPropietario();
+        if (propietario != null) {
+            double valorEstadia = estadia.getValorEstadia();
+            propietario.aumentarSaldo(valorEstadia);
+        }
+    }
+    
+    private Cochera retornarCochera(int codCochera){
+        for(Cochera c: cocheras){
+            if(c.equals(codCochera)){
+                return c;
+            }
+        }
+        return null;
     }
 
     public float totalMultas() {

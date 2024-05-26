@@ -19,7 +19,7 @@ public class Estadia {
         this.horaSalida = horaSalida;
         this.cochera = cochera;
         this.vehiculo = vehiculo;
-
+        
     }
 
     public double getFactorDemandaIngreso() {
@@ -50,8 +50,13 @@ public class Estadia {
         return anomalias;
     }
 
+    public void setAnomalias(Anomalia anomalia) {
+        this.anomalias.add(anomalia);
+    }
+
     public double getValorEstadia() {
-        return (precioBase() * tiempoEstadia() * factorDemandaIngreso) + totalMultas();
+        double valorEstadia= (precioBase() * tiempoEstadia() * factorDemandaIngreso) + totalMultas();
+        return valorEstadia;
     }
 
     private float tiempoEstadia() {

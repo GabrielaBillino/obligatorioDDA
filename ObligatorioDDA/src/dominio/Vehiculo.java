@@ -10,7 +10,8 @@ public class Vehiculo implements Transitable{
     private String patente;
     private TipoVehiculo tipoVehiculo;
     private List<Etiqueta> etiquetas = new ArrayList<>();
-    private boolean estacionado;
+    private boolean estacionado;   
+    private Propietario propietario;
     
     public Vehiculo(String patente, TipoVehiculo tipoVehiculo, List<Etiqueta> etiquetas) {
         this.patente = patente;
@@ -51,7 +52,15 @@ public class Vehiculo implements Transitable{
         return UtilidadesVarias.tieneEtiqueta("Empleado",etiquetas);
     }
 
-    void setEstacionado(boolean b) {
+    public void setEstacionado(boolean b) {
         this.estacionado = b;
+    }
+
+    public Propietario getPropietario() {
+        return propietario;
+    }
+    
+    public void setPropietario(Propietario propietario) {
+        this.propietario = propietario;
     }
 }

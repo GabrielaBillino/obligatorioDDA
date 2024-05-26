@@ -2,9 +2,17 @@ package dominio;
 
 
 public class CuentaCorriente {
-    private float saldo;
+    private double saldo;
 
-    public float getSaldo() {
+   public CuentaCorriente() {
+        this.saldo = 0.0;
+    }
+
+    public double getSaldo() {
         return saldo;
+    }
+
+    public void aumentarSaldo(double monto) {
+        this.saldo += monto;
     }
 }

@@ -336,10 +336,11 @@ public class TableroControl extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnCarteleraMouseClicked
 
+  
     private void chkAnomaliaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkAnomaliaItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            tblAnomalia.setVisible(true);
-        } else {
+             cargarAnomalias();            
+        } else {           
             tblAnomalia.setVisible(false);
         }
     }//GEN-LAST:event_chkAnomaliaItemStateChanged
@@ -349,6 +350,17 @@ public class TableroControl extends javax.swing.JDialog {
         //ELIMINARLO DE LA SESION
     }//GEN-LAST:event_formWindowClosed
 
+    private void  cargarAnomalias(){
+        int filaIndex = tblDashboard.getSelectedRow();
+        if (filaIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Tiene que tener un parking seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Parking parking = parkings.get(filaIndex);
+            
+            tblAnomalia.setVisible(true);
+        }
+    }
+    
     private void btnPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreciosActionPerformed
 
     }//GEN-LAST:event_btnPreciosActionPerformed

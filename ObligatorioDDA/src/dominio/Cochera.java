@@ -18,6 +18,10 @@ public class Cochera  implements Estacionable{
         this.ocupada = estado;
         lastCodigo++;        
     }    
+
+    Cochera() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
       
     public boolean getOcupada() {
         return ocupada;

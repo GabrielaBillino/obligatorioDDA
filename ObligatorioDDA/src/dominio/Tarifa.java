@@ -3,8 +3,6 @@ package dominio;
 import Utilidades.Observable;
 
 
-
-
 public class Tarifa extends Observable{
     private TipoVehiculo tipoVehiculo;
 

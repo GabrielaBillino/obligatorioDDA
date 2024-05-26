@@ -9,6 +9,7 @@ import dominio.Etiqueta;
 import dominio.Motocicleta;
 import dominio.Parking;
 import dominio.Pasajeros;
+import dominio.Propietario;
 import dominio.Sistema;
 import dominio.Standard;
 import dominio.Tarifa;
@@ -160,7 +161,49 @@ public class Precarga {
         return listaCocheras;
     }
     
-    public static void cargarEstadia(Cochera c, Vehiculo v, Parking p){
-        fachada.cargarEstadia(c,v,p);
+      private static List<Vehiculo> retornarVehiculosList(List<Transitable> vehiculos) {
+        List<Vehiculo> listaVehiculos = new ArrayList();
+        for (Transitable v : vehiculos) {
+            listaVehiculos.add((Vehiculo) v);
+        }
+        fachada.cargarVehiculos(listaVehiculos);
+        return listaVehiculos;
+    }
+      
+    public static void cargarPropietarios(){
+        List<Propietario> propietarios = new ArrayList<>();
+        List<Transitable> vehiculosT = cargarVehiculos();
+        
+        List<Vehiculo> vehiculos = new ArrayList<>();
+        vehiculos.add((Vehiculo)vehiculosT.get(0));
+        vehiculos.add((Vehiculo)vehiculosT.get(1));
+        vehiculos.add((Vehiculo)vehiculosT.get(2));
+        vehiculos.add((Vehiculo)vehiculosT.get(3));
+        
+        Propietario propietario1 = new Propietario ("40504274", "Gabriela Billino", vehiculos);
+       
+        cargarPropietarioAVehiculo(vehiculos, propietario1);
+        
+        propietarios.add(propietario1);
+        
+        List<Vehiculo> vehiculos2 = new ArrayList<>();
+        vehiculos2.add((Vehiculo)vehiculosT.get(4));
+        vehiculos2.add((Vehiculo)vehiculosT.get(5));
+        vehiculos2.add((Vehiculo)vehiculosT.get(6));
+        vehiculos2.add((Vehiculo)vehiculosT.get(7));
+        Propietario propietario2 = new Propietario ("40276360", "Agustin Pesci", vehiculos2);
+        propietarios.add(propietario2);
+       
+        cargarPropietarioAVehiculo(vehiculos2, propietario2);
+    }
+    
+    private static void cargarPropietarioAVehiculo(List<Vehiculo> vehiculos, Propietario propietario){
+        for(Vehiculo v : vehiculos){
+            v.setPropietario(propietario);
+        }
+    }
+    
+    public static void ingresarVehiculo(int codCochera, String patente, Parking p){
+        fachada.ingresarVehiculo(codCochera,patente,p);
     }
 }

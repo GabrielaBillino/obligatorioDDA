@@ -1,7 +1,11 @@
 package iuswing;
 
+import Utilidades.Observable;
+import Utilidades.Observador;
 import Utilidades.TablaNoEditable;
+import dominio.EventoSistema;
 import dominio.Parking;
+import dominio.Sistema;
 import dominio.Tarifa;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +14,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 
-public class Cartelera extends javax.swing.JDialog {
+public class Cartelera 
+        extends javax.swing.JDialog 
+        implements Observador{
     
     private final Parking parking;
     
@@ -19,6 +25,7 @@ public class Cartelera extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.parking = parking;
+       Sistema.getInstancia().agregar(this);
         mostrarTitulo();
         cargarTablaTipoVehiculo(parking);
         cargarTablaCocheras(parking);
@@ -211,6 +218,15 @@ public class Cartelera extends javax.swing.JDialog {
               
        setTitle(titulo);
    }
+
+    @Override
+    public void actualizar(Observable origen, Object evento) {
+        if(evento.equals(EventoSistema.NUEVO_PRECIO)){
+            cargarTablaTipoVehiculo(parking);
+            cargarTablaCocheras(parking);
+            mostrarTitulo();
+        }
+    }
 
 
 }

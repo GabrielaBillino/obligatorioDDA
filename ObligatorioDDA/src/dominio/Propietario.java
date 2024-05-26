@@ -10,6 +10,15 @@ public class Propietario {
     private List<Vehiculo> vehiculos = new ArrayList<>();
     private CuentaCorriente cuentaCorriente;
 
+    public Propietario(String cedula, String nombreCompleto, List<Vehiculo> vehiculos) {
+        this.cedula = cedula;
+        this.nombreCompleto = nombreCompleto;
+        this.vehiculos = vehiculos;
+        this.cuentaCorriente = new CuentaCorriente();
+    }
+
+    
+    
     public String getCedula() {
         return cedula;
     }
@@ -24,5 +33,9 @@ public class Propietario {
 
     public CuentaCorriente getCuentaCorriente() {
         return cuentaCorriente;
+    }
+    
+    public void aumentarSaldo(double monto){
+        this.cuentaCorriente.aumentarSaldo(monto);
     }
 }
