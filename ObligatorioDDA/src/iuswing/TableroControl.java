@@ -8,6 +8,8 @@ import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -146,6 +148,11 @@ public class TableroControl extends javax.swing.JDialog {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        tblDashboard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDashboardMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblDashboard);
@@ -342,7 +349,7 @@ public class TableroControl extends javax.swing.JDialog {
   
     private void chkAnomaliaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkAnomaliaItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-             cargarAnomalias();            
+             cargarAnomalias();
         } else {           
             tblAnomalia.setVisible(false);
         }
@@ -365,8 +372,6 @@ public class TableroControl extends javax.swing.JDialog {
             }else{
                   armarTablaAnomalias(estadiasAnomalias);
             }
-          
-            
         }
     }
     
@@ -391,6 +396,12 @@ public class TableroControl extends javax.swing.JDialog {
     private void btnPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreciosActionPerformed
 
     }//GEN-LAST:event_btnPreciosActionPerformed
+
+    private void tblDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDashboardMouseClicked
+        if (chkAnomalia.isSelected()) {
+            cargarAnomalias();
+        }
+    }//GEN-LAST:event_tblDashboardMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
