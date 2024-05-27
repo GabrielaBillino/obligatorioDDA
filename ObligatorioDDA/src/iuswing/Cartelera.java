@@ -25,7 +25,7 @@ public class Cartelera
         super(parent, modal);
         initComponents();
         this.parking = parking;
-       Sistema.getInstancia().agregar(this);
+        Sistema.getInstancia().agregar(this);
         mostrarTitulo();
         cargarTablaTipoVehiculo(parking);
         cargarTablaCocheras(parking);

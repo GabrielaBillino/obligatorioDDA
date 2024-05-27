@@ -5,7 +5,6 @@ import Utilidades.Observador;
 import Utilidades.TablaNoEditable;
 import dominio.EventoTarifa;
 import dominio.Parking;
-import dominio.Sistema;
 import dominio.Tarifa;
 import java.util.List;
 import javax.swing.JOptionPane;

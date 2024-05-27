@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-public class Parking extends Observable{
+public class Parking extends Observable {
 
     private String nombre;
     private String direccion;
@@ -128,26 +128,26 @@ public class Parking extends Observable{
         LocalDateTime horaEntrada = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
         LocalDateTime horaSalida = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12) + 12, random.nextInt(60), random.nextInt(60)));
         Estadia estadia = new Estadia(horaEntrada, horaSalida, c, v);
-        if(c.getOcupada()){
+        if (c.getOcupada()) {
             Anomalia unaAnomalia = new Anomalia("HOUDINI");
             estadia.setAnomalias(unaAnomalia);
-            
+
         }
         c.setOcupada(true);
         estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
         estadias.add(estadia);
-        
-         // Aumentar la cuenta corriente del propietario
+
+        // Aumentar la cuenta corriente del propietario
         Propietario propietario = v.getPropietario();
         if (propietario != null) {
             double valorEstadia = estadia.getValorEstadia();
             propietario.aumentarSaldo(valorEstadia);
         }
     }
-    
-    private Cochera retornarCochera(String codCochera){
-        for(Cochera c: cocheras){
-            if(c.retornarCodigo().equals(codCochera)){
+
+    private Cochera retornarCochera(String codCochera) {
+        for (Cochera c : cocheras) {
+            if (c.retornarCodigo().equals(codCochera)) {
                 return c;
             }
         }
@@ -173,10 +173,10 @@ public class Parking extends Observable{
     public void actualizarValorTipoVehiculo(double nuevoPrecio, int indexTipo) {
         Tarifa unaTarifa = tarifas.get(indexTipo);
         unaTarifa.actualizarPrecio(nuevoPrecio);
-        this.avisar(EventoTarifa.NUEVO_PRECIO); 
+        this.avisar(EventoTarifa.NUEVO_PRECIO);
     }
-    
-     public Map<String, Integer> contarCocherasEtiquetas() {
+
+    public Map<String, Integer> contarCocherasEtiquetas() {
         Map<String, Integer> contadorEtiquetas = new HashMap<>();
         contadorEtiquetas.put("Discapacitado", 0);
         contadorEtiquetas.put("Electrico", 0);
@@ -193,12 +193,12 @@ public class Parking extends Observable{
 
         return contadorEtiquetas;
     }
-    
-    public List<Estadia> estadiasConAnomalia (){
+
+    public List<Estadia> estadiasConAnomalia() {
         List<Estadia> ret = new ArrayList<>();
-        
-        for(Estadia e : estadias){
-            if(e.getAnomalias().size() !=0){
+
+        for (Estadia e : estadias) {
+            if (e.getAnomalias().size() != 0) {
                 ret.add(e);
             }
         }
@@ -207,50 +207,55 @@ public class Parking extends Observable{
 
     //************************HAYQUE OPTIMIZARLO Y VERIFICAR QUE FUNCIONA BIEN**********************
     public void egresarVehiculo(String codCochera, Vehiculo vh) {
-         Cochera c = retornarCochera(codCochera);
+        Cochera c = retornarCochera(codCochera);
         Random random = new Random();
-     
+
         LocalDateTime horaSalida = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12) + 12, random.nextInt(60), random.nextInt(60)));
-        
+
         Estadia estadia = obtenerEstadia(codCochera, vh);
-         if(!c.getOcupada()){                
-                LocalDateTime horaEntrada = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
-                Estadia estadiaNueva = new Estadia(horaEntrada, horaSalida, c, vh);
-                Anomalia unaAnomalia = new Anomalia("MISTERY");
-                estadiaNueva.setAnomalias(unaAnomalia);  
-                estadias.add(estadiaNueva);
-         }else if(estadia == null){
-                LocalDateTime horaEntrada1 = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
-                Estadia estadiaN = new Estadia(horaEntrada1, horaSalida, c, vh);
-                Anomalia anomalia1 = new Anomalia("TRANSPORTADOR1");
-                estadiaN.setAnomalias(anomalia1); 
-                Anomalia anomalia2 = new Anomalia("TRANSPORTADOR2");                
-                estadiaN.setAnomalias(anomalia2); 
-                estadiaN.setFechaSalida(horaSalida);
-                              
-                Propietario propietario = vh.getPropietario();
-                if (propietario != null) {
-                   // Disminuir la cuenta corriente del propietario
-                  double valorEstadia = estadiaN.getValorEstadia();
-                  propietario.disminuirSaldo(valorEstadia);
-                }
-                estadias.add(estadiaN);
-        }else{
-               Propietario propietario = vh.getPropietario();
-                if (propietario != null) {
-                    // Disminuir la cuenta corriente del propietario
-                    double valorEstadia = estadia.getValorEstadia();
-                    propietario.disminuirSaldo(valorEstadia);
-                }
-//            estadias.remove(estadia);
-         }   
-        c.setOcupada(false);
-       
+        Estadia estadiaSinVh = obtenerEstadiaSinVehiculo(codCochera);
+        if (!c.getOcupada()) {
+            LocalDateTime horaEntrada = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
+            Estadia estadiaNueva = new Estadia(horaEntrada, horaSalida, c, vh);
+            Anomalia unaAnomalia = new Anomalia("MISTERY");
+            estadiaNueva.setAnomalias(unaAnomalia);
+            estadias.add(estadiaNueva);
+        } else if (estadiaSinVh != null) {
+            LocalDateTime horaEntrada1 = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
+            Estadia estadiaN = new Estadia(horaEntrada1, horaSalida, c, vh);
+            Anomalia anomalia1 = new Anomalia("TRANSPORTADOR1");
+            estadiaSinVh.setAnomalias(anomalia1);
+
+            //Preguntar al profe, no sabemos si hay que guardar la anomalia en el vehiculo o crear una estadia para guardarla
+            Anomalia anomalia2 = new Anomalia("TRANSPORTADOR2");
+            estadiaN.setAnomalias(anomalia2);
+            estadiaN.setFechaSalida(horaSalida);
+            estadias.add(estadiaN);
+        } else {
+            Propietario propietario = vh.getPropietario();
+            if (propietario != null) {
+                // Disminuir la cuenta corriente del propietario
+                double valorEstadia = estadia.getValorEstadia();
+                propietario.disminuirSaldo(valorEstadia);
+            }
+            c.setOcupada(false);
+            estadias.remove(estadia);
+        }
     }
-    
-    private Estadia obtenerEstadia(String codCochera, Vehiculo vh){   
-        for(Estadia unaEst : estadias){
-            if(unaEst.getCochera().getCodigo().equals(codCochera) && unaEst.getVehiculo().getPatente().equals(vh.getPatente())){
+
+    //TODO: reducir dependencias
+    private Estadia obtenerEstadia(String codCochera, Vehiculo vh) {
+        for (Estadia unaEst : estadias) {
+            if (unaEst.getCochera().getCodigo().equals(codCochera) && vh.getPatente().equals(unaEst.getVehiculo().getPatente())) {
+                return unaEst;
+            }
+        }
+        return null;
+    }
+
+    private Estadia obtenerEstadiaSinVehiculo(String codCochera) {
+        for (Estadia unaEst : estadias) {
+            if (unaEst.getCochera().getCodigo().equals(codCochera)) {
                 return unaEst;
             }
         }

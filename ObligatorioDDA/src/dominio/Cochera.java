@@ -17,10 +17,6 @@ public class Cochera  implements Estacionable{
         this.codigo = "A"+ String.valueOf(lastCodigo);
         this.ocupada = estado;
         lastCodigo++;        
-    }    
-
-    Cochera() {
-        
     }
     
     public void setCodigo (String cod){
@@ -36,7 +32,7 @@ public class Cochera  implements Estacionable{
     }
 
     public String retornarCodigo(){
-        return this.codigo;
+        return codigo;
     }
     
     @Override

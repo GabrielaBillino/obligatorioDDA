@@ -8,8 +8,6 @@ import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
