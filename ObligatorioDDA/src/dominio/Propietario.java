@@ -42,4 +42,8 @@ public class Propietario {
     public void agregarVehiculo(Vehiculo vehiculo) {
         this.vehiculos.add(vehiculo);
     }
+
+    void disminuirSaldo(double valorEstadia) {
+        this.cuentaCorriente.disminuirSaldo(valorEstadia);
+    }
 }

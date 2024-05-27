@@ -37,5 +37,9 @@ public class Sistema extends Observable{
         controladorParking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo, parking);
     }
 
+    public void egresarVehiculo(String c, String v, Parking p) {
+        controladorParking.egresarVehiculo( c,  v,  p);
+    }
+
    
 }

@@ -204,4 +204,56 @@ public class Parking extends Observable{
         }
         return ret;
     }
+
+    //************************HAYQUE OPTIMIZARLO Y VERIFICAR QUE FUNCIONA BIEN**********************
+    public void egresarVehiculo(String codCochera, Vehiculo vh) {
+         Cochera c = retornarCochera(codCochera);
+        Random random = new Random();
+     
+        LocalDateTime horaSalida = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12) + 12, random.nextInt(60), random.nextInt(60)));
+        
+        Estadia estadia = obtenerEstadia(codCochera, vh);
+         if(!c.getOcupada()){                
+                LocalDateTime horaEntrada = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
+                Estadia estadiaNueva = new Estadia(horaEntrada, horaSalida, c, vh);
+                Anomalia unaAnomalia = new Anomalia("MISTERY");
+                estadiaNueva.setAnomalias(unaAnomalia);  
+                estadias.add(estadiaNueva);
+         }else if(estadia == null){
+                LocalDateTime horaEntrada1 = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
+                Estadia estadiaN = new Estadia(horaEntrada1, horaSalida, c, vh);
+                Anomalia anomalia1 = new Anomalia("TRANSPORTADOR1");
+                estadiaN.setAnomalias(anomalia1); 
+                Anomalia anomalia2 = new Anomalia("TRANSPORTADOR2");                
+                estadiaN.setAnomalias(anomalia2); 
+                estadiaN.setFechaSalida(horaSalida);
+                              
+                Propietario propietario = vh.getPropietario();
+                if (propietario != null) {
+                   // Disminuir la cuenta corriente del propietario
+                  double valorEstadia = estadiaN.getValorEstadia();
+                  propietario.disminuirSaldo(valorEstadia);
+                }
+                estadias.add(estadiaN);
+        }else{
+               Propietario propietario = vh.getPropietario();
+                if (propietario != null) {
+                    // Disminuir la cuenta corriente del propietario
+                    double valorEstadia = estadia.getValorEstadia();
+                    propietario.disminuirSaldo(valorEstadia);
+                }
+//            estadias.remove(estadia);
+         }   
+        c.setOcupada(false);
+       
+    }
+    
+    private Estadia obtenerEstadia(String codCochera, Vehiculo vh){   
+        for(Estadia unaEst : estadias){
+            if(unaEst.getCochera().getCodigo().equals(codCochera) && unaEst.getVehiculo().getPatente().equals(vh.getPatente())){
+                return unaEst;
+            }
+        }
+        return null;
+    }
 }

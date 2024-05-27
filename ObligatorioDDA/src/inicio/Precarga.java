@@ -197,15 +197,15 @@ public class Precarga {
         for (Transitable v : vehiculos) {            
             listaVehiculos.add((Vehiculo) v);
         }
-        fachada.cargarVehiculos(listaVehiculos);
-      //  return listaVehiculos;
-    }
-      
+        fachada.cargarVehiculos(listaVehiculos);   
+    }  
    
-    
- 
     
     public static void ingresarVehiculo(String codCochera, String patente, Parking p){
         fachada.ingresarVehiculo(codCochera,patente,p);
+    }
+    
+    public static void egresarVehiculo(String codCochera, String patente, Parking p){
+        fachada.egresarVehiculo(codCochera,patente,p);
     }
 }

@@ -88,4 +88,8 @@ public class Estadia {
         return totalMulta;
     }
 
+    void setFechaSalida(LocalDateTime horaSalida) {
+        this.horaSalida = horaSalida;
+    }
+
 }

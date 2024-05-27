@@ -15,4 +15,8 @@ public class CuentaCorriente {
     public void aumentarSaldo(double monto) {
         this.saldo += monto;
     }
+
+    void disminuirSaldo(double valorEstadia) {
+        this.saldo -= valorEstadia;
+    }
 }

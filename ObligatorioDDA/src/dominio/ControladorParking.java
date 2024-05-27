@@ -41,5 +41,10 @@ public class ControladorParking {
     public void actualizarValorTipoVehiculo(double nuevoPrecio, int indexTipo, Parking parking) {
         parking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo);
     }
+
+    void egresarVehiculo(String c, String v, Parking p) {
+       Vehiculo vh = retornarVehiculo(v);
+       p.egresarVehiculo(c,vh);
+    }
     
 }
