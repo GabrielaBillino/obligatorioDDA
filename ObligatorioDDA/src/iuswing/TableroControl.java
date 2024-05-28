@@ -388,6 +388,10 @@ public class TableroControl extends javax.swing.JDialog {
              }
           }  
         tblAnomalia.setModel(model);
+        for (int columnIndex = 0; columnIndex < tblAnomalia.getColumnCount(); columnIndex++) {
+            TableColumn column = tblAnomalia.getColumnModel().getColumn(columnIndex);
+            column.setCellEditor(TablaNoEditable.getTablaNoEditable());
+        }
         tblAnomalia.setVisible(true);
     }
     
