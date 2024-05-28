@@ -243,7 +243,7 @@ public class Parking extends Observable {
         }
     }
 
-    //TODO: reducir dependencias
+
     private Estadia obtenerEstadia(String codCochera, Vehiculo vh) {
         for (Estadia unaEst : estadias) {
             if (unaEst.getCochera().getCodigo().equals(codCochera) && vh.getPatente().equals(unaEst.retornarPatenteVehiculo())) {
