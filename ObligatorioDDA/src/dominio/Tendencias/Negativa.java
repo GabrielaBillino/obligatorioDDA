@@ -1,4 +1,4 @@
-package dominio;
+package dominio.Tendencias;
 
 
 public class Negativa extends Estable{

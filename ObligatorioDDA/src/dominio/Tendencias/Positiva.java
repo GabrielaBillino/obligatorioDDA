@@ -1,4 +1,6 @@
-package dominio;
+package dominio.Tendencias;
+
+import dominio.Tendencias.Tendencia;
 
 
 public class Positiva extends Tendencia{

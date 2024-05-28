@@ -1,6 +1,6 @@
 package Utilidades;
 
-import dominio.Etiqueta;
+import dominio.Etiquetas.Etiqueta;
 import java.util.List;
 
 

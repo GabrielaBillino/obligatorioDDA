@@ -1,5 +1,10 @@
 package dominio;
 
+import dominio.Tendencias.Estable;
+import dominio.Tendencias.Negativa;
+import dominio.Tendencias.Positiva;
+import dominio.Tendencias.Tendencia;
+import dominio.Etiquetas.Etiqueta;
 import Utilidades.Observable;
 import java.util.Random;
 import java.time.LocalDate;

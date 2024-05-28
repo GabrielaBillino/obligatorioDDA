@@ -1,4 +1,6 @@
-package dominio;
+package dominio.TiposDeVehiculos;
+
+import dominio.TiposDeVehiculos.TipoVehiculo;
 
 public class Pasajeros extends TipoVehiculo {
 

@@ -1,5 +1,6 @@
 package dominio;
 
+import dominio.Etiquetas.Etiqueta;
 import Utilidades.UtilidadesVarias;
 import java.util.ArrayList;
 import java.util.List;

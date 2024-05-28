@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-public class ListaDePrecio 
+public class ListaDePrecio
         extends javax.swing.JDialog
         implements Observador {
 
@@ -123,10 +123,10 @@ public class ListaDePrecio
             Object[] row = {tarifa.getNombreVehiculo(), tarifa.getValor()};
             model.addRow(row);
         }
-        
+
         tblTipoVehiculoPrecio.setModel(model);
         tblTipoVehiculoPrecio.setVisible(true);
-        
+
         for (int columnIndex = 0; columnIndex < tblTipoVehiculoPrecio.getColumnCount(); columnIndex++) {
             TableColumn column = tblTipoVehiculoPrecio.getColumnModel().getColumn(columnIndex);
             column.setCellEditor(TablaNoEditable.getTablaNoEditable());
@@ -151,7 +151,7 @@ public class ListaDePrecio
                 JOptionPane.showMessageDialog(this, "Tiene que ingresar un número", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 double nuevoPrecio = Double.parseDouble(txtValor.getText());
-                parking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo);               
+                parking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo);
                 cargarTabla(parking);
             }
         } else {
@@ -174,6 +174,14 @@ public class ListaDePrecio
         setTitle(titulo);
     }
 
+    @Override
+    public void actualizar(Observable origen, Object evento) {
+        if (evento.equals(EventoTarifa.NUEVO_PRECIO)) {
+            cargarTabla(parking);
+            mostrarTitulo();
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnGuardar;
@@ -183,13 +191,5 @@ public class ListaDePrecio
     private javax.swing.JTable tblTipoVehiculoPrecio;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void actualizar(Observable origen, Object evento) {
-        if(evento.equals(EventoTarifa.NUEVO_PRECIO)){
-            cargarTabla(parking);
-            mostrarTitulo();
-        }
-    }
 
 }

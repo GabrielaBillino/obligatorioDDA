@@ -1,4 +1,4 @@
-package dominio;
+package dominio.TiposDeVehiculos;
 
 public abstract class TipoVehiculo {
     private double precioBase;

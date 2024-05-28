@@ -1,5 +1,7 @@
 package dominio;
 
+import dominio.Etiquetas.Etiqueta;
+import dominio.TiposDeVehiculos.TipoVehiculo;
 import Utilidades.UtilidadesVarias;
 import java.util.ArrayList;
 import java.util.List;

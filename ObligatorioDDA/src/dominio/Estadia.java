@@ -1,5 +1,6 @@
 package dominio;
 
+import dominio.Etiquetas.Etiqueta;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
@@ -94,10 +95,6 @@ public class Estadia {
 
     public String retornarPatenteVehiculo() {
         return this.vehiculo.getPatente();
-    }
-
-    Object retornarPatenteVehiculo(Vehiculo vh) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

@@ -7,7 +7,6 @@ import dominio.ControladorParking;
 import dominio.Parking;
 import dominio.Vehiculo;
 import java.util.List;
-import simuladortransito.Transitable;
 
 
 public class Sistema extends Observable{

@@ -1,4 +1,4 @@
-package dominio;
+package dominio.Etiquetas;
 
 public  abstract class  Etiqueta {
     private String nombre;

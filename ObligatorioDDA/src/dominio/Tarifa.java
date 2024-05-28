@@ -1,5 +1,6 @@
 package dominio;
 
+import dominio.TiposDeVehiculos.TipoVehiculo;
 import Fachada.Sistema;
 import Utilidades.Observable;
 
