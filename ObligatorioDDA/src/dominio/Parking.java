@@ -213,7 +213,7 @@ public class Parking extends Observable {
         LocalDateTime horaSalida = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12) + 12, random.nextInt(60), random.nextInt(60)));
 
         Estadia estadia = obtenerEstadia(codCochera, vh);
-        Estadia estadiaSinVh = obtenerEstadiaSinVehiculo(codCochera);
+        Estadia estadiaSinVh = obtenerEstadiaSinVehiculo(codCochera, vh);
         if (!c.getOcupada()) {
             LocalDateTime horaEntrada = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
             Estadia estadiaNueva = new Estadia(horaEntrada, horaSalida, c, vh);
@@ -253,9 +253,9 @@ public class Parking extends Observable {
         return null;
     }
 
-    private Estadia obtenerEstadiaSinVehiculo(String codCochera) {
+    private Estadia obtenerEstadiaSinVehiculo(String codCochera, Vehiculo vh) {
         for (Estadia unaEst : estadias) {
-            if (unaEst.getCochera().getCodigo().equals(codCochera)) {
+            if (unaEst.getCochera().getCodigo().equals(codCochera) && !vh.getPatente().equals(unaEst.getVehiculo().getPatente())) {
                 return unaEst;
             }
         }

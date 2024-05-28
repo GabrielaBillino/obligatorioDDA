@@ -1,6 +1,11 @@
-package dominio;
+package Fachada;
 
 import Utilidades.Observable;
+import dominio.Cochera;
+import dominio.ControladorEstadia;
+import dominio.ControladorParking;
+import dominio.Parking;
+import dominio.Vehiculo;
 import java.util.List;
 import simuladortransito.Transitable;
 

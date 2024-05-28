@@ -42,7 +42,7 @@ public class ControladorParking {
         parking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo);
     }
 
-    void egresarVehiculo(String c, String v, Parking p) {
+    public void egresarVehiculo(String c, String v, Parking p) {
        Vehiculo vh = retornarVehiculo(v);
        p.egresarVehiculo(c,vh);
     }

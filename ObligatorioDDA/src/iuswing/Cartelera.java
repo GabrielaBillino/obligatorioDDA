@@ -5,7 +5,7 @@ import Utilidades.Observador;
 import Utilidades.TablaNoEditable;
 import dominio.EventoSistema;
 import dominio.Parking;
-import dominio.Sistema;
+import Fachada.Sistema;
 import dominio.Tarifa;
 import java.util.List;
 import java.util.Map;
