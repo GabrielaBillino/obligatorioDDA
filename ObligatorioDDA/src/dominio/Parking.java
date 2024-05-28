@@ -246,7 +246,7 @@ public class Parking extends Observable {
     //TODO: reducir dependencias
     private Estadia obtenerEstadia(String codCochera, Vehiculo vh) {
         for (Estadia unaEst : estadias) {
-            if (unaEst.getCochera().getCodigo().equals(codCochera) && vh.getPatente().equals(unaEst.getVehiculo().getPatente())) {
+            if (unaEst.getCochera().getCodigo().equals(codCochera) && vh.getPatente().equals(unaEst.retornarPatenteVehiculo())) {
                 return unaEst;
             }
         }
@@ -255,7 +255,7 @@ public class Parking extends Observable {
 
     private Estadia obtenerEstadiaSinVehiculo(String codCochera, Vehiculo vh) {
         for (Estadia unaEst : estadias) {
-            if (unaEst.getCochera().getCodigo().equals(codCochera) && !vh.getPatente().equals(unaEst.getVehiculo().getPatente())) {
+            if (unaEst.getCochera().getCodigo().equals(codCochera) && !vh.getPatente().equals(unaEst.retornarPatenteVehiculo())) {
                 return unaEst;
             }
         }

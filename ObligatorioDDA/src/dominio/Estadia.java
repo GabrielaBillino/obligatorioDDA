@@ -88,8 +88,16 @@ public class Estadia {
         return totalMulta;
     }
 
-    void setFechaSalida(LocalDateTime horaSalida) {
+    public void setFechaSalida(LocalDateTime horaSalida) {
         this.horaSalida = horaSalida;
+    }
+
+    public String retornarPatenteVehiculo() {
+        return this.vehiculo.getPatente();
+    }
+
+    Object retornarPatenteVehiculo(Vehiculo vh) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
