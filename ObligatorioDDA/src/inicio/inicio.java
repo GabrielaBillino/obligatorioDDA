@@ -107,7 +107,7 @@ public class inicio {
        Precarga.ingresarVehiculo(nuevaCochera9.getCodigo(), nuevoVehiculo9.getPatente(), parkings.get(2));
        
     //   Precarga.egresarVehiculo(nuevaCochera7.getCodigo(), nuevoVehiculo7.getPatente(), parkings.get(2));
-       Precarga.egresarVehiculo(nuevaCochera8.getCodigo(), nuevoVehiculo7.getPatente(), parkings.get(2));
+    //   Precarga.egresarVehiculo(nuevaCochera8.getCodigo(), nuevoVehiculo7.getPatente(), parkings.get(2));
        
        //******Mostrar vista principal******
        Principal principal = new Principal(parkings);

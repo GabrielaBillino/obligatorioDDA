@@ -90,7 +90,7 @@ public class Estadia {
         return duration.toMinutes();
     }
 
-    //******************************************///////////////////////
+   
     private double precioBase() {
         return vehiculo.precioBase();
     }
@@ -123,6 +123,10 @@ public class Estadia {
 
     public String retornarPatenteVehiculo() {
         return this.vehiculo.getPatente();
+    }
+
+    public String retornarCodCochera() {
+        return this.cochera.retornarCodigo();
     }
 
 }
