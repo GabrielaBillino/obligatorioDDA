@@ -12,7 +12,7 @@ public class Estadia {
     private LocalDateTime horaSalida;
     private Cochera cochera;
     private Vehiculo vehiculo;
-    private List<Anomalia> anomalias = new ArrayList<>();   
+    private List<Anomalia> anomalias = new ArrayList<>();
     private double factorDemandaIngreso;
 
     public Estadia(LocalDateTime horaEntrada, LocalDateTime horaSalida, Cochera cochera, Vehiculo vehiculo) {
@@ -20,7 +20,7 @@ public class Estadia {
         this.horaSalida = horaSalida;
         this.cochera = cochera;
         this.vehiculo = vehiculo;
-        
+
     }
 
     public double getFactorDemandaIngreso() {
@@ -56,11 +56,36 @@ public class Estadia {
     }
 
     public double getValorEstadia() {
-        double valorEstadia= (precioBase() * tiempoEstadia() * factorDemandaIngreso) + totalMultas();
+        if (contieneHoudini() || contieneTransportador()) {
+            return 0;
+        }
+        double valorEstadia = (precioBase() * tiempoEstadia() * factorDemandaIngreso) + totalMultas();
         return valorEstadia;
     }
 
+    private boolean contieneHoudini() {
+        for (Anomalia a : anomalias) {
+            if (a.getCodigo().equals("HOUDINI")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean contieneTransportador() {
+        for (Anomalia a : anomalias) {
+            if (a.getCodigo().equals("TRANSPORTADOR1") || a.getCodigo().equals("TRANSPORTADOR2")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private float tiempoEstadia() {
+        if (contieneHoudini()) {
+            horaSalida = null;
+            return 0;
+        }
         Duration duration = Duration.between(horaEntrada, horaSalida);
         return duration.toMinutes();
     }
@@ -72,6 +97,9 @@ public class Estadia {
 
     public float totalMultas() {
         float totalMulta = 0;
+        if (contieneHoudini() || contieneTransportador()) {
+            return totalMulta;
+        }
         List<Etiqueta> etiquetasCocheras = cochera.getEtiquetas();
         List<Etiqueta> etiquetasVehiculos = vehiculo.getEtiquetas();
         for (Etiqueta etiquetaCochera : etiquetasCocheras) {

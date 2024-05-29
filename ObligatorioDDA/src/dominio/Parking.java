@@ -137,16 +137,17 @@ public class Parking extends Observable {
             Anomalia unaAnomalia = new Anomalia("HOUDINI");
             estadia.setAnomalias(unaAnomalia);
 
-        }
-        c.setOcupada(true);
-        estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
-        estadias.add(estadia);
+        } else {
+            c.setOcupada(true);
+            estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
+            estadias.add(estadia);
 
-        // Aumentar la cuenta corriente del propietario
-        Propietario propietario = v.getPropietario();
-        if (propietario != null) {
-            double valorEstadia = estadia.getValorEstadia();
-            propietario.aumentarSaldo(valorEstadia);
+            // Aumentar la cuenta corriente del propietario
+            Propietario propietario = v.getPropietario();
+            if (propietario != null) {
+                double valorEstadia = estadia.getValorEstadia();
+                propietario.aumentarSaldo(valorEstadia);
+            }
         }
     }
 
@@ -218,13 +219,22 @@ public class Parking extends Observable {
         LocalDateTime horaSalida = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12) + 12, random.nextInt(60), random.nextInt(60)));
 
         Estadia estadia = obtenerEstadia(codCochera, vh);
-        Estadia estadiaSinVh = obtenerEstadiaSinVehiculo(codCochera, vh);
+        Estadia estadiaSinVh = obtenerEstadiaSinVehiculo(codCochera);
         if (!c.getOcupada()) {
             LocalDateTime horaEntrada = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
             Estadia estadiaNueva = new Estadia(horaEntrada, horaSalida, c, vh);
             Anomalia unaAnomalia = new Anomalia("MISTERY");
             estadiaNueva.setAnomalias(unaAnomalia);
             estadias.add(estadiaNueva);
+        } else if (estadia != null) {
+            Propietario propietario = vh.getPropietario();
+            if (propietario != null) {
+                //Disminuir la cuenta corriente del propietario
+                double valorEstadia = estadia.getValorEstadia();
+                propietario.disminuirSaldo(valorEstadia);
+            }
+            c.setOcupada(false);
+            estadias.remove(estadia);
         } else if (estadiaSinVh != null) {
             LocalDateTime horaEntrada1 = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
             Estadia estadiaN = new Estadia(horaEntrada1, horaSalida, c, vh);
@@ -248,7 +258,6 @@ public class Parking extends Observable {
         }
     }
 
-
     private Estadia obtenerEstadia(String codCochera, Vehiculo vh) {
         for (Estadia unaEst : estadias) {
             if (unaEst.getCochera().getCodigo().equals(codCochera) && vh.getPatente().equals(unaEst.retornarPatenteVehiculo())) {
@@ -258,9 +267,9 @@ public class Parking extends Observable {
         return null;
     }
 
-    private Estadia obtenerEstadiaSinVehiculo(String codCochera, Vehiculo vh) {
+    private Estadia obtenerEstadiaSinVehiculo(String codCochera) {
         for (Estadia unaEst : estadias) {
-            if (unaEst.getCochera().getCodigo().equals(codCochera) && !vh.getPatente().equals(unaEst.retornarPatenteVehiculo())) {
+            if (unaEst.getCochera().getCodigo().equals(codCochera)) {
                 return unaEst;
             }
         }

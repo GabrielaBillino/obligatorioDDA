@@ -2,8 +2,8 @@ package Fachada;
 
 import Utilidades.Observable;
 import dominio.Cochera;
-import dominio.ControladorEstadia;
-import dominio.ControladorParking;
+import dominio.SistemaEstadia;
+import dominio.SistemaParking;
 import dominio.Parking;
 import dominio.Vehiculo;
 import java.util.List;
@@ -12,8 +12,8 @@ import java.util.List;
 public class Sistema extends Observable{
     
     private static Sistema instancia = new Sistema();
-    private static ControladorParking controladorParking = new ControladorParking();
-    private ControladorEstadia controladorEstadia = new ControladorEstadia();
+    private static SistemaParking controladorParking = new SistemaParking();
+    private SistemaEstadia controladorEstadia = new SistemaEstadia();
   
 
     public static Sistema getInstancia() {

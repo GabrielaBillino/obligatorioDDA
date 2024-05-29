@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ControladorParking {
+public class SistemaParking {
 
     private static List<Parking> parkings = new ArrayList<>();
     private static List<Cochera> cocheras = new ArrayList<>();
