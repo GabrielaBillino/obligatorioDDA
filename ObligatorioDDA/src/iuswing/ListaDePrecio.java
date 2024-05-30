@@ -3,6 +3,7 @@ package iuswing;
 import Utilidades.Observable;
 import Utilidades.Observador;
 import Utilidades.TablaNoEditable;
+import controlador.ListaPrecioController;
 import dominio.EventoTarifa;
 import dominio.Parking;
 import dominio.Tarifa;
@@ -13,17 +14,17 @@ import javax.swing.table.TableColumn;
 
 public class ListaDePrecio
         extends javax.swing.JDialog
-        implements Observador {
+        {
 
-    private Parking parking;
+   private ListaPrecioController controlador;
 
-    public ListaDePrecio(java.awt.Frame parent, boolean modal, Parking parking) {
+    public ListaDePrecio(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();
-        this.parking = parking;
-        this.parking.agregar(this);
-        mostrarTitulo();
-        cargarTabla(parking);
+        initComponents();       
+    }
+
+    public void setControlador(ListaPrecioController controlador) {
+        this.controlador = controlador;
     }
 
     @SuppressWarnings("unchecked")
@@ -114,11 +115,10 @@ public class ListaDePrecio
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cargarTabla(Parking parking) {
+    public void cargarTabla(List<Tarifa> tarifas) {
         String[] columnNames = {"Tipo de Vehiculo", "Precio/<UT>"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-
-        List<Tarifa> tarifas = parking.getTarifa();
+       
         for (Tarifa tarifa : tarifas) {
             Object[] row = {tarifa.getNombreVehiculo(), tarifa.getValor()};
             model.addRow(row);
@@ -138,7 +138,7 @@ public class ListaDePrecio
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir?", "Salir",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         if (opcion == JOptionPane.YES_OPTION) {
-            parking.quitar(this);
+            //parking.quitar(this);
             this.setVisible(false);
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
@@ -151,8 +151,8 @@ public class ListaDePrecio
                 JOptionPane.showMessageDialog(this, "Tiene que ingresar un número", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 double nuevoPrecio = Double.parseDouble(txtValor.getText());
-                parking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo);
-                cargarTabla(parking);
+               controlador.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo);               
+             
             }
         } else {
             JOptionPane.showMessageDialog(this, "Tiene que tener un tipo de vehículo seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
@@ -168,19 +168,9 @@ public class ListaDePrecio
         }
     }
 
-    private void mostrarTitulo() {
-        String titulo = "Lista de precios - " + parking.getNombre();
 
-        setTitle(titulo);
-    }
 
-    @Override
-    public void actualizar(Observable origen, Object evento) {
-        if (evento.equals(EventoTarifa.NUEVO_PRECIO)) {
-            cargarTabla(parking);
-            mostrarTitulo();
-        }
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;

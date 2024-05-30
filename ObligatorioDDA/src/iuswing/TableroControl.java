@@ -1,6 +1,7 @@
 package iuswing;
 
 import Utilidades.TablaNoEditable;
+import controlador.ListaPrecioController;
 import dominio.Anomalia;
 import dominio.Estadia;
 import dominio.Parking;
@@ -327,8 +328,10 @@ public class TableroControl extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Tiene que tener un parking seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             Parking parking = parkings.get(filaIndex);
-            ListaDePrecio lista = new ListaDePrecio(null, false, parking);
-            lista.setVisible(true);
+            ListaDePrecio view = new ListaDePrecio(null, false);
+            ListaPrecioController controller = new ListaPrecioController(view, parking);
+            view.setControlador(controller);
+            view.setVisible(true);
         }
 
     }//GEN-LAST:event_btnPreciosMouseClicked
