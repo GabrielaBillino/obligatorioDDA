@@ -3,9 +3,12 @@ package dominio;
 import dominio.TiposDeVehiculos.TipoVehiculo;
 import Fachada.Sistema;
 import Utilidades.Observable;
+import Utilidades.Validable;
+import excepciones.TarifaException;
 
 
-public class Tarifa extends Observable{
+public class Tarifa extends Observable
+                              implements Validable {
     private TipoVehiculo tipoVehiculo;
 
     public Tarifa(TipoVehiculo tipoVehiculo) {
@@ -29,5 +32,16 @@ public class Tarifa extends Observable{
     
     public String getNombreVehiculo() {
         return tipoVehiculo.getNombre();
+    }
+
+    @Override
+    public void Validar() throws TarifaException {
+        validarTipo();
+    }
+
+    private void validarTipo() throws TarifaException {
+        if (tipoVehiculo == null) {
+            throw new TarifaException("El tipo de vehículo no puede ser nulo.");
+        }
     }
 }

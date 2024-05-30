@@ -1,12 +1,14 @@
 package dominio;
 
+import Utilidades.Validable;
 import dominio.Etiquetas.Etiqueta;
+import excepciones.EstadiaException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Estadia {
+public class Estadia implements Validable {
 
     private LocalDateTime horaEntrada;
     private LocalDateTime horaSalida;
@@ -90,7 +92,6 @@ public class Estadia {
         return duration.toMinutes();
     }
 
-   
     private double precioBase() {
         return vehiculo.precioBase();
     }
@@ -127,6 +128,31 @@ public class Estadia {
 
     public String retornarCodCochera() {
         return this.cochera.retornarCodigo();
+    }
+
+    @Override
+    public void Validar() throws EstadiaException {
+        validarHoraEntrada();
+        validarCochera();
+        validarVehiculo();
+    }
+
+    private void validarHoraEntrada() throws EstadiaException {
+        if (horaEntrada == null) {
+            throw new EstadiaException("La hora de entrada no puede ser nula.");
+        }
+    }
+
+    private void validarCochera() throws EstadiaException {
+        if (cochera == null) {
+            throw new EstadiaException("La cochera no puede ser nula.");
+        }
+    }
+
+    private void validarVehiculo() throws EstadiaException {
+        if (vehiculo == null) {
+            throw new EstadiaException("El vehículo no puede ser nulo.");
+        }
     }
 
 }

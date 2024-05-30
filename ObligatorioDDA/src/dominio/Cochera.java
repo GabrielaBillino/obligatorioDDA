@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import simuladortransito.Estacionable;
 
-
 public class Cochera  implements Estacionable{
     private String codigo;
     //private String estado;
@@ -15,7 +14,7 @@ public class Cochera  implements Estacionable{
     private static int  lastCodigo = 1;
     
     public Cochera(boolean estado) {
-        this.codigo = "A"+ String.valueOf(lastCodigo);
+        this.codigo = "A" + String.valueOf(lastCodigo);
         this.ocupada = estado;
         lastCodigo++;        
     }
@@ -63,8 +62,6 @@ public class Cochera  implements Estacionable{
     public void setOcupada(boolean ocupada) {
         this.ocupada = ocupada;
     }
-
-
 
     @Override
     public boolean equals(Object obj) {

@@ -6,6 +6,8 @@ import dominio.SistemaEstadia;
 import dominio.SistemaParking;
 import dominio.Parking;
 import dominio.Vehiculo;
+import excepciones.AnomaliaException;
+import excepciones.EstadiaException;
 import java.util.List;
 
 
@@ -33,7 +35,7 @@ public class Sistema extends Observable{
         controladorParking.cargarVehiculos(vehiculos);
     }
 
-    public void ingresarVehiculo(String c, String v, Parking p) {
+    public void ingresarVehiculo(String c, String v, Parking p) throws EstadiaException {
         controladorParking.ingresarVehiculo( c,  v,  p);
     }
 
@@ -41,7 +43,7 @@ public class Sistema extends Observable{
         controladorParking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo, parking);
     }
 
-    public void egresarVehiculo(String c, String v, Parking p) {
+    public void egresarVehiculo(String c, String v, Parking p) throws EstadiaException, AnomaliaException {
         controladorParking.egresarVehiculo( c,  v,  p);
     }
 

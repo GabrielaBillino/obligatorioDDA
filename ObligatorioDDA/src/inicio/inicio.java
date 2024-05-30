@@ -4,6 +4,10 @@ import dominio.Cochera;
 import dominio.Parking;
 import dominio.SensorParking;
 import dominio.Vehiculo;
+import excepciones.EstadiaException;
+import excepciones.ParkingException;
+import excepciones.PropietarioException;
+import excepciones.VehiculoException;
 import iuswing.Principal;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -24,7 +28,7 @@ public class inicio {
     private static SimuladorTransito simulador;
    
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws VehiculoException, EstadiaException, PropietarioException, ParkingException {
         
        //1. Configurar simulador
        List<Transitable> vehiculos = Precarga.cargarVehiculos();

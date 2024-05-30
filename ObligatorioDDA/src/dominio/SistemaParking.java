@@ -1,5 +1,7 @@
 package dominio;
 
+import excepciones.AnomaliaException;
+import excepciones.EstadiaException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class SistemaParking {
         cocheras.addAll(cocherasParaAgregar);
     }
 
-    public static void ingresarVehiculo(String c, String v, Parking p) {
+    public static void ingresarVehiculo(String c, String v, Parking p) throws EstadiaException {
        Vehiculo vh = retornarVehiculo(v);
        p.ingresarVehiculo(c,vh);
     }
@@ -42,7 +44,7 @@ public class SistemaParking {
         parking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo);
     }
 
-    public void egresarVehiculo(String c, String v, Parking p) {
+    public void egresarVehiculo(String c, String v, Parking p) throws EstadiaException, AnomaliaException {
        Vehiculo vh = retornarVehiculo(v);
        p.egresarVehiculo(c,vh);
     }

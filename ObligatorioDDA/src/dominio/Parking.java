@@ -6,6 +6,10 @@ import dominio.Tendencias.Positiva;
 import dominio.Tendencias.Tendencia;
 import dominio.Etiquetas.Etiqueta;
 import Utilidades.Observable;
+import Utilidades.Validable;
+import excepciones.AnomaliaException;
+import excepciones.EstadiaException;
+import excepciones.ParkingException;
 import java.util.Random;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,7 +21,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-public class Parking extends Observable {
+public class Parking extends Observable
+        implements Validable {
 
     private String nombre;
     private String direccion;
@@ -127,12 +132,13 @@ public class Parking extends Observable {
     }
 
     //TODO: Las horas hay que manejarlas correctamente.
-    public void ingresarVehiculo(String codCochera, Vehiculo v) {
+    public void ingresarVehiculo(String codCochera, Vehiculo v) throws EstadiaException {
         Cochera c = retornarCochera(codCochera);
         Random random = new Random();
         LocalDateTime horaEntrada = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
         LocalDateTime horaSalida = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12) + 12, random.nextInt(60), random.nextInt(60)));
         Estadia estadia = new Estadia(horaEntrada, horaSalida, c, v);
+        estadia.Validar();
         if (c.getOcupada()) {
             Anomalia unaAnomalia = new Anomalia("HOUDINI");
             estadia.setAnomalias(unaAnomalia);
@@ -211,28 +217,27 @@ public class Parking extends Observable {
         return ret;
     }
 
-    
-    public void egresarVehiculo(String codCochera, Vehiculo unVehiculo) {
+    public void egresarVehiculo(String codCochera, Vehiculo unVehiculo) throws EstadiaException, AnomaliaException {
         Cochera unaCochera = retornarCochera(codCochera);
-        
+
         Random random = new Random();
 
         LocalDateTime horaSalida = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12) + 12, random.nextInt(60), random.nextInt(60)));
         LocalDateTime horaEntrada = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
-       
+
         Estadia estadia = obtenerEstadia(codCochera, unVehiculo); //Machea vehiculo y cochera en estadia
-               
+
         if (!unaCochera.getOcupada()) { //Cochera libre
             estadiaMistery(horaEntrada, horaSalida, unaCochera, unVehiculo);
-          
+
         } else if (estadia != null) { //Ingresa al if si existe una estadia para ese Vehiculo y Cochera
-                 liberarEstadia(estadia, unVehiculo, unaCochera);  
-               
-                } else {  //Existe estadia para esa cochera y no es para ese vehiculo       
-                    estadiaTransportador1(codCochera);
-                    estadiaTransportador2(horaEntrada, horaSalida, unaCochera, unVehiculo);
-                   
-                } 
+            liberarEstadia(estadia, unVehiculo, unaCochera);
+
+        } else {  //Existe estadia para esa cochera y no es para ese vehiculo       
+            estadiaTransportador1(codCochera);
+            estadiaTransportador2(horaEntrada, horaSalida, unaCochera, unVehiculo);
+
+        }
     }
 
     private Estadia obtenerEstadia(String codCochera, Vehiculo vh) {
@@ -252,38 +257,76 @@ public class Parking extends Observable {
         }
         return null;
     }
-    
-    private void  estadiaMistery(LocalDateTime horaEntrada,LocalDateTime horaSalida,Cochera unaCochera,Vehiculo unVehiculo){
+
+    private void estadiaMistery(LocalDateTime horaEntrada, LocalDateTime horaSalida, Cochera unaCochera, Vehiculo unVehiculo) throws EstadiaException, AnomaliaException {
         Estadia estadiaNueva = new Estadia(horaEntrada, horaSalida, unaCochera, unVehiculo);
+        estadiaNueva.Validar();
         Anomalia unaAnomalia = new Anomalia("MISTERY");
+        unaAnomalia.Validar();
         estadiaNueva.setAnomalias(unaAnomalia);
         estadias.add(estadiaNueva);
     }
-    
-    private void liberarEstadia (Estadia estadiaActualizar, Vehiculo unVehiculo, Cochera unaCochera){
+
+    private void liberarEstadia(Estadia estadiaActualizar, Vehiculo unVehiculo, Cochera unaCochera) {
         Propietario propietario = unVehiculo.getPropietario();
-        if (propietario != null) {               
+        if (propietario != null) {
             double valorEstadia = estadiaActualizar.getValorEstadia();
             propietario.disminuirSaldo(valorEstadia);
         }
         unaCochera.setOcupada(false);
         estadias.remove(estadiaActualizar);
     }
-    
-    private void estadiaTransportador1(String codCochera){
+
+    private void estadiaTransportador1(String codCochera) throws AnomaliaException {
         Estadia estadiaSinVh = obtenerEstadiaSinVehiculo(codCochera);
-        if(estadiaSinVh != null){
+        if (estadiaSinVh != null) {
             Anomalia anomalia1 = new Anomalia("TRANSPORTADOR1");
-            estadiaSinVh.setAnomalias(anomalia1);    
+            anomalia1.Validar();
+            estadiaSinVh.setAnomalias(anomalia1);
         }
-        
+
     }
-    
-    private void estadiaTransportador2(LocalDateTime horaEntrada,LocalDateTime horaSalida,Cochera unaCochera,Vehiculo unVehiculo){
+
+    private void estadiaTransportador2(LocalDateTime horaEntrada, LocalDateTime horaSalida, Cochera unaCochera, Vehiculo unVehiculo) throws EstadiaException, AnomaliaException {
         Estadia estadiaN = new Estadia(horaEntrada, horaSalida, unaCochera, unVehiculo);
+        estadiaN.Validar();
         Anomalia anomalia2 = new Anomalia("TRANSPORTADOR2");
+        anomalia2.Validar();
         estadiaN.setAnomalias(anomalia2);
         estadiaN.setFechaSalida(horaSalida);
-        estadias.add(estadiaN);  
+        estadias.add(estadiaN);
     }
+
+    @Override
+    public void Validar() throws ParkingException {
+        validarNombre();
+        validarDireccion();
+        validarTarifas();
+        validarCocheras();
+    }
+
+    private void validarNombre() throws ParkingException {
+        if (nombre.isBlank()) {
+            throw new ParkingException("El nombre no puede estar vacío.");
+        }
+    }
+
+    private void validarDireccion() throws ParkingException {
+        if (direccion.isBlank()) {
+            throw new ParkingException("La dirección no puede estar vacía.");
+        }
+    }
+
+    private void validarTarifas() throws ParkingException {
+        if (tarifas == null) {
+            throw new ParkingException("La lista de tarifas no puede ser nula.");
+        }
+    }
+
+    private void validarCocheras() throws ParkingException {
+        if (cocheras == null) {
+            throw new ParkingException("La lista de cocheras no puede ser nula.");
+        }
+    }
+
 }

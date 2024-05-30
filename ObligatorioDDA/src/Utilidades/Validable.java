@@ -2,5 +2,5 @@ package Utilidades;
 
 public interface Validable {
     
-    public void Validar();
+    public void Validar() throws Exception;
 }
