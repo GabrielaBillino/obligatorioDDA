@@ -13,12 +13,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/Utilidades/Observador.java</file>
-            <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/ControladorParking.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/iuswing/ListaDePrecio.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/TiposDeVehiculos/Pasajeros.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/Propietario.java</file>
+            <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/Excepciones/AnomaliaException.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/TiposDeVehiculos/Standard.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/Tendencias/Tendencia.java</file>
+            <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/Excepciones/ParkingException.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/Parking.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/Etiquetas/Electrico.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/Etiquetas/Discapacitado.java</file>
@@ -31,12 +32,15 @@
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/TiposDeVehiculos/TipoVehiculo.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/Anomalia.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/Estadia.java</file>
+            <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/SistemaEstadia.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/Utilidades/UtilidadesVarias.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/inicio/Precarga.java</file>
+            <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/SistemaParking.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/iuswing/TableroControl.java</file>
+            <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/Utilidades/Validable.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/inicio/inicio.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/Infraccion.java</file>
-            <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/ControladorEstadia.java</file>
+            <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/Excepciones/PropietarioException.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/SensorParking.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/dominio/CuentaCorriente.java</file>
             <file>file:/C:/Users/agusp/OneDrive/Desktop/DDA/obligatorioDDA/ObligatorioDDA/src/iuswing/Cartelera.java</file>

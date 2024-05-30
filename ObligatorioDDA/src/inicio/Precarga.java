@@ -210,7 +210,7 @@ public class Precarga {
         fachada.cargarVehiculos(listaVehiculos);
     }
 
-    public static void ingresarVehiculo(String codCochera, String patente, Parking p) throws EstadiaException {
+    public static void ingresarVehiculo(String codCochera, String patente, Parking p) throws EstadiaException, AnomaliaException {
         fachada.ingresarVehiculo(codCochera, patente, p);
     }
 

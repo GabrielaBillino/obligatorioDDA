@@ -35,7 +35,7 @@ public class Sistema extends Observable{
         controladorParking.cargarVehiculos(vehiculos);
     }
 
-    public void ingresarVehiculo(String c, String v, Parking p) throws EstadiaException {
+    public void ingresarVehiculo(String c, String v, Parking p) throws EstadiaException, AnomaliaException {
         controladorParking.ingresarVehiculo( c,  v,  p);
     }
 

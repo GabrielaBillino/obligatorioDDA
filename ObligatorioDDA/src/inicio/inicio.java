@@ -4,6 +4,7 @@ import dominio.Cochera;
 import dominio.Parking;
 import dominio.SensorParking;
 import dominio.Vehiculo;
+import excepciones.AnomaliaException;
 import excepciones.EstadiaException;
 import excepciones.ParkingException;
 import excepciones.PropietarioException;
@@ -28,7 +29,7 @@ public class inicio {
     private static SimuladorTransito simulador;
    
     
-    public static void main(String[] args) throws VehiculoException, EstadiaException, PropietarioException, ParkingException {
+    public static void main(String[] args) throws VehiculoException, EstadiaException, PropietarioException, ParkingException, AnomaliaException {
         
        //1. Configurar simulador
        List<Transitable> vehiculos = Precarga.cargarVehiculos();

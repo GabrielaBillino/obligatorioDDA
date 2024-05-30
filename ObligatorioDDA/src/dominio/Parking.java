@@ -132,7 +132,7 @@ public class Parking extends Observable
     }
 
     //TODO: Las horas hay que manejarlas correctamente.
-    public void ingresarVehiculo(String codCochera, Vehiculo v) throws EstadiaException {
+    public void ingresarVehiculo(String codCochera, Vehiculo v) throws EstadiaException, AnomaliaException {
         Cochera c = retornarCochera(codCochera);
         Random random = new Random();
         LocalDateTime horaEntrada = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
@@ -141,6 +141,7 @@ public class Parking extends Observable
         estadia.Validar();
         if (c.getOcupada()) {
             Anomalia unaAnomalia = new Anomalia("HOUDINI");
+            unaAnomalia.Validar();
             estadia.setAnomalias(unaAnomalia);
             estadias.add(estadia); //Lo puse para mostrar HOUDINI
         } else {

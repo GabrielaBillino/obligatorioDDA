@@ -26,7 +26,7 @@ public class SistemaParking {
         cocheras.addAll(cocherasParaAgregar);
     }
 
-    public static void ingresarVehiculo(String c, String v, Parking p) throws EstadiaException {
+    public static void ingresarVehiculo(String c, String v, Parking p) throws EstadiaException, AnomaliaException {
        Vehiculo vh = retornarVehiculo(v);
        p.ingresarVehiculo(c,vh);
     }
