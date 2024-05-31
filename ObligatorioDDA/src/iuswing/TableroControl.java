@@ -3,6 +3,7 @@ package iuswing;
 import Utilidades.TablaNoEditable;
 import controlador.CarteleraController;
 import controlador.ListaPrecioController;
+import controlador.TableroController;
 import dominio.Anomalia;
 import dominio.Estadia;
 import dominio.Parking;
@@ -13,16 +14,19 @@ import javax.swing.JOptionPane;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import vista.VistaTablero;
 
-public class TableroControl extends javax.swing.JDialog {
+public class TableroControl 
+        extends javax.swing.JDialog
+        implements VistaTablero{
 
-    private List<Parking> parkings = new ArrayList<>();
+     private TableroController controlador;
 
     public TableroControl(java.awt.Frame parent, boolean modal, List<Parking> parkings) {
         super(parent, modal);
         initComponents();
         tblAnomalia.setVisible(false);
-        this.parkings = parkings;
+        controlador = new TableroController(parkings, this);
 
        
 
@@ -33,8 +37,9 @@ public class TableroControl extends javax.swing.JDialog {
 
         //TODO crear id para que principal lo tenga cuando se cierra y lo borro de la sesion
     }
-
-    private void cargarTabla(List<Parking> parkings) {
+    
+    @Override
+    public void cargarTabla(List<Parking> parkings) {
         String[] columnNames = {"Parking", "#Ocupadas", "#Libres", "Estado", "Factor de Demanda", "Estadias", "Multas", "SubTotal"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         int totalEstadias = 0;
@@ -326,12 +331,8 @@ public class TableroControl extends javax.swing.JDialog {
         int filaIndex = tblDashboard.getSelectedRow();
         if (filaIndex == -1) {
             JOptionPane.showMessageDialog(this, "Tiene que tener un parking seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            Parking parking = parkings.get(filaIndex);
-            ListaDePrecio view = new ListaDePrecio(null, false,parking);
-            ListaPrecioController controller = new ListaPrecioController(parking, view);
-           
-            view.setVisible(true);
+        } else {            
+            controlador.abrirListaPrecio(controlador.retornarParking(filaIndex));
         }
 
     }//GEN-LAST:event_btnPreciosMouseClicked
@@ -340,11 +341,8 @@ public class TableroControl extends javax.swing.JDialog {
         int filaIndex = tblDashboard.getSelectedRow();
         if (filaIndex == -1) {
             JOptionPane.showMessageDialog(this, "Tiene que tener un parking seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            Parking parking = parkings.get(filaIndex);
-            Cartelera cartelera = new Cartelera(null, false, parking);
-            CarteleraController controler = new CarteleraController(parking, cartelera);
-            cartelera.setVisible(true);
+        } else {          
+            controlador.abrirCartelera(controlador.retornarParking(filaIndex));
         }
     }//GEN-LAST:event_btnCarteleraMouseClicked
 
@@ -367,8 +365,8 @@ public class TableroControl extends javax.swing.JDialog {
         if (filaIndex == -1) {
             JOptionPane.showMessageDialog(this, "Tiene que tener un parking seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            Parking parking = parkings.get(filaIndex);
-            List<Estadia> estadiasAnomalias = parking.estadiasConAnomalia();
+            List<Estadia> estadiasAnomalias = controlador.retornarEstadia(filaIndex);
+            
             if(estadiasAnomalias.isEmpty()){
                 JOptionPane.showMessageDialog(this, "No hay anomalias para el parking seleccionado"  , "Error", JOptionPane.ERROR_MESSAGE);
             }else{
@@ -429,4 +427,9 @@ public class TableroControl extends javax.swing.JDialog {
     private javax.swing.JTable tblDashboard;
     private javax.swing.JLabel txtMoneda;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mostrarTitulo(String titulo) {
+        setTitle(titulo);
+    }
 }

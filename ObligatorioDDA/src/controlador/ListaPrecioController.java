@@ -48,4 +48,8 @@ public class ListaPrecioController
             mostrarTitulo();
         }
     }
+
+    public void quitar() {
+        parking.quitar(this);
+    }
 }

@@ -1,7 +1,5 @@
 package dominio.Etiquetas;
 
-import dominio.Etiquetas.Etiqueta;
-
 
 public class Empleado extends Etiqueta {
 

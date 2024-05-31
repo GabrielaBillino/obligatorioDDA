@@ -136,8 +136,8 @@ public class ListaDePrecio
         Object[] options = {"Sí", "No"};
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir?", "Salir",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-        if (opcion == JOptionPane.YES_OPTION) {
-            //parking.quitar(this);
+        if (opcion == JOptionPane.YES_OPTION) {            
+            controlador.quitar();
             this.setVisible(false);
         }
     }//GEN-LAST:event_btnCerrarMouseClicked

@@ -1,12 +1,11 @@
 
 package controlador;
 
+import Fachada.Sistema;
 import Utilidades.Observable;
 import Utilidades.Observador;
 import dominio.EventoSistema;
 import dominio.Parking;
-import dominio.Tarifa;
-import java.util.List;
 import vista.VistaCartelera;
 
 
@@ -15,12 +14,13 @@ public class CarteleraController
             implements Observador{
    
     private final Parking parking;
-    private VistaCartelera vista;
+    private final VistaCartelera vista;
+    private final Sistema fachada = Sistema.getInstancia();
      
     public CarteleraController(Parking parking, VistaCartelera vista) {
         this.vista = vista;
         this.parking = parking;
-        parking.agregar(this);     
+        fachada.agregar(this);     
         mostrarTitulo();
         cargarTablaTipoVehiculo();
         cargarTablaCocheras();
@@ -37,8 +37,7 @@ public class CarteleraController
     
      private void mostrarTitulo() {
         String titulo = "Cartelera - " + parking.getNombre();
-
-       
+        vista.mostrarTitulo(titulo);
     }
     
     
@@ -48,6 +47,7 @@ public class CarteleraController
             cargarTablaTipoVehiculo();
             cargarTablaCocheras();
             mostrarTitulo();
+           
         }
     }
 }
