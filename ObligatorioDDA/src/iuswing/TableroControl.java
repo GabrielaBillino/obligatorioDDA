@@ -22,10 +22,9 @@ public class TableroControl extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         tblAnomalia.setVisible(false);
-        setTitle("Tablero de control");
         this.parkings = parkings;
 
-        cargarTabla(parkings);
+       
 
         for (int columnIndex = 0; columnIndex < tblDashboard.getColumnCount(); columnIndex++) {
             TableColumn column = tblDashboard.getColumnModel().getColumn(columnIndex);
@@ -383,15 +382,15 @@ public class TableroControl extends javax.swing.JDialog {
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         
          for (Estadia unaEstadia : estadiasAnomalias) {
-             for(Anomalia unaAnomalia : unaEstadia.getAnomalias()){
-                Object[] row = {unaEstadia.getHoraEntrada(),
-                    unaEstadia.getVehiculo().getPropietario().getNombreCompleto(),
-                    unaAnomalia.getCodigo(),
-                    unaEstadia.getCochera().getCodigo()             
-                 };
-                model.addRow(row);
-             }
-          }  
+            for(Anomalia unaAnomalia : unaEstadia.getAnomalias()){
+               Object[] row = {unaEstadia.getHoraEntrada(),
+                   unaEstadia.getVehiculo().getPropietario().getNombreCompleto(),
+                   unaAnomalia.getCodigo(),
+                   unaEstadia.getCochera().retornarCodigo()
+                };
+               model.addRow(row);
+            }
+        }  
         tblAnomalia.setModel(model);
         for (int columnIndex = 0; columnIndex < tblAnomalia.getColumnCount(); columnIndex++) {
             TableColumn column = tblAnomalia.getColumnModel().getColumn(columnIndex);
