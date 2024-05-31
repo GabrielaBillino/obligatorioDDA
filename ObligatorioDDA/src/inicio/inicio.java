@@ -8,6 +8,7 @@ import excepciones.AnomaliaException;
 import excepciones.EstadiaException;
 import excepciones.ParkingException;
 import excepciones.PropietarioException;
+import excepciones.TarifaException;
 import excepciones.VehiculoException;
 import iuswing.Principal;
 import java.util.LinkedHashMap;
@@ -29,7 +30,7 @@ public class inicio {
     private static SimuladorTransito simulador;
    
     
-    public static void main(String[] args) throws VehiculoException, EstadiaException, PropietarioException, ParkingException, AnomaliaException {
+    public static void main(String[] args) throws VehiculoException, EstadiaException, PropietarioException, ParkingException, AnomaliaException, TarifaException {
         
        //1. Configurar simulador
        List<Transitable> vehiculos = Precarga.cargarVehiculos();

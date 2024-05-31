@@ -328,9 +328,9 @@ public class TableroControl extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Tiene que tener un parking seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             Parking parking = parkings.get(filaIndex);
-            ListaDePrecio view = new ListaDePrecio(null, false);
-            ListaPrecioController controller = new ListaPrecioController(view, parking);
-            view.setControlador(controller);
+            ListaDePrecio view = new ListaDePrecio(null, false,parking);
+            ListaPrecioController controller = new ListaPrecioController(parking, view);
+           
             view.setVisible(true);
         }
 

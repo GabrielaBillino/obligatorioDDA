@@ -7,34 +7,28 @@ import controlador.ListaPrecioController;
 import dominio.EventoTarifa;
 import dominio.Parking;
 import dominio.Tarifa;
+import excepciones.TipoVehiculoException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import vista.VistaListaDePrecio;
 
 public class ListaDePrecio
-        extends javax.swing.JDialog {
+        extends javax.swing.JDialog
+        implements VistaListaDePrecio{
 
     private ListaPrecioController controlador;
-    private String error = "";
-    private String mensaje = "";
+    
 
-    public void setError(String error) {
-        this.error = error;
-    }
-
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
-    }
-
-    public ListaDePrecio(java.awt.Frame parent, boolean modal) {
+    public ListaDePrecio(java.awt.Frame parent, boolean modal, Parking parking) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
+        controlador = new ListaPrecioController(parking, this);
     }
 
-    public void setControlador(ListaPrecioController controlador) {
-        this.controlador = controlador;
-    }
+ 
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -155,18 +149,12 @@ public class ListaDePrecio
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
         int indexTipo = tblTipoVehiculoPrecio.getSelectedRow();
         if (indexTipo >= 0) {
-            String textoValor = txtValor.getText().trim();
+                     
+           String textoValor = txtValor.getText().trim();
             if (textoValor.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "El número no puede ser vacío.", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                controlador.actualizarValorTipoVehiculo(textoValor, indexTipo);
-                if (!error.isBlank()) {
-                    JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
-                    error = "";
-                } else {
-                    JOptionPane.showMessageDialog(this, mensaje, "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    mensaje = "";
-                }
+                controlador.actualizarValorTipoVehiculo(textoValor, indexTipo);              
             }
         } else {
             JOptionPane.showMessageDialog(this, "Tiene que tener un tipo de vehículo seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
@@ -183,5 +171,21 @@ public class ListaDePrecio
     private javax.swing.JTable tblTipoVehiculoPrecio;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mostrarTitulo(String titulo) {
+        setTitle(titulo);
+    }
+    
+   
+    @Override
+    public void mostrarMensajeExitoso(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Éxito", JOptionPane.INFORMATION_MESSAGE);                   
+    }
+
+    @Override
+    public void mostrarMensajeError(String mensaje) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }

@@ -5,46 +5,47 @@ import Utilidades.Observador;
 import dominio.EventoTarifa;
 import dominio.Parking;
 import excepciones.TipoVehiculoException;
-import iuswing.ListaDePrecio;
-import java.awt.event.MouseAdapter;
+import vista.VistaListaDePrecio;
 
 public class ListaPrecioController
         implements Observador {
 
     private final Parking parking;
-    private final ListaDePrecio view;
+    private VistaListaDePrecio vista;
 
-    public ListaPrecioController(ListaDePrecio view, Parking parking) {
-        this.view = view;
+    public ListaPrecioController(Parking parking, VistaListaDePrecio vista) {
+        this.vista = vista;
         this.parking = parking;
-        parking.agregar(this);
-        initView();
-        initController();
+        parking.agregar(this);     
+        mostrarTitulo();
+        cargarTabla();
+    }
+ 
+
+  
+    public void mostrarTitulo(){
+        String titulo = "Lista de precios - " + parking.getNombre();
+        vista.mostrarTitulo(titulo);
     }
 
-    private void initView() {
-        view.setTitle("Lista de precios - " + parking.getNombre());
-        view.cargarTabla(parking.getTarifa());
+    public void cargarTabla(){
+        vista.cargarTabla(parking.getTarifa());
     }
-
-    private void initController() {
-
-    }
-
+    
     public void actualizarValorTipoVehiculo(String nuevoPrecio, int indexTipo){
         try {
             parking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo);
-            view.setMensaje("Valor modificado con éxito.");
+            vista.mostrarMensajeExitoso("Valor modificado con éxito.");
         } catch (TipoVehiculoException | NumberFormatException e) {
-            view.setError(e.getMessage());
+            vista.mostrarMensajeError(e.getMessage());
         }
     }
 
     @Override
     public void actualizar(Observable origen, Object evento) {
         if (evento.equals(EventoTarifa.NUEVO_PRECIO)) {
-            view.cargarTabla(parking.getTarifa());
-            view.setTitle("Lista de precios - " + parking.getNombre());
+            cargarTabla(); 
+            mostrarTitulo();
         }
     }
 }
