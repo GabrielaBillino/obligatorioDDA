@@ -1,6 +1,7 @@
 package iuswing;
 
 import Utilidades.TablaNoEditable;
+import controlador.CarteleraController;
 import controlador.ListaPrecioController;
 import dominio.Anomalia;
 import dominio.Estadia;
@@ -343,6 +344,7 @@ public class TableroControl extends javax.swing.JDialog {
         } else {
             Parking parking = parkings.get(filaIndex);
             Cartelera cartelera = new Cartelera(null, false, parking);
+            CarteleraController controler = new CarteleraController(parking, cartelera);
             cartelera.setVisible(true);
         }
     }//GEN-LAST:event_btnCarteleraMouseClicked

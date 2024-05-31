@@ -1,32 +1,27 @@
 package iuswing;
 
-import Utilidades.Observable;
-import Utilidades.Observador;
 import Utilidades.TablaNoEditable;
-import dominio.EventoSistema;
 import dominio.Parking;
-import Fachada.Sistema;
+import controlador.CarteleraController;
 import dominio.Tarifa;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import vista.VistaCartelera;
 
 public class Cartelera
         extends javax.swing.JDialog
-        implements Observador {
+        implements VistaCartelera {
 
-    private final Parking parking;
+     private CarteleraController controlador;
 
     public Cartelera(java.awt.Frame parent, boolean modal, Parking parking) {
         super(parent, modal);
         initComponents();
-        this.parking = parking;
-        Sistema.getInstancia().agregar(this);
-        mostrarTitulo();
-        cargarTablaTipoVehiculo(parking);
-        cargarTablaCocheras(parking);
+       
+        controlador = new CarteleraController(parking, this);
 
         for (int columnIndex = 0; columnIndex < tblEtiquetas.getColumnCount(); columnIndex++) {
             TableColumn column = tblEtiquetas.getColumnModel().getColumn(columnIndex);
@@ -42,11 +37,11 @@ public class Cartelera
         lblCantDisponibilidad.setText(String.valueOf(disponibilidad));
     }
 
-    private void cargarTablaTipoVehiculo(Parking parking) {
+    @Override
+    public void cargarTablaTipoVehiculo(List<Tarifa> tarifas) {
         String[] columnNames = {"Tipo de Vehiculo", "Precio/<UT>"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-
-        List<Tarifa> tarifas = parking.getTarifa();
+    
         for (Tarifa tarifa : tarifas) {
             Object[] row = {tarifa.getNombreVehiculo(), tarifa.getValor()};
             model.addRow(row);
@@ -56,12 +51,11 @@ public class Cartelera
         tblTipoVehiculo.setVisible(true);
     }
 
-    private void cargarTablaCocheras(Parking parking) {
+    @Override
+    public void cargarTablaCocheras(Map<String, Integer> listado) {
         String[] columnNames = {"Cocheras", "Disponibles"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-
-        Map<String, Integer> listado = parking.contarCocherasEtiquetas();
-
+   
         for (Map.Entry<String, Integer> lista : listado.entrySet()) {
 
             Object[] row = {lista.getKey(), lista.getValue()};
@@ -197,20 +191,9 @@ public class Cartelera
             this.setVisible(false);
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
-    private void mostrarTitulo() {
-        String titulo = "Cartelera - " + parking.getNombre();
+   
 
-        setTitle(titulo);
-    }
-
-    @Override
-    public void actualizar(Observable origen, Object evento) {
-        if (evento.equals(EventoSistema.NUEVO_PRECIO)) {
-            cargarTablaTipoVehiculo(parking);
-            cargarTablaCocheras(parking);
-            mostrarTitulo();
-        }
-    }
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
@@ -223,5 +206,12 @@ public class Cartelera
     private javax.swing.JTable tblEtiquetas;
     private javax.swing.JTable tblTipoVehiculo;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mostrarTitulo(String titulo) {
+        setTitle(titulo);
+    }
+
+   
 
 }

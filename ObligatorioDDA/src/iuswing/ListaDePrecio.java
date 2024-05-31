@@ -1,13 +1,9 @@
 package iuswing;
 
-import Utilidades.Observable;
-import Utilidades.Observador;
 import Utilidades.TablaNoEditable;
 import controlador.ListaPrecioController;
-import dominio.EventoTarifa;
 import dominio.Parking;
 import dominio.Tarifa;
-import excepciones.TipoVehiculoException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
