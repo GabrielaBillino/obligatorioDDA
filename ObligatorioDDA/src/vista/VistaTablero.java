@@ -1,7 +1,6 @@
 
 package vista;
 
-import dominio.Estadia;
 import dominio.Parking;
 import java.util.List;
 

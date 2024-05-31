@@ -12,10 +12,11 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/gabri/OneDrive/Documentos/ORT/Semestre%204/DiseñoDesarrolloAplicaciones/ObligatorioDDA/obligatorioDDA/ObligatorioDDA/src/iuswing/TableroControl.java</file>
-            <file>file:/C:/Users/gabri/OneDrive/Documentos/ORT/Semestre%204/DiseñoDesarrolloAplicaciones/ObligatorioDDA/obligatorioDDA/ObligatorioDDA/src/controlador/TableroController.java</file>
-            <file>file:/C:/Users/gabri/OneDrive/Documentos/ORT/Semestre%204/DiseñoDesarrolloAplicaciones/ObligatorioDDA/obligatorioDDA/ObligatorioDDA/src/vista/VistaTablero.java</file>
-            <file>file:/C:/Users/gabri/OneDrive/Documentos/ORT/Semestre%204/DiseñoDesarrolloAplicaciones/ObligatorioDDA/obligatorioDDA/ObligatorioDDA/src/controlador/ListaPrecioController.java</file>
+            <file>file:/C:/Users/gbillino/Desktop/ORT/ObligatorioDDA/obligatorioDDA/ObligatorioDDA/src/vista/VistaTablero.java</file>
+            <file>file:/C:/Users/gbillino/Desktop/ORT/ObligatorioDDA/obligatorioDDA/ObligatorioDDA/src/controlador/ListaPrecioController.java</file>
+            <file>file:/C:/Users/gbillino/Desktop/ORT/ObligatorioDDA/obligatorioDDA/ObligatorioDDA/src/controlador/CarteleraController.java</file>
+            <file>file:/C:/Users/gbillino/Desktop/ORT/ObligatorioDDA/obligatorioDDA/ObligatorioDDA/src/iuswing/Cartelera.java</file>
+            <file>file:/C:/Users/gbillino/Desktop/ORT/ObligatorioDDA/obligatorioDDA/ObligatorioDDA/src/iuswing/TableroControl.java</file>
         </group>
     </open-files>
 </project-private>

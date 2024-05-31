@@ -1,14 +1,11 @@
 package iuswing;
 
 import Utilidades.TablaNoEditable;
-import controlador.CarteleraController;
-import controlador.ListaPrecioController;
 import controlador.TableroController;
 import dominio.Anomalia;
 import dominio.Estadia;
 import dominio.Parking;
 import java.awt.event.ItemEvent;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
