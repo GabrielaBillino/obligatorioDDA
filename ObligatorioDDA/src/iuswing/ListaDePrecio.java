@@ -162,8 +162,11 @@ public class ListaDePrecio
                 controlador.actualizarValorTipoVehiculo(textoValor, indexTipo);
                 if (!error.isBlank()) {
                     JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
+                    error = "";
+                } else {
+                    JOptionPane.showMessageDialog(this, mensaje, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    mensaje = "";
                 }
-                error = "";
             }
         } else {
             JOptionPane.showMessageDialog(this, "Tiene que tener un tipo de vehículo seleccionado", "Error", JOptionPane.ERROR_MESSAGE);

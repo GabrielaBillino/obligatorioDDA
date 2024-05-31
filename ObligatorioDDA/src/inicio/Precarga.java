@@ -19,6 +19,7 @@ import excepciones.AnomaliaException;
 import excepciones.EstadiaException;
 import excepciones.ParkingException;
 import excepciones.PropietarioException;
+import excepciones.TarifaException;
 import excepciones.VehiculoException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class Precarga {
 
     private static Sistema fachada = Sistema.getInstancia();
 
-    public static List<Parking> cargarParkingsSimulador(List<Estacionable> cocherasParkings) throws ParkingException {
+    public static List<Parking> cargarParkingsSimulador(List<Estacionable> cocherasParkings) throws ParkingException, TarifaException {
         List<Tarifa> tarifas1 = new ArrayList<>();
         Tarifa t1 = new Tarifa(new Motocicleta());
         Tarifa t2 = new Tarifa(new Pasajeros());
@@ -67,12 +68,16 @@ public class Precarga {
         return parkings;
     }
 
-    private static List<Tarifa> generarListaDeTarifas() {
+    private static List<Tarifa> generarListaDeTarifas() throws TarifaException {
         List<Tarifa> tarifas = new ArrayList<Tarifa>();
         Tarifa t1 = new Tarifa(new Motocicleta());
+        t1.Validar();
         Tarifa t2 = new Tarifa(new Pasajeros());
+        t2.Validar();
         Tarifa t3 = new Tarifa(new Standard());
+        t3.Validar();
         Tarifa t4 = new Tarifa(new Carga());
+        t4.Validar();
         tarifas.add(t1);
         tarifas.add(t2);
         tarifas.add(t3);

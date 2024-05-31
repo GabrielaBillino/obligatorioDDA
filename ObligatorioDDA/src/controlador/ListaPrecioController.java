@@ -34,6 +34,7 @@ public class ListaPrecioController
     public void actualizarValorTipoVehiculo(String nuevoPrecio, int indexTipo){
         try {
             parking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo);
+            view.setMensaje("Valor modificado con éxito.");
         } catch (TipoVehiculoException | NumberFormatException e) {
             view.setError(e.getMessage());
         }

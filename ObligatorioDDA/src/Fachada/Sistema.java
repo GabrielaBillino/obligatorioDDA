@@ -17,7 +17,7 @@ public class Sistema extends Observable{
     private static Sistema instancia = new Sistema();
     private static SistemaParking controladorParking = new SistemaParking();
     private SistemaEstadia controladorEstadia = new SistemaEstadia();
-  
+
 
     public static Sistema getInstancia() {
         return instancia;
