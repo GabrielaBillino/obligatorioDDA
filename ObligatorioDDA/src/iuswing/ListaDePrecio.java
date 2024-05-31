@@ -13,14 +13,23 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 public class ListaDePrecio
-        extends javax.swing.JDialog
-        {
+        extends javax.swing.JDialog {
 
-   private ListaPrecioController controlador;
+    private ListaPrecioController controlador;
+    private String error = "";
+    private String mensaje = "";
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
 
     public ListaDePrecio(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();       
+        initComponents();
     }
 
     public void setControlador(ListaPrecioController controlador) {
@@ -118,7 +127,7 @@ public class ListaDePrecio
     public void cargarTabla(List<Tarifa> tarifas) {
         String[] columnNames = {"Tipo de Vehiculo", "Precio/<UT>"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-       
+
         for (Tarifa tarifa : tarifas) {
             Object[] row = {tarifa.getNombreVehiculo(), tarifa.getValor()};
             model.addRow(row);
@@ -147,30 +156,20 @@ public class ListaDePrecio
         int indexTipo = tblTipoVehiculoPrecio.getSelectedRow();
         if (indexTipo >= 0) {
             String textoValor = txtValor.getText().trim();
-            if (!esNumerico(textoValor) || textoValor.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Tiene que ingresar un número", "Error", JOptionPane.ERROR_MESSAGE);
+            if (textoValor.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El número no puede ser vacío.", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                double nuevoPrecio = Double.parseDouble(txtValor.getText());
-               controlador.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo);               
-             
+                controlador.actualizarValorTipoVehiculo(textoValor, indexTipo);
+                if (!error.isBlank()) {
+                    JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                error = "";
             }
         } else {
             JOptionPane.showMessageDialog(this, "Tiene que tener un tipo de vehículo seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGuardarMouseClicked
 
-    private boolean esNumerico(String text) {
-        try {
-            Double.parseDouble(text);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-
-
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;

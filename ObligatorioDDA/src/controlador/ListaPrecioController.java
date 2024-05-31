@@ -1,17 +1,16 @@
-
 package controlador;
 
 import Utilidades.Observable;
 import Utilidades.Observador;
 import dominio.EventoTarifa;
 import dominio.Parking;
+import excepciones.TipoVehiculoException;
 import iuswing.ListaDePrecio;
 import java.awt.event.MouseAdapter;
 
-
 public class ListaPrecioController
-                implements Observador{
-    
+        implements Observador {
+
     private final Parking parking;
     private final ListaDePrecio view;
 
@@ -22,27 +21,21 @@ public class ListaPrecioController
         initView();
         initController();
     }
-private void initView() {
+
+    private void initView() {
         view.setTitle("Lista de precios - " + parking.getNombre());
         view.cargarTabla(parking.getTarifa());
     }
 
     private void initController() {
-        
+
     }
 
-    public  void actualizarValorTipoVehiculo(double nuevoPrecio,int indexTipo){
-        parking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo);
-    }
-
-
-
-    private boolean esNumerico(String text) {
+    public void actualizarValorTipoVehiculo(String nuevoPrecio, int indexTipo){
         try {
-            Double.parseDouble(text);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
+            parking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo);
+        } catch (TipoVehiculoException | NumberFormatException e) {
+            view.setError(e.getMessage());
         }
     }
 

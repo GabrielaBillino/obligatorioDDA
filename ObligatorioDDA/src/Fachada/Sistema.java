@@ -8,6 +8,7 @@ import dominio.Parking;
 import dominio.Vehiculo;
 import excepciones.AnomaliaException;
 import excepciones.EstadiaException;
+import excepciones.TipoVehiculoException;
 import java.util.List;
 
 
@@ -39,7 +40,7 @@ public class Sistema extends Observable{
         controladorParking.ingresarVehiculo( c,  v,  p);
     }
 
-    public void actualizarValorTipoVehiculo(double nuevoPrecio, int indexTipo, Parking parking) {
+    public void actualizarValorTipoVehiculo(String nuevoPrecio, int indexTipo, Parking parking) throws TipoVehiculoException {
         controladorParking.actualizarValorTipoVehiculo(nuevoPrecio, indexTipo, parking);
     }
 

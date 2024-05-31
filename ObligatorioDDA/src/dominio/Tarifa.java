@@ -5,10 +5,11 @@ import Fachada.Sistema;
 import Utilidades.Observable;
 import Utilidades.Validable;
 import excepciones.TarifaException;
-
+import excepciones.TipoVehiculoException;
 
 public class Tarifa extends Observable
-                              implements Validable {
+        implements Validable {
+
     private TipoVehiculo tipoVehiculo;
 
     public Tarifa(TipoVehiculo tipoVehiculo) {
@@ -19,17 +20,26 @@ public class Tarifa extends Observable
         return tipoVehiculo;
     }
 
-    public void actualizarPrecio(double nuevoPrecio) {
-        tipoVehiculo.setPrecioBase(nuevoPrecio);
+    public void actualizarPrecio(String nuevoPrecio) throws TipoVehiculoException, NumberFormatException {
+        double precioParseado = esNumerico(nuevoPrecio);
+        tipoVehiculo.setPrecioBase(precioParseado);
         this.avisar(EventoTarifa.NUEVO_PRECIO);
         Sistema.getInstancia().avisar(EventoSistema.NUEVO_PRECIO);
-       
     }
-    
+
+    private double esNumerico(String text) throws NumberFormatException {
+        try {
+            double precioParseado = Double.parseDouble(text);
+            return precioParseado;
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("El valor '" + text + "' no es un número válido.");
+        }
+    }
+
     public double getValor() {
         return tipoVehiculo.getPrecioBase();
     }
-    
+
     public String getNombreVehiculo() {
         return tipoVehiculo.getNombre();
     }

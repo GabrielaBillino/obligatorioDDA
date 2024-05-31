@@ -10,6 +10,7 @@ import Utilidades.Validable;
 import excepciones.AnomaliaException;
 import excepciones.EstadiaException;
 import excepciones.ParkingException;
+import excepciones.TipoVehiculoException;
 import java.util.Random;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -183,7 +184,7 @@ public class Parking extends Observable
         return total;
     }
 
-    public void actualizarValorTipoVehiculo(double nuevoPrecio, int indexTipo) {
+    public void actualizarValorTipoVehiculo(String nuevoPrecio, int indexTipo) throws TipoVehiculoException, NumberFormatException {
         Tarifa unaTarifa = tarifas.get(indexTipo);
         unaTarifa.actualizarPrecio(nuevoPrecio);
         this.avisar(EventoTarifa.NUEVO_PRECIO);
