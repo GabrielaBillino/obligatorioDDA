@@ -15,12 +15,12 @@ public class Cartelera
         extends javax.swing.JDialog
         implements VistaCartelera {
 
-     private CarteleraController controlador;
+    private CarteleraController controlador;
 
     public Cartelera(java.awt.Frame parent, boolean modal, Parking parking) {
         super(parent, modal);
         initComponents();
-       
+
         controlador = new CarteleraController(parking, this);
 
         for (int columnIndex = 0; columnIndex < tblEtiquetas.getColumnCount(); columnIndex++) {
@@ -41,7 +41,7 @@ public class Cartelera
     public void cargarTablaTipoVehiculo(List<Tarifa> tarifas) {
         String[] columnNames = {"Tipo de Vehiculo", "Precio/<UT>"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-    
+
         for (Tarifa tarifa : tarifas) {
             Object[] row = {tarifa.getNombreVehiculo(), tarifa.getValor()};
             model.addRow(row);
@@ -55,7 +55,7 @@ public class Cartelera
     public void cargarTablaCocheras(Map<String, Integer> listado) {
         String[] columnNames = {"Cocheras", "Disponibles"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-   
+
         for (Map.Entry<String, Integer> lista : listado.entrySet()) {
 
             Object[] row = {lista.getKey(), lista.getValue()};
@@ -191,9 +191,7 @@ public class Cartelera
             this.setVisible(false);
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
-   
 
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
@@ -211,7 +209,5 @@ public class Cartelera
     public void mostrarTitulo(String titulo) {
         setTitle(titulo);
     }
-
-   
 
 }

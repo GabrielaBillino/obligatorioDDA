@@ -1,17 +1,23 @@
 package iuswing;
 
+import controlador.PrincipalController;
 import dominio.Parking;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import vista.VistaPrincipal;
 
-public class Principal extends javax.swing.JFrame {
+public class Principal
+        extends javax.swing.JFrame
+        implements VistaPrincipal {
 
-   private List<Parking> parkings = new ArrayList<>();
-   
+    private PrincipalController controlador;
+    private List<Parking> parkings = new ArrayList<>();
+
     public Principal(List<Parking> parkings) {
         initComponents();
         this.parkings = parkings;
+        controlador = new PrincipalController(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -57,11 +63,8 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMTableroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMTableroMouseClicked
-       TableroControl tb= new TableroControl(this, false, parkings);
-       
-       tb.setVisible(true);         
-       
-        
+        TableroControl tb = new TableroControl(this, false, parkings);
+        tb.setVisible(true);
     }//GEN-LAST:event_jMTableroMouseClicked
 
     private void jMSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMSalirMouseClicked
@@ -79,4 +82,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMTablero;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mostrarTitulo(String titulo) {
+        setTitle(titulo);
+    }
 }
