@@ -191,7 +191,7 @@ public class Precarga {
         return listCocherasEst;
     }
 
-    private static List<Cochera> retornarCocheras(List<Estacionable> cocheras) {
+    public static List<Cochera> retornarCocheras(List<Estacionable> cocheras) {
         List<Cochera> listaCocheras = new ArrayList();
         for (Estacionable c : cocheras) {
             Cochera unaCochera = (Cochera) c;
@@ -207,12 +207,14 @@ public class Precarga {
         fachada.cargarCocheras(cocherasCargar);
     }
 
-    public static void retornarVehiculosList(List<Transitable> vehiculos) {
+    public static List<Vehiculo> retornarVehiculosList(List<Transitable> vehiculos) {
         List<Vehiculo> listaVehiculos = new ArrayList();
         for (Transitable v : vehiculos) {
             listaVehiculos.add((Vehiculo) v);
         }
         fachada.cargarVehiculos(listaVehiculos);
+        return listaVehiculos;
+        
     }
 
     public static void ingresarVehiculo(String codCochera, String patente, Parking p) throws EstadiaException, AnomaliaException {

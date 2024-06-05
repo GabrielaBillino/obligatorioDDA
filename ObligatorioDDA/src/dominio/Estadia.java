@@ -17,9 +17,9 @@ public class Estadia implements Validable {
     private List<Anomalia> anomalias = new ArrayList<>();
     private double factorDemandaIngreso;
 
-    public Estadia(LocalDateTime horaEntrada, LocalDateTime horaSalida, Cochera cochera, Vehiculo vehiculo) {
+    public Estadia(LocalDateTime horaEntrada, Cochera cochera, Vehiculo vehiculo) {
         this.horaEntrada = horaEntrada;
-        this.horaSalida = horaSalida;
+        this.horaSalida = null;
         this.cochera = cochera;
         this.vehiculo = vehiculo;
 
@@ -36,6 +36,11 @@ public class Estadia implements Validable {
     public LocalDateTime getHoraEntrada() {
         return horaEntrada;
     }
+
+    public void setHoraEntrada(LocalDateTime horaEntrada) {
+        this.horaEntrada = horaEntrada;
+    }
+    
 
     public LocalDateTime getHoraSalida() {
         return horaSalida;
@@ -88,6 +93,9 @@ public class Estadia implements Validable {
             horaSalida = null;
             return 0;
         }
+        if(horaEntrada==null || horaSalida==null){
+            return 0;
+        }
         Duration duration = Duration.between(horaEntrada, horaSalida);
         return duration.toMinutes();
     }
@@ -103,6 +111,7 @@ public class Estadia implements Validable {
         }
         List<Etiqueta> etiquetasCocheras = cochera.getEtiquetas();
         List<Etiqueta> etiquetasVehiculos = vehiculo.getEtiquetas();
+        
         for (Etiqueta etiquetaCochera : etiquetasCocheras) {
             boolean etiquetaCorrespondienteEncontrada = false;
             for (Etiqueta etiquetaVehiculo : etiquetasVehiculos) {
