@@ -115,9 +115,9 @@ public class Parking extends Observable
 
     private void actualizarTendencia(int cambio) {
        
-        if (ingresosEgresos.size() >= 10) {
-            ingresosEgresos.poll();
-        }
+//        if (ingresosEgresos.size() >= 10) {
+//            ingresosEgresos.poll();
+//        }
 
         ingresosEgresos.offer(cambio);
 
@@ -126,7 +126,11 @@ public class Parking extends Observable
         System.out.println("sumaIngresosEgresos "+sumaIngresosEgresos);
         System.out.println("diferenciaIngresosEgresos "+ diferenciaIngresosEgresos);
         System.out.println("factor demanda " + tendenciaActual.getFactorDemanda());
-        if (diferenciaIngresosEgresos <= 0.1 * capacidad) {
+        
+        double porcentajeDiferencia = diferenciaIngresosEgresos / (double) capacidad;
+        System.out.println("porcentajeDiferencia "+porcentajeDiferencia);
+        
+        if (porcentajeDiferencia <= 0.1) {
             tendenciaActual = new Estable(tendenciaActual.getFactorDemanda());
         } else if (sumaIngresosEgresos > 0) {
             tendenciaActual = new Positiva(tendenciaActual.getFactorDemanda());
@@ -138,38 +142,40 @@ public class Parking extends Observable
         System.out.println("tendencia actual "+ tendenciaActual.getNombre());
     }
 
-    //TODO: Las horas hay que manejarlas correctamente.
     public void ingresarVehiculo(String codCochera, Vehiculo v) throws EstadiaException, AnomaliaException {
-        Cochera c = retornarCochera(codCochera);
-        Random random = new Random();
-        LocalDateTime horaEntrada = LocalDateTime.now();//LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
-        //LocalDateTime horaSalida = LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12) + 12, random.nextInt(60), random.nextInt(60)));
-        Estadia estadia = new Estadia(horaEntrada, c, v);
-        estadia.Validar();
-        if (c.getOcupada()) {
-            Anomalia unaAnomalia = new Anomalia("HOUDINI");
-            unaAnomalia.Validar();
-            estadia.setFechaSalida(null);
-            estadia.setHoraEntrada(null);
-            
-            estadia.setAnomalias(unaAnomalia);
-            estadias.add(estadia); //Lo puse para mostrar HOUDINI
-        } else {
-            actualizarTendencia(1);
-            ocupacion++;
-            c.setOcupada(true);
-            estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
-            estadias.add(estadia);
+    Cochera c = retornarCochera(codCochera);
+    //Random random = new Random();
+    LocalDateTime horaEntrada = LocalDateTime.now();
+    Estadia estadia = new Estadia(horaEntrada, c, v);
+    estadia.Validar();
 
-            System.out.println("tendenciaActual ingreso!!! "+ tendenciaActual.getFactorDemanda());
-//            // Aumentar la cuenta corriente del propietario
-//            Propietario propietario = v.getPropietario();
-//            if (propietario != null) {
-//                double valorEstadia = estadia.getValorEstadia();
-//                propietario.aumentarSaldo(valorEstadia);
-//            }
-        }
+    if (c.getOcupada()) {
+        Anomalia unaAnomalia = new Anomalia("HOUDINI");
+        unaAnomalia.Validar();
+        estadia.setFechaSalida(null);
+        estadia.setHoraEntrada(null);
+        estadia.setAnomalias(unaAnomalia);
+        estadias.add(estadia);
+    } else {
+        c.setOcupada(true);
+        estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
+        estadias.add(estadia);
+        ocupacion++;
+
+        actualizarTendencia(1); // Llamada al método para actualizar la tendencia con el cambio
+
+        System.out.println("Tendencia actual: " + tendenciaActual.getNombre());
+        System.out.println("Factor de demanda: " + tendenciaActual.getFactorDemanda());
+        
+        // Aumentar la cuenta corriente del propietario
+           Propietario propietario = v.getPropietario();
+           if (propietario != null) {
+               double valorEstadia = estadia.getValorEstadia();
+               propietario.aumentarSaldo(valorEstadia);
+           }
     }
+}
+
 
     private Cochera retornarCochera(String codCochera) {
         for (Cochera c : cocheras) {
@@ -234,11 +240,12 @@ public class Parking extends Observable
     public void egresarVehiculo(String codCochera, Vehiculo unVehiculo) throws EstadiaException, AnomaliaException {
         Cochera unaCochera = retornarCochera(codCochera);
 
-        Random random = new Random();
+       // Random random = new Random();
 
         LocalDateTime horaEntrada = LocalDateTime.now();//LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
         LocalDateTime horaSalida = horaEntrada.plus(30, ChronoUnit.MINUTES);//LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12) + 12, random.nextInt(60), random.nextInt(60)));
        
+        System.out.println("horasalida "+horaSalida);
 
         Estadia estadia = obtenerEstadia(codCochera, unVehiculo); //Machea vehiculo y cochera en estadia
 

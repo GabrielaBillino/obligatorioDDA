@@ -76,14 +76,19 @@ public class inicio {
        List<Cochera> cocherasPre = Precarga.retornarCocheras(cocheras);
        
           //*********INGRESOS VEHICULOS EN PARKING PRIMERO EN LA LISTA******************       
-    //   precargarIngresoVehiculos(20, cocherasPre, vehiculosPre, parkings.get(0));       
+       precargarIngresoVehiculos(20, cocherasPre, vehiculosPre, parkings.get(0));       
        
        //*********INGRESOS VEHICULOS EN PARKING SEGUNDO EN LA LISTA******************     
-       precargarIngresoVehiculos(45, cocherasPre, vehiculosPre, parkings.get(1));
-       precargarEgresoVehiculos(1, cocherasPre, vehiculosPre, parkings.get(1));
+                   
+        precargarIngresoVehiculos(50, cocherasPre, vehiculosPre, parkings.get(1));
+        precargarIngresoVehiculos(20, cocherasPre, vehiculosPre, parkings.get(1));
+        precargarEgresoVehiculos(25, cocherasPre, vehiculosPre, parkings.get(1));
+
+  
+      
        //*********INGRESOS VEHICULOS EN PARKING TERCER EN LA LISTA******************       
-      // precargarIngresoVehiculos(50, cocherasPre, vehiculosPre, parkings.get(2));
-       
+       precargarIngresoVehiculos(20, cocherasPre, vehiculosPre, parkings.get(2));
+       precargarEgresoVehiculos(15, cocherasPre, vehiculosPre, parkings.get(2));
        
        //******Mostrar vista principal******
        Principal principal = new Principal(parkings);

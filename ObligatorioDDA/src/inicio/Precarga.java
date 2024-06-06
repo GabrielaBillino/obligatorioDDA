@@ -196,15 +196,11 @@ public class Precarga {
         for (Estacionable c : cocheras) {
             Cochera unaCochera = (Cochera) c;
             cocherasClonadas.add(new Cochera(unaCochera.retornarCodigo(), unaCochera.getEtiquetas(), unaCochera.getOcupada()));
-            
         }
-//        fachada.cargarCocheras(listaCocheras);
         return cocherasClonadas;
     }
 
-//    public static void agregarCocheras(List<Cochera> cocherasCargar) {
-//        fachada.cargarCocheras(cocherasCargar);
-//    }
+
 
     public static List<Vehiculo> retornarVehiculosList(List<Transitable> vehiculos) {
         List<Vehiculo> listaVehiculos = new ArrayList();
