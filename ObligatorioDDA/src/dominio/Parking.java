@@ -79,6 +79,11 @@ public class Parking extends Observable
     public Tendencia getTendenciaActual() {
         return tendenciaActual;
     }
+    
+    public String nombreTendenciaActual(){
+         return tendenciaActual.getNombre();
+    }
+            
 
     public int getOcupacion() {
         return ocupacion;
@@ -102,16 +107,6 @@ public class Parking extends Observable
         return cocheras.size() - calcularCocherasOcupadas();
     }
 
-//    public void ingresarVehiculo() {
-//        ocupacion++;
-//        actualizarTendencia(1);
-//        
-//    }
-
-//    public void egresarVehiculo() {
-//        ocupacion--;
-//        actualizarTendencia(-1);
-//    }
 
     private void actualizarTendencia(int cambio) {
        
@@ -250,17 +245,17 @@ public class Parking extends Observable
         Estadia estadia = obtenerEstadia(codCochera, unVehiculo); //Machea vehiculo y cochera en estadia
 
         if (!unaCochera.getOcupada()) { //Cochera libre
-            estadiaMistery(horaEntrada, horaSalida, unaCochera, unVehiculo);
+            estadiaMistery(horaEntrada, horaEntrada, unaCochera, unVehiculo);
 
         } else if (estadia != null) { //Ingresa al if si existe una estadia para ese Vehiculo y Cochera
             ocupacion--;
             actualizarTendencia(-1);
-            liberarEstadia(estadia, unVehiculo, unaCochera);
-            estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
+            liberarEstadia(estadia, unVehiculo, unaCochera, horaSalida);
+           
             System.out.println("tendenciaActual salida!!! "+ tendenciaActual.getFactorDemanda());
         } else {  //Existe estadia para esa cochera y no es para ese vehiculo       
             estadiaTransportador1(codCochera);
-            estadiaTransportador2(horaEntrada, horaSalida, unaCochera, unVehiculo);
+            estadiaTransportador2(horaEntrada, horaEntrada, unaCochera, unVehiculo);
 
         }
     }
@@ -293,12 +288,14 @@ public class Parking extends Observable
         estadias.add(estadiaNueva);
     }
 
-    private void liberarEstadia(Estadia estadiaActualizar, Vehiculo unVehiculo, Cochera unaCochera) {
+    private void liberarEstadia(Estadia estadiaActualizar, Vehiculo unVehiculo, Cochera unaCochera,  LocalDateTime horaSalida) {
         Propietario propietario = unVehiculo.getPropietario();
         if (propietario != null) {
             double valorEstadia = estadiaActualizar.getValorEstadia();
             propietario.disminuirSaldo(valorEstadia);
         }
+        estadiaActualizar.setFechaSalida(horaSalida);
+        estadiaActualizar.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
         unaCochera.setOcupada(false);
         estadias.remove(estadiaActualizar);
     }

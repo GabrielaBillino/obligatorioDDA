@@ -102,4 +102,8 @@ public class Vehiculo implements Transitable, Validable {
         }
     }
 
+    public String getNombrePropietario() {
+        return propietario.getNombreCompleto();
+    }
+
 }

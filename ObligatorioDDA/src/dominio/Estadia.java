@@ -53,6 +53,11 @@ public class Estadia implements Validable {
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
+    
+    public String nombrePropietarioVehiculo(){
+         return getVehiculo().getNombrePropietario();
+    }
+            
 
     public List<Anomalia> getAnomalias() {
         return anomalias;
@@ -97,6 +102,7 @@ public class Estadia implements Validable {
             return 0;
         }
         Duration duration = Duration.between(horaEntrada, horaSalida);
+        System.out.println("***************duracion estadia!!!!!!" + duration.toMinutes());
         return duration.toMinutes();
     }
 

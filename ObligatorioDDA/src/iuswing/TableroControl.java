@@ -46,7 +46,7 @@ public class TableroControl
             Object[] row = {parking.getNombre(),
                 parking.calcularCocherasOcupadas(),
                 parking.calcularCocherasLibres(),
-                parking.getTendenciaActual().getNombre(),
+                parking.nombreTendenciaActual(),
                 parking.getFactorDemanda(),
                 parking.getEstadias().size(),
                 String.format("%.2f", parking.totalMultas()),
