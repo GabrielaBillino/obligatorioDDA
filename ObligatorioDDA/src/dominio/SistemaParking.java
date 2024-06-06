@@ -14,9 +14,8 @@ public class SistemaParking {
     private static List<Vehiculo> vehiculos = new ArrayList<>();
     
     public static void cargarParkings(List<Parking> parkingsParaAgregar) {
-        if (parkingsParaAgregar != null) {
-            parkings.addAll(parkingsParaAgregar);
-        }
+        parkings.addAll(parkingsParaAgregar);
+        
     }
     
     public static void cargarVehiculos(List<Vehiculo> vehiculosParaAgregar) {

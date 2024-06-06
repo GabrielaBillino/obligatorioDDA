@@ -102,18 +102,19 @@ public class Parking extends Observable
         return cocheras.size() - calcularCocherasOcupadas();
     }
 
-    public void ingresarVehiculo() {
-        ocupacion++;
-        actualizarTendencia(1);
-    }
+//    public void ingresarVehiculo() {
+//        ocupacion++;
+//        actualizarTendencia(1);
+//        
+//    }
 
-    public void egresarVehiculo() {
-        ocupacion--;
-        actualizarTendencia(-1);
-    }
+//    public void egresarVehiculo() {
+//        ocupacion--;
+//        actualizarTendencia(-1);
+//    }
 
     private void actualizarTendencia(int cambio) {
-        System.out.println("actualizarTendencia");
+       
         if (ingresosEgresos.size() >= 10) {
             ingresosEgresos.poll();
         }
@@ -121,8 +122,10 @@ public class Parking extends Observable
         ingresosEgresos.offer(cambio);
 
         int sumaIngresosEgresos = ingresosEgresos.stream().mapToInt(Integer::intValue).sum();
-        int diferenciaIngresosEgresos = Math.abs(sumaIngresosEgresos);
+        int diferenciaIngresosEgresos = sumaIngresosEgresos;
+        System.out.println("sumaIngresosEgresos "+sumaIngresosEgresos);
         System.out.println("diferenciaIngresosEgresos "+ diferenciaIngresosEgresos);
+        System.out.println("factor demanda " + tendenciaActual.getFactorDemanda());
         if (diferenciaIngresosEgresos <= 0.1 * capacidad) {
             tendenciaActual = new Estable(tendenciaActual.getFactorDemanda());
         } else if (sumaIngresosEgresos > 0) {
@@ -132,6 +135,7 @@ public class Parking extends Observable
         }
 
         tendenciaActual.actualizarFactorDemanda(ocupacion, capacidad, diferenciaIngresosEgresos);
+        System.out.println("tendencia actual "+ tendenciaActual.getNombre());
     }
 
     //TODO: Las horas hay que manejarlas correctamente.
@@ -151,11 +155,13 @@ public class Parking extends Observable
             estadia.setAnomalias(unaAnomalia);
             estadias.add(estadia); //Lo puse para mostrar HOUDINI
         } else {
+            actualizarTendencia(1);
+            ocupacion++;
             c.setOcupada(true);
             estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
             estadias.add(estadia);
 
-            System.out.println("tendenciaActual "+ tendenciaActual.getFactorDemanda());
+            System.out.println("tendenciaActual ingreso!!! "+ tendenciaActual.getFactorDemanda());
 //            // Aumentar la cuenta corriente del propietario
 //            Propietario propietario = v.getPropietario();
 //            if (propietario != null) {
@@ -240,9 +246,11 @@ public class Parking extends Observable
             estadiaMistery(horaEntrada, horaSalida, unaCochera, unVehiculo);
 
         } else if (estadia != null) { //Ingresa al if si existe una estadia para ese Vehiculo y Cochera
+            ocupacion--;
+            actualizarTendencia(-1);
             liberarEstadia(estadia, unVehiculo, unaCochera);
             estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
-            System.out.println("tendenciaActual salida "+ tendenciaActual.getFactorDemanda());
+            System.out.println("tendenciaActual salida!!! "+ tendenciaActual.getFactorDemanda());
         } else {  //Existe estadia para esa cochera y no es para ese vehiculo       
             estadiaTransportador1(codCochera);
             estadiaTransportador2(horaEntrada, horaSalida, unaCochera, unVehiculo);

@@ -18,6 +18,14 @@ public class Cochera  implements Estacionable{
         this.ocupada = estado;
         lastCodigo++;        
     }
+
+    public Cochera(String codigo,List<Etiqueta> et, boolean ocupada) {
+        this.codigo = codigo;
+        this.ocupada = ocupada;
+        this.etiquetas = et;
+    }
+    
+    
     
     public void setCodigo (String cod){
         this.codigo = cod;

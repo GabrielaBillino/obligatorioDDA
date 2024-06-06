@@ -171,7 +171,7 @@ public class Precarga {
 
         for (int i = 0; i < 100; i++) {
             // Genera el estado aleatorio (50% de probabilidad de estar libre u ocupada)
-            boolean estado = random.nextBoolean();
+            boolean estado = false;//random.nextBoolean();
 
             // Crea una lista de etiquetas aleatorias para la cochera
             List<Etiqueta> etiquetasCochera = new ArrayList<>();
@@ -181,31 +181,30 @@ public class Precarga {
                     etiquetasCochera.add(etiqueta);
                 }
             }
-
+            
             // Crea la cochera con el estado y etiquetas generadas
             Cochera cochera = new Cochera(estado);
             cochera.setEtiquetas(etiquetasCochera);
-
+            System.out.println("cochera estado "+ cochera.getOcupada());
             listCocherasEst.add(cochera);
         }
         return listCocherasEst;
     }
 
     public static List<Cochera> retornarCocheras(List<Estacionable> cocheras) {
-        List<Cochera> listaCocheras = new ArrayList();
+        List<Cochera> cocherasClonadas = new ArrayList();
         for (Estacionable c : cocheras) {
             Cochera unaCochera = (Cochera) c;
-            // unaCochera.setCodigo(c.getCodigo());
-
-            listaCocheras.add(unaCochera);
+            cocherasClonadas.add(new Cochera(unaCochera.retornarCodigo(), unaCochera.getEtiquetas(), unaCochera.getOcupada()));
+            
         }
 //        fachada.cargarCocheras(listaCocheras);
-        return listaCocheras;
+        return cocherasClonadas;
     }
 
-    public static void agregarCocheras(List<Cochera> cocherasCargar) {
-        fachada.cargarCocheras(cocherasCargar);
-    }
+//    public static void agregarCocheras(List<Cochera> cocherasCargar) {
+//        fachada.cargarCocheras(cocherasCargar);
+//    }
 
     public static List<Vehiculo> retornarVehiculosList(List<Transitable> vehiculos) {
         List<Vehiculo> listaVehiculos = new ArrayList();

@@ -76,13 +76,13 @@ public class inicio {
        List<Cochera> cocherasPre = Precarga.retornarCocheras(cocheras);
        
           //*********INGRESOS VEHICULOS EN PARKING PRIMERO EN LA LISTA******************       
-       precargarIngresoVehiculos(20, cocherasPre, vehiculosPre, parkings.get(0));       
+    //   precargarIngresoVehiculos(20, cocherasPre, vehiculosPre, parkings.get(0));       
        
        //*********INGRESOS VEHICULOS EN PARKING SEGUNDO EN LA LISTA******************     
-       precargarIngresoVehiculos(98, cocherasPre, vehiculosPre, parkings.get(1));
-       precargarEgresoVehiculos(8, cocherasPre, vehiculosPre, parkings.get(1));
+       precargarIngresoVehiculos(45, cocherasPre, vehiculosPre, parkings.get(1));
+       precargarEgresoVehiculos(1, cocherasPre, vehiculosPre, parkings.get(1));
        //*********INGRESOS VEHICULOS EN PARKING TERCER EN LA LISTA******************       
-       precargarIngresoVehiculos(50, cocherasPre, vehiculosPre, parkings.get(2));
+      // precargarIngresoVehiculos(50, cocherasPre, vehiculosPre, parkings.get(2));
        
        
        //******Mostrar vista principal******
@@ -96,6 +96,7 @@ public class inicio {
         for (int i = 0; i < cantidad; i++) {
             Cochera cochera = cocheras.get(i);
             Vehiculo vehiculo = vehiculos.get(i);
+            
             Precarga.ingresarVehiculo(cochera.retornarCodigo(), vehiculo.getPatente(), parking);
         }
     }
