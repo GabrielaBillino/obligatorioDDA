@@ -89,7 +89,7 @@ public class inicio {
   
       
        //*********INGRESOS VEHICULOS EN PARKING TERCER EN LA LISTA******************       
-       precargarIngresoVehiculos(20, cocherasPre, vehiculosPre, parkings.get(2));
+       precargarIngresoVehiculos(60, cocherasPre, vehiculosPre, parkings.get(2));
        precargarEgresoVehiculos(15, cocherasPre, vehiculosPre, parkings.get(2));
        
        //******Mostrar vista principal******

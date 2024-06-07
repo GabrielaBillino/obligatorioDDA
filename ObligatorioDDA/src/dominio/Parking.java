@@ -111,36 +111,31 @@ public class Parking extends Observable
 //        if (ingresosEgresos.size() >= 10) {
 //            ingresosEgresos.poll();
 //        }
-        ingresosEgresos.offer(cambio);
+        //ingresosEgresos.offer(cambio);
 
         //int sumaIngresosEgresos = ingresosEgresos.stream().mapToInt(Integer::intValue).sum();
         //int diferenciaIngresosEgresos = sumaIngresosEgresos;
         double porcentajeDiferencia = diferenciaIngresoEgreso() / (double) capacidad;
 
-        if (porcentajeDiferencia < 0) {
+        if (porcentajeDiferencia <= 0.1 && diferenciaIngresoEgreso() > 0) {
+            tendenciaActual = new Estable(tendenciaActual.getFactorDemanda());
+        } else if (diferenciaIngresoEgreso() > 0 && porcentajeDiferencia > 0.1) {
+            tendenciaActual = new Positiva(tendenciaActual.getFactorDemanda());
+        } else if (diferenciaIngresoEgreso() < 0 && porcentajeDiferencia < 0.1) {
             tendenciaActual = new Negativa(tendenciaActual.getFactorDemanda());
         }
-        if (porcentajeDiferencia <= 0.1) {
-            tendenciaActual = new Estable(tendenciaActual.getFactorDemanda());
-        } else if (porcentajeDiferencia > 0.1) {
-            tendenciaActual = new Positiva(tendenciaActual.getFactorDemanda());
-
-            tendenciaActual.actualizarFactorDemanda(ocupacion, capacidad, diferenciaIngresoEgreso());
-            System.out.println("tendencia actual " + tendenciaActual.getNombre());
-        }
+        tendenciaActual.actualizarFactorDemanda(ocupacion, capacidad, diferenciaIngresoEgreso());
+        System.out.println("tendencia actual " + tendenciaActual.getNombre());
     }
 
     private int diferenciaIngresoEgreso() {
         int ingresos = 0;
         int egresos = 0;
         LocalDateTime hace10minutos = LocalDateTime.now().minusMinutes(10);
-
         for (Estadia e : estadias) {
-            if (e.getHoraSalida() != null) {
-                if (e.getHoraSalida().isAfter(hace10minutos)) {
-                    ingresos++;
-                }
-            } else if (e.getHoraEntrada().isAfter(hace10minutos)) {
+            if (e.getHoraSalida() != null && e.getHoraSalida().isAfter(hace10minutos)) {
+                ingresos++;
+            } else if (e.getHoraEntrada() != null && e.getHoraEntrada().isAfter(hace10minutos)) {
                 egresos++;
             }
         }

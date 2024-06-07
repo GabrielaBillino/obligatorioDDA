@@ -171,7 +171,7 @@ public class Precarga {
 
         for (int i = 0; i < 100; i++) {
             // Genera el estado aleatorio (50% de probabilidad de estar libre u ocupada)
-            boolean estado = random.nextBoolean();
+            boolean estado = false; //random.nextBoolean();
 
             // Crea una lista de etiquetas aleatorias para la cochera
             List<Etiqueta> etiquetasCochera = new ArrayList<>();
