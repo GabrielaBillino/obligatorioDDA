@@ -11,6 +11,6 @@ public class PrincipalController {
     }
     
     public void mostrarTitulo(){
-        vista.mostrarTitulo("Simulador Parking");
+        vista.mostrarTitulo("Gestión Parkings");
     }
 }

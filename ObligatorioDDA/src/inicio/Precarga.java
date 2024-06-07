@@ -53,11 +53,11 @@ public class Precarga {
         tarifas2.add(t8);
 
         List<Parking> parkings = new ArrayList<>();
-        Parking parking1 = new Parking("the Best Parking", "Cuareim 1215", generarListaDeTarifas(), retornarCocheras(cocherasParkings));
+        Parking parking1 = new Parking("The Best Parking", "Cuareim 1215", generarListaDeTarifas(), retornarCocheras(cocherasParkings));
         parking1.Validar();
-        Parking parking2 = new Parking("the Best Parking2", "San José 2281", generarListaDeTarifas(), retornarCocheras(cocherasParkings));
+        Parking parking2 = new Parking("Parking 18", "San José 2281", generarListaDeTarifas(), retornarCocheras(cocherasParkings));
         parking2.Validar();
-        Parking parking3 = new Parking("the Best Parking3", "Av. Italia 1621", generarListaDeTarifas(), retornarCocheras(cocherasParkings));
+        Parking parking3 = new Parking("Parking King", "Av. Italia 1621", generarListaDeTarifas(), retornarCocheras(cocherasParkings));
         parking3.Validar();
 
         parkings.add(parking1);
@@ -171,7 +171,7 @@ public class Precarga {
 
         for (int i = 0; i < 100; i++) {
             // Genera el estado aleatorio (50% de probabilidad de estar libre u ocupada)
-            boolean estado = false; //random.nextBoolean();
+            boolean estado = random.nextBoolean();
 
             // Crea una lista de etiquetas aleatorias para la cochera
             List<Etiqueta> etiquetasCochera = new ArrayList<>();
@@ -185,7 +185,7 @@ public class Precarga {
             // Crea la cochera con el estado y etiquetas generadas
             Cochera cochera = new Cochera(estado);
             cochera.setEtiquetas(etiquetasCochera);
-            System.out.println("cochera estado "+ cochera.getOcupada());
+           
             listCocherasEst.add(cochera);
         }
         return listCocherasEst;

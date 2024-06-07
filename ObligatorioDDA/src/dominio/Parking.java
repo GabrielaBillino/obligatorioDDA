@@ -125,26 +125,32 @@ public class Parking extends Observable
             tendenciaActual = new Negativa(tendenciaActual.getFactorDemanda());
         }
         tendenciaActual.actualizarFactorDemanda(ocupacion, capacidad, diferenciaIngresoEgreso());
-        System.out.println("tendencia actual " + tendenciaActual.getNombre());
+        
     }
 
     private int diferenciaIngresoEgreso() {
         int ingresos = 0;
         int egresos = 0;
-        LocalDateTime hace10minutos = LocalDateTime.now().minusMinutes(10);
+        LocalDateTime ahora = LocalDateTime.now();
+        LocalDateTime hace10minutos = ahora.minusMinutes(10);
+        
         for (Estadia e : estadias) {
-            if (e.getHoraSalida() != null && e.getHoraSalida().isAfter(hace10minutos)) {
+            if (e.getHoraEntrada() != null && e.getHoraEntrada().isAfter(hace10minutos) && e.getHoraEntrada().isBefore(ahora)) {
                 ingresos++;
-            } else if (e.getHoraEntrada() != null && e.getHoraEntrada().isAfter(hace10minutos)) {
+            }
+
+            if (e.getHoraSalida() != null && e.getHoraSalida().isAfter(hace10minutos) && e.getHoraSalida().isBefore(ahora)) {
                 egresos++;
             }
         }
+       
+       
         return ingresos - egresos;
     }
 
     public void ingresarVehiculo(String codCochera, Vehiculo v) throws EstadiaException, AnomaliaException {
         Cochera c = retornarCochera(codCochera);
-        //Random random = new Random();
+      
         LocalDateTime horaEntrada = LocalDateTime.now();
         Estadia estadia = new Estadia(horaEntrada, c, v);
         estadia.Validar();
@@ -163,9 +169,6 @@ public class Parking extends Observable
             ocupacion++;
 
             actualizarTendencia(1); // Llamada al método para actualizar la tendencia con el cambio
-
-            System.out.println("Tendencia actual: " + tendenciaActual.getNombre());
-            System.out.println("Factor de demanda: " + tendenciaActual.getFactorDemanda());
 
             // Aumentar la cuenta corriente del propietario
             Propietario propietario = v.getPropietario();
