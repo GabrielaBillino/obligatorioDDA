@@ -79,11 +79,10 @@ public class Parking extends Observable
     public Tendencia getTendenciaActual() {
         return tendenciaActual;
     }
-    
-    public String nombreTendenciaActual(){
-         return tendenciaActual.getNombre();
+
+    public String nombreTendenciaActual() {
+        return tendenciaActual.getNombre();
     }
-            
 
     public int getOcupacion() {
         return ocupacion;
@@ -107,70 +106,80 @@ public class Parking extends Observable
         return cocheras.size() - calcularCocherasOcupadas();
     }
 
-
     private void actualizarTendencia(int cambio) {
-       
+
 //        if (ingresosEgresos.size() >= 10) {
 //            ingresosEgresos.poll();
 //        }
-
         ingresosEgresos.offer(cambio);
 
-        int sumaIngresosEgresos = ingresosEgresos.stream().mapToInt(Integer::intValue).sum();
-        int diferenciaIngresosEgresos = sumaIngresosEgresos;
-        System.out.println("sumaIngresosEgresos "+sumaIngresosEgresos);
-        System.out.println("diferenciaIngresosEgresos "+ diferenciaIngresosEgresos);
-        System.out.println("factor demanda " + tendenciaActual.getFactorDemanda());
-        
-        double porcentajeDiferencia = diferenciaIngresosEgresos / (double) capacidad;
-        System.out.println("porcentajeDiferencia "+porcentajeDiferencia);
-        
-        if (porcentajeDiferencia <= 0.1) {
-            tendenciaActual = new Estable(tendenciaActual.getFactorDemanda());
-        } else if (sumaIngresosEgresos > 0) {
-            tendenciaActual = new Positiva(tendenciaActual.getFactorDemanda());
-        } else {
+        //int sumaIngresosEgresos = ingresosEgresos.stream().mapToInt(Integer::intValue).sum();
+        //int diferenciaIngresosEgresos = sumaIngresosEgresos;
+        double porcentajeDiferencia = diferenciaIngresoEgreso() / (double) capacidad;
+
+        if (porcentajeDiferencia < 0) {
             tendenciaActual = new Negativa(tendenciaActual.getFactorDemanda());
         }
+        if (porcentajeDiferencia <= 0.1) {
+            tendenciaActual = new Estable(tendenciaActual.getFactorDemanda());
+        } else if (porcentajeDiferencia > 0.1) {
+            tendenciaActual = new Positiva(tendenciaActual.getFactorDemanda());
 
-        tendenciaActual.actualizarFactorDemanda(ocupacion, capacidad, diferenciaIngresosEgresos);
-        System.out.println("tendencia actual "+ tendenciaActual.getNombre());
+            tendenciaActual.actualizarFactorDemanda(ocupacion, capacidad, diferenciaIngresoEgreso());
+            System.out.println("tendencia actual " + tendenciaActual.getNombre());
+        }
+    }
+
+    private int diferenciaIngresoEgreso() {
+        int ingresos = 0;
+        int egresos = 0;
+        LocalDateTime hace10minutos = LocalDateTime.now().minusMinutes(10);
+
+        for (Estadia e : estadias) {
+            if (e.getHoraSalida() != null) {
+                if (e.getHoraSalida().isAfter(hace10minutos)) {
+                    ingresos++;
+                }
+            } else if (e.getHoraEntrada().isAfter(hace10minutos)) {
+                egresos++;
+            }
+        }
+        return ingresos - egresos;
     }
 
     public void ingresarVehiculo(String codCochera, Vehiculo v) throws EstadiaException, AnomaliaException {
-    Cochera c = retornarCochera(codCochera);
-    //Random random = new Random();
-    LocalDateTime horaEntrada = LocalDateTime.now();
-    Estadia estadia = new Estadia(horaEntrada, c, v);
-    estadia.Validar();
+        Cochera c = retornarCochera(codCochera);
+        //Random random = new Random();
+        LocalDateTime horaEntrada = LocalDateTime.now();
+        Estadia estadia = new Estadia(horaEntrada, c, v);
+        estadia.Validar();
 
-    if (c.getOcupada()) {
-        Anomalia unaAnomalia = new Anomalia("HOUDINI");
-        unaAnomalia.Validar();
-        estadia.setFechaSalida(null);
-        estadia.setHoraEntrada(null);
-        estadia.setAnomalias(unaAnomalia);
-        estadias.add(estadia);
-    } else {
-        c.setOcupada(true);
-        estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
-        estadias.add(estadia);
-        ocupacion++;
+        if (c.getOcupada()) {
+            Anomalia unaAnomalia = new Anomalia("HOUDINI");
+            unaAnomalia.Validar();
+            estadia.setFechaSalida(null);
+            estadia.setHoraEntrada(null);
+            estadia.setAnomalias(unaAnomalia);
+            estadias.add(estadia);
+        } else {
+            c.setOcupada(true);
+            estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
+            estadias.add(estadia);
+            ocupacion++;
 
-        actualizarTendencia(1); // Llamada al método para actualizar la tendencia con el cambio
+            actualizarTendencia(1); // Llamada al método para actualizar la tendencia con el cambio
 
-        System.out.println("Tendencia actual: " + tendenciaActual.getNombre());
-        System.out.println("Factor de demanda: " + tendenciaActual.getFactorDemanda());
-        
-        // Aumentar la cuenta corriente del propietario
-           Propietario propietario = v.getPropietario();
-           if (propietario != null) {
-               double valorEstadia = estadia.getValorEstadia();
-               propietario.aumentarSaldo(valorEstadia);
-           }
+            System.out.println("Tendencia actual: " + tendenciaActual.getNombre());
+            System.out.println("Factor de demanda: " + tendenciaActual.getFactorDemanda());
+
+            // Aumentar la cuenta corriente del propietario
+            Propietario propietario = v.getPropietario();
+            if (propietario != null) {
+                double valorEstadia = estadia.getValorEstadia();
+                propietario.aumentarSaldo(valorEstadia);
+            }
+        }
     }
-}
-
 
     private Cochera retornarCochera(String codCochera) {
         for (Cochera c : cocheras) {
@@ -235,12 +244,11 @@ public class Parking extends Observable
     public void egresarVehiculo(String codCochera, Vehiculo unVehiculo) throws EstadiaException, AnomaliaException {
         Cochera unaCochera = retornarCochera(codCochera);
 
-       // Random random = new Random();
-
+        // Random random = new Random();
         LocalDateTime horaEntrada = LocalDateTime.now();//LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
         LocalDateTime horaSalida = horaEntrada.plus(30, ChronoUnit.MINUTES);//LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12) + 12, random.nextInt(60), random.nextInt(60)));
-       
-        System.out.println("horasalida "+horaSalida);
+
+        System.out.println("horasalida " + horaSalida);
 
         Estadia estadia = obtenerEstadia(codCochera, unVehiculo); //Machea vehiculo y cochera en estadia
 
@@ -251,12 +259,9 @@ public class Parking extends Observable
             ocupacion--;
             actualizarTendencia(-1);
             liberarEstadia(estadia, unVehiculo, unaCochera, horaSalida);
-           
-            System.out.println("tendenciaActual salida!!! "+ tendenciaActual.getFactorDemanda());
         } else {  //Existe estadia para esa cochera y no es para ese vehiculo       
             estadiaTransportador1(codCochera);
-            estadiaTransportador2(horaEntrada, horaEntrada, unaCochera, unVehiculo);
-
+            estadiaTransportador2(unVehiculo);
         }
     }
 
@@ -279,7 +284,7 @@ public class Parking extends Observable
     }
 
     private void estadiaMistery(LocalDateTime horaEntrada, LocalDateTime horaSalida, Cochera unaCochera, Vehiculo unVehiculo) throws EstadiaException, AnomaliaException {
-        Estadia estadiaNueva = new Estadia(horaEntrada,  unaCochera, unVehiculo);
+        Estadia estadiaNueva = new Estadia(horaEntrada, unaCochera, unVehiculo);
         estadiaNueva.setFechaSalida(horaSalida);
         estadiaNueva.Validar();
         Anomalia unaAnomalia = new Anomalia("MISTERY");
@@ -288,7 +293,7 @@ public class Parking extends Observable
         estadias.add(estadiaNueva);
     }
 
-    private void liberarEstadia(Estadia estadiaActualizar, Vehiculo unVehiculo, Cochera unaCochera,  LocalDateTime horaSalida) {
+    private void liberarEstadia(Estadia estadiaActualizar, Vehiculo unVehiculo, Cochera unaCochera, LocalDateTime horaSalida) {
         Propietario propietario = unVehiculo.getPropietario();
         if (propietario != null) {
             double valorEstadia = estadiaActualizar.getValorEstadia();
@@ -297,7 +302,6 @@ public class Parking extends Observable
         estadiaActualizar.setFechaSalida(horaSalida);
         estadiaActualizar.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
         unaCochera.setOcupada(false);
-        estadias.remove(estadiaActualizar);
     }
 
     private void estadiaTransportador1(String codCochera) throws AnomaliaException {
@@ -307,18 +311,15 @@ public class Parking extends Observable
             anomalia1.Validar();
             estadiaSinVh.setAnomalias(anomalia1);
         }
-
     }
 
-    private void estadiaTransportador2(LocalDateTime horaEntrada, LocalDateTime horaSalida, Cochera unaCochera, Vehiculo unVehiculo) throws EstadiaException, AnomaliaException {
-        Estadia estadiaN = new Estadia(horaEntrada,unaCochera, unVehiculo);
-        estadiaN.setFechaSalida(horaSalida);
-        estadiaN.Validar();
-        Anomalia anomalia2 = new Anomalia("TRANSPORTADOR2");
-        anomalia2.Validar();
-        estadiaN.setAnomalias(anomalia2);
-        estadiaN.setFechaSalida(horaSalida);
-        estadias.add(estadiaN);
+    private void estadiaTransportador2(Vehiculo unVehiculo) throws EstadiaException, AnomaliaException {
+        Estadia estadiaN = buscarEstadiaPorVehiculo(unVehiculo);
+        if (estadiaN != null) {
+            Anomalia anomalia2 = new Anomalia("TRANSPORTADOR2");
+            anomalia2.Validar();
+            estadiaN.setAnomalias(anomalia2);
+        }
     }
 
     @Override
@@ -351,6 +352,15 @@ public class Parking extends Observable
         if (cocheras == null) {
             throw new ParkingException("La lista de cocheras no puede ser nula.");
         }
+    }
+
+    private Estadia buscarEstadiaPorVehiculo(Vehiculo unVehiculo) {
+        for (Estadia e : estadias) {
+            if (e.getVehiculo().getPatente().equals(unVehiculo.getPatente()) && e.getHoraSalida() == null) {
+                return e;
+            }
+        }
+        return null;
     }
 
 }

@@ -13,6 +13,7 @@ import excepciones.VehiculoException;
 import iuswing.Principal;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Random;
 import simuladortransito.ConfiguracionException;
 import simuladortransito.Estacionable;
 import simuladortransito.FlujoEgreso;
@@ -28,7 +29,8 @@ public class inicio {
 
   
     private static SimuladorTransito simulador;
-   
+       private static final Random random = new Random();
+
     
     public static void main(String[] args) throws VehiculoException, EstadiaException, PropietarioException, ParkingException, AnomaliaException, TarifaException {
         
@@ -82,7 +84,7 @@ public class inicio {
                    
         precargarIngresoVehiculos(50, cocherasPre, vehiculosPre, parkings.get(1));
         precargarIngresoVehiculos(20, cocherasPre, vehiculosPre, parkings.get(1));
-        precargarEgresoVehiculos(25, cocherasPre, vehiculosPre, parkings.get(1));
+        precargarEgresoVehiculos(60, cocherasPre, vehiculosPre, parkings.get(1));
 
   
       
@@ -99,17 +101,16 @@ public class inicio {
     
     public static void precargarIngresoVehiculos(int cantidad, List<Cochera> cocheras, List<Vehiculo> vehiculos, Parking parking) throws EstadiaException, AnomaliaException {
         for (int i = 0; i < cantidad; i++) {
-            Cochera cochera = cocheras.get(i);
-            Vehiculo vehiculo = vehiculos.get(i);
-            
+            Cochera cochera = cocheras.get(random.nextInt(cocheras.size()));
+            Vehiculo vehiculo = vehiculos.get(random.nextInt(vehiculos.size()));
             Precarga.ingresarVehiculo(cochera.retornarCodigo(), vehiculo.getPatente(), parking);
         }
     }
-    
+
     public static void precargarEgresoVehiculos(int cantidad, List<Cochera> cocheras, List<Vehiculo> vehiculos, Parking parking) throws EstadiaException, AnomaliaException {
         for (int i = 0; i < cantidad; i++) {
-            Cochera cochera = cocheras.get(i);
-            Vehiculo vehiculo = vehiculos.get(i);
+            Cochera cochera = cocheras.get(random.nextInt(cocheras.size()));
+            Vehiculo vehiculo = vehiculos.get(random.nextInt(vehiculos.size()));
             Precarga.egresarVehiculo(cochera.retornarCodigo(), vehiculo.getPatente(), parking);
         }
     }

@@ -8,7 +8,7 @@ public class Negativa extends Estable{
         this.nombre = "Negativa";
     }
 
-       
+     
      @Override
     public void actualizarFactorDemanda(int ocupacion, int capacidad, int diferenciaIngresosEgresos) {
 //         if (diferenciaIngresosEgresos < 0) {
@@ -18,6 +18,7 @@ public class Negativa extends Estable{
 //                factorDemanda = Math.max(0.25, factorDemanda - 0.05);
 //            }
 //        }
+        
         if (this.factorDemanda > 1) {
             this.factorDemanda = 1;
         } else if (this.factorDemanda > 0.25) {

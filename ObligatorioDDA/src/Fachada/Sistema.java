@@ -2,7 +2,6 @@ package Fachada;
 
 import Utilidades.Observable;
 import dominio.Cochera;
-import dominio.SistemaEstadia;
 import dominio.SistemaParking;
 import dominio.Parking;
 import dominio.Vehiculo;
@@ -16,7 +15,6 @@ public class Sistema extends Observable{
     
     private static Sistema instancia = new Sistema();
     private static SistemaParking controladorParking = new SistemaParking();
-    private SistemaEstadia controladorEstadia = new SistemaEstadia();
 
 
     public static Sistema getInstancia() {
