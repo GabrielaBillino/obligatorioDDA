@@ -82,9 +82,9 @@ public class inicio {
        
        //*********INGRESOS VEHICULOS EN PARKING SEGUNDO EN LA LISTA******************     
                    
-        precargarIngresoVehiculos(50, cocherasPre, vehiculosPre, parkings.get(1));
-      //  precargarIngresoVehiculos(20, cocherasPre, vehiculosPre, parkings.get(1));
-        precargarEgresoVehiculos(60, cocherasPre, vehiculosPre, parkings.get(1));
+        precargarIngresoVehiculos(10, cocherasPre, vehiculosPre, parkings.get(1));
+        precargarIngresoVehiculos(20, cocherasPre, vehiculosPre, parkings.get(1));
+        precargarEgresoVehiculos(15, cocherasPre, vehiculosPre, parkings.get(1));
 
   
       

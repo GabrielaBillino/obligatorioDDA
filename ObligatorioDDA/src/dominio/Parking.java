@@ -22,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Parking extends Observable
         implements Validable {
@@ -107,14 +108,6 @@ public class Parking extends Observable
     }
 
     private void actualizarTendencia(int cambio) {
-
-//        if (ingresosEgresos.size() >= 10) {
-//            ingresosEgresos.poll();
-//        }
-        //ingresosEgresos.offer(cambio);
-
-        //int sumaIngresosEgresos = ingresosEgresos.stream().mapToInt(Integer::intValue).sum();
-        //int diferenciaIngresosEgresos = sumaIngresosEgresos;
         double porcentajeDiferencia = diferenciaIngresoEgreso() / (double) capacidad;
 
         if (porcentajeDiferencia <= 0.1 && diferenciaIngresoEgreso() > 0) {
@@ -243,15 +236,15 @@ public class Parking extends Observable
         Cochera unaCochera = retornarCochera(codCochera);
 
         // Random random = new Random();
-        LocalDateTime horaEntrada = LocalDateTime.now();//LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12), random.nextInt(60), random.nextInt(60)));
-        LocalDateTime horaSalida = horaEntrada.plus(30, ChronoUnit.MINUTES);//LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12) + 12, random.nextInt(60), random.nextInt(60)));
-
-        System.out.println("horasalida " + horaSalida);
+        LocalDateTime horaEntrada = LocalDateTime.now();
+        long randomMinutes = ThreadLocalRandom.current().nextLong(1, 60);
+        LocalDateTime horaSalida = horaEntrada.plus(randomMinutes, ChronoUnit.MINUTES);
+        // = horaEntrada.plus(30, ChronoUnit.MINUTES);//LocalDateTime.of(LocalDate.now(), LocalTime.of(random.nextInt(12) + 12, random.nextInt(60), random.nextInt(60)));
 
         Estadia estadia = obtenerEstadia(codCochera, unVehiculo); //Machea vehiculo y cochera en estadia
 
         if (!unaCochera.getOcupada()) { //Cochera libre
-            estadiaMistery(horaEntrada, horaEntrada, unaCochera, unVehiculo);
+            estadiaMistery(horaEntrada, horaSalida, unaCochera, unVehiculo);
 
         } else if (estadia != null) { //Ingresa al if si existe una estadia para ese Vehiculo y Cochera
             ocupacion--;
