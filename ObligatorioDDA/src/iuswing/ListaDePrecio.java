@@ -181,7 +181,7 @@ public class ListaDePrecio
 
     @Override
     public void mostrarMensajeError(String mensaje) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.INFORMATION_MESSAGE);                   
     }
 
 }

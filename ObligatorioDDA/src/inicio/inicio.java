@@ -1,6 +1,7 @@
 package inicio;
 
 import dominio.Cochera;
+import dominio.Estadia;
 import dominio.Parking;
 import dominio.SensorParking;
 import dominio.Vehiculo;
@@ -11,6 +12,8 @@ import excepciones.PropietarioException;
 import excepciones.TarifaException;
 import excepciones.VehiculoException;
 import iuswing.Principal;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
@@ -27,17 +30,15 @@ import simuladortransito.Transitable;
 
 public class inicio {
 
-  
     private static SimuladorTransito simulador;
-       private static final Random random = new Random();
+    private static final Random random = new Random();
 
-    
     public static void main(String[] args) throws VehiculoException, EstadiaException, PropietarioException, ParkingException, AnomaliaException, TarifaException {
-        
-       //1. Configurar simulador
-       List<Transitable> vehiculos = Precarga.cargarVehiculos();
-       List<Estacionable> cocheras = Precarga.cargarCocheras();
-   /*    
+
+        //1. Configurar simulador
+        List<Transitable> vehiculos = Precarga.cargarVehiculos();
+        List<Estacionable> cocheras = Precarga.cargarCocheras();
+        /*    
        simulador = SimuladorTransito.getInstancia();
        simulador.addTransitables(vehiculos);
        simulador.addEstacionables(cocheras);
@@ -69,36 +70,30 @@ public class inicio {
         } catch (ConfiguracionException ex) {
             ex.printStackTrace();
         }
-           */  
-       
-       
-       
-       List<Parking> parkings = Precarga.cargarParkingsSimulador(cocheras);
-       List<Vehiculo> vehiculosPre = Precarga.retornarVehiculosList(vehiculos);
-       List<Cochera> cocherasPre = Precarga.retornarCocheras(cocheras);
-       
-          //*********INGRESOS VEHICULOS EN PARKING PRIMERO EN LA LISTA******************       
-       precargarIngresoVehiculos(20, cocherasPre, vehiculosPre, parkings.get(0));       
-       
-       //*********INGRESOS VEHICULOS EN PARKING SEGUNDO EN LA LISTA******************     
-                   
+         */
+
+        List<Parking> parkings = Precarga.cargarParkingsSimulador(cocheras);
+        List<Vehiculo> vehiculosPre = Precarga.retornarVehiculosList(vehiculos);
+        List<Cochera> cocherasPre = Precarga.retornarCocheras(cocheras);
+
+        //*********INGRESOS VEHICULOS EN PARKING PRIMERO EN LA LISTA******************       
+        precargarIngresoVehiculos(40, cocherasPre, vehiculosPre, parkings.get(0));
+
+        //*********INGRESOS VEHICULOS EN PARKING SEGUNDO EN LA LISTA******************     
         precargarIngresoVehiculos(10, cocherasPre, vehiculosPre, parkings.get(1));
-        precargarIngresoVehiculos(20, cocherasPre, vehiculosPre, parkings.get(1));
+        precargarIngresoVehiculos(15, cocherasPre, vehiculosPre, parkings.get(1));
         precargarEgresoVehiculos(15, cocherasPre, vehiculosPre, parkings.get(1));
 
-  
-      
-       //*********INGRESOS VEHICULOS EN PARKING TERCER EN LA LISTA******************       
-       precargarIngresoVehiculos(60, cocherasPre, vehiculosPre, parkings.get(2));
-       precargarEgresoVehiculos(15, cocherasPre, vehiculosPre, parkings.get(2));
-       
-       //******Mostrar vista principal******
-       Principal principal = new Principal(parkings);
-       principal.setVisible(true);
-        
+        //*********INGRESOS VEHICULOS EN PARKING TERCER EN LA LISTA******************       
+        precargarIngresoVehiculos(20, cocherasPre, vehiculosPre, parkings.get(2));
+        precargarEgresoVehiculos(10, cocherasPre, vehiculosPre, parkings.get(2));
+
+        //******Mostrar vista principal******
+        Principal principal = new Principal(parkings);
+        principal.setVisible(true);
+
     }
-    
-    
+
     public static void precargarIngresoVehiculos(int cantidad, List<Cochera> cocheras, List<Vehiculo> vehiculos, Parking parking) throws EstadiaException, AnomaliaException {
         for (int i = 0; i < cantidad; i++) {
             Cochera cochera = cocheras.get(random.nextInt(cocheras.size()));

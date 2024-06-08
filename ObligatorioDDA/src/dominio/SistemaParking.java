@@ -13,20 +13,19 @@ public class SistemaParking {
     private static List<Cochera> cocheras = new ArrayList<>();
     private static List<Vehiculo> vehiculos = new ArrayList<>();
     
-    public static void cargarParkings(List<Parking> parkingsParaAgregar) {
+    public void cargarParkings(List<Parking> parkingsParaAgregar) {
         parkings.addAll(parkingsParaAgregar);
-        
     }
     
-    public static void cargarVehiculos(List<Vehiculo> vehiculosParaAgregar) {
+    public void cargarVehiculos(List<Vehiculo> vehiculosParaAgregar) {
         vehiculos.addAll(vehiculosParaAgregar);
     } 
     
-    public static void cargarCocheras(List<Cochera> cocherasParaAgregar) {
+    public void cargarCocheras(List<Cochera> cocherasParaAgregar) {
         cocheras.addAll(cocherasParaAgregar);
     }
 
-    public static void ingresarVehiculo(String c, String v, Parking p) throws EstadiaException, AnomaliaException {
+    public void ingresarVehiculo(String c, String v, Parking p) throws EstadiaException, AnomaliaException {
        Vehiculo vh = retornarVehiculo(v);
        p.ingresarVehiculo(c,vh);
     }

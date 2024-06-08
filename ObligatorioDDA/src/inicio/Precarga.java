@@ -169,7 +169,7 @@ public class Precarga {
         Etiqueta[] etiquetas = {new Discapacitado(), new Electrico(), new Empleado()};
         Random random = new Random();
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 50; i++) {
             // Genera el estado aleatorio (50% de probabilidad de estar libre u ocupada)
             boolean estado = random.nextBoolean();
 
