@@ -146,39 +146,55 @@ public class Parking extends Observable
 
     public void ingresarVehiculo(String codCochera, Vehiculo v) throws EstadiaException, AnomaliaException {
         Cochera c = retornarCochera(codCochera);
-
+        //Se crea estadia nueva para esa cochera y vehiculo.
         LocalDateTime horaEntrada = LocalDateTime.now();
         Estadia estadia = new Estadia(horaEntrada, c, v);
         estadia.Validar();
-
-        System.out.println("Intentando ingresar vehiculo " + v + " en la cochera " + codCochera);
+            
+        System.out.println("Intentando ingresar vehiculo " + v.getPatente() + " en la cochera " + codCochera);
         if (c.getOcupada()) {
             System.out.println("Inconsistencia detectada para cochera: " + codCochera + ". Registrando anomalia HOUDINI.");
             Anomalia unaAnomalia = new Anomalia("HOUDINI");
             unaAnomalia.Validar();
-            estadia.setFechaSalida(null);
-            estadia.setHoraEntrada(null);
-            estadia.setAnomalias(unaAnomalia);
-            estadias.add(estadia);
+            //Se obtiene la estadia que tiene a la cochera que se quiere ingresar.
+            Estadia estadiaConCochera = obtenerEstadiaSinVehiculo(codCochera);
+            if(estadiaConCochera != null){
+                System.out.println("Se obtiene la estadia donde está la cochera ocupada");
+                estadiaConCochera.setFechaSalida(null);
+                estadiaConCochera.setHoraEntrada(null);
+                estadiaConCochera.setAnomalias(unaAnomalia);  
+                
+                //Se sigue el curso normal para esa cochera y vehiculo como indica el curso alternativo
+                //del caso de uso
+               cursoNormalIngresoVehiculo(c, v);     
+            }           
         } else {
-            System.out.println("Se realiza ingreso del vehiculo " + v + " en la cochera " + codCochera);
-            c.setOcupada(true);
-            estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
-            estadias.add(estadia);
-            ocupacion++;
-
-            actualizarTendencia(); // Llamada al método para actualizar la tendencia con el cambio
-
-            // Aumentar la cuenta corriente del propietario
-            Propietario propietario = v.getPropietario();
-            if (propietario != null) {
-                double valorEstadia = estadia.getValorEstadia();
-                propietario.aumentarSaldo(valorEstadia);
-            }
+            cursoNormalIngresoVehiculo(c, v);
         }
     }
     
+    private void cursoNormalIngresoVehiculo(Cochera cocheraEncontrada, Vehiculo v) throws EstadiaException{
+     
+         //Se crea estadia nueva para esa cochera y vehiculo.
+        LocalDateTime horaEntrada = LocalDateTime.now();
+        Estadia estadia = new Estadia(horaEntrada, cocheraEncontrada, v);
+        estadia.Validar();
+        System.out.println("Se realiza ingreso del vehiculo " + v.getPatente() + " en la cochera " + cocheraEncontrada.retornarCodigo());
+        cocheraEncontrada.setOcupada(true);
+        estadia.setFactorDemandaIngreso(tendenciaActual.getFactorDemanda());
+        estadias.add(estadia);
+        ocupacion++;
 
+        actualizarTendencia(); // Llamada al método para actualizar la tendencia con el cambio
+
+        // Aumentar la cuenta corriente del propietario
+        Propietario propietario = v.getPropietario();
+        if (propietario != null) {
+            double valorEstadia = estadia.getValorEstadia();
+            propietario.aumentarSaldo(valorEstadia);
+        }    
+    }
+    
     private Cochera retornarCochera(String codCochera) {
         for (Cochera c : cocheras) {
             if (c.retornarCodigo().equals(codCochera)) {
@@ -244,7 +260,7 @@ public class Parking extends Observable
 
         // Generar hora de salida aleatoria para simular el tiempo de estadía
         LocalDateTime horaEntrada = LocalDateTime.now();
-        long randomMinutes = ThreadLocalRandom.current().nextLong(1, 60);
+        long randomMinutes = ThreadLocalRandom.current().nextLong(1, 30);
         LocalDateTime horaSalida = horaEntrada.plus(randomMinutes, ChronoUnit.MINUTES);
 
         Estadia estadia = obtenerEstadia(codCochera, unVehiculo);
