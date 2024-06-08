@@ -181,7 +181,7 @@ public class ListaDePrecio
 
     @Override
     public void mostrarMensajeError(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.INFORMATION_MESSAGE);                   
+        JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);                   
     }
 
 }
