@@ -7,8 +7,7 @@ import java.util.List;
 import simuladortransito.Estacionable;
 
 public class Cochera  implements Estacionable{
-    private String codigo;
-    //private String estado;
+    private String codigo;  
     private boolean ocupada;
     private List<Etiqueta> etiquetas = new ArrayList<>();
     private static int  lastCodigo = 1;
@@ -76,7 +75,8 @@ public class Cochera  implements Estacionable{
         Cochera other = (Cochera) obj;
         return this.codigo.equals(other.codigo);
     }
-    
+
+ 
     
     
    }

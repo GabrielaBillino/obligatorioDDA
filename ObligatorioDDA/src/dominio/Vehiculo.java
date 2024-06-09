@@ -29,6 +29,10 @@ public class Vehiculo implements Transitable, Validable {
         return patente;
     }
 
+    public String retornarPatente() {
+        return patente;
+    }
+    
     public TipoVehiculo getTipoVehiculo() {
         return tipoVehiculo;
     }

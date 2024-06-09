@@ -12,11 +12,11 @@ public class CuentaCorriente {
         return saldo;
     }
 
-    public void aumentarSaldo(double monto) {
-        this.saldo += monto;
+    public void disminuirSaldo(double valorEstadia) {
+        this.saldo -= valorEstadia;
     }
 
-    void disminuirSaldo(double valorEstadia) {
-        this.saldo -= valorEstadia;
+    public void setSaldo(double saldo) {
+      this.saldo = saldo;
     }
 }

@@ -32,7 +32,7 @@ public class SistemaParking {
 
     private static Vehiculo retornarVehiculo(String patente){
         for(Vehiculo v : vehiculos){
-            if(v.getPatente().equals(patente)){
+            if(v.retornarPatente().equals(patente)){
                 return v;
             }
         }

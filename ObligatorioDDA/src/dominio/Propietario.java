@@ -35,10 +35,6 @@ public class Propietario implements Validable {
         return cuentaCorriente;
     }
 
-    public void aumentarSaldo(double monto) {
-        this.cuentaCorriente.aumentarSaldo(monto);
-    }
-
     public void agregarVehiculo(Vehiculo vehiculo) {
         this.vehiculos.add(vehiculo);
     }
@@ -70,6 +66,11 @@ public class Propietario implements Validable {
         if (vehiculos == null) {
             throw new PropietarioException("La lista de vehículos del propietario no puede ser nula.");
         }
+    }
+
+    public void setSaldo(double saldo) {
+        cuentaCorriente.setSaldo(saldo);
+                
     }
 
 }

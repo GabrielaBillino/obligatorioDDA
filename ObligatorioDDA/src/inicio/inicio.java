@@ -12,9 +12,6 @@ import excepciones.PropietarioException;
 import excepciones.TarifaException;
 import excepciones.VehiculoException;
 import iuswing.Principal;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 import simuladortransito.ConfiguracionException;
@@ -38,7 +35,7 @@ public class inicio {
         //1. Configurar simulador
         List<Transitable> vehiculos = Precarga.cargarVehiculos();
         List<Estacionable> cocheras = Precarga.cargarCocheras();
-        /*    
+            
        simulador = SimuladorTransito.getInstancia();
        simulador.addTransitables(vehiculos);
        simulador.addEstacionables(cocheras);
@@ -47,11 +44,6 @@ public class inicio {
             //Agrego ingresos y egresos
             simulador.programar(new FlujoIngreso("I1",new Periodo(3,10), 20));
             simulador.programar(new FlujoEgreso("E1",new Periodo(15,10), 20));
-//            LinkedHashMap<Transitable, Estacionable> preasignacion = new LinkedHashMap();
-//                        listaIngresos.put(vehiculo1, cocheraA);
-//                        listaIngresos.put(vehiculo2, cocheraB);
-//                        listaIngresos.put(vehiculo3, cocheraC);
-//            simulador.programar(new FlujoIngreso("ingreso", new Periodo(0, 1), preasignacion));
 
             PerfilEgreso perfilConAnomalia = new PerfilEgreso.Builder()                    
                             .generarAnomalia(Modo.SIEMPRE)
@@ -70,43 +62,62 @@ public class inicio {
         } catch (ConfiguracionException ex) {
             ex.printStackTrace();
         }
-         */
+         
+        try {
+             List<Parking> parkings = Precarga.cargarParkingsSimulador(cocheras);
+             List<Vehiculo> vehiculosPre = Precarga.retornarVehiculosList(vehiculos);
+             List<Cochera> cocherasPre = Precarga.retornarCocheras(cocheras);
 
-        List<Parking> parkings = Precarga.cargarParkingsSimulador(cocheras);
-        List<Vehiculo> vehiculosPre = Precarga.retornarVehiculosList(vehiculos);
-        List<Cochera> cocherasPre = Precarga.retornarCocheras(cocheras);
+            //*********INGRESOS VEHICULOS EN PARKING PRIMERO EN LA LISTA******************       
+            precargarIngresoVehiculos(40, cocherasPre, vehiculosPre, parkings.get(0));
 
-        //*********INGRESOS VEHICULOS EN PARKING PRIMERO EN LA LISTA******************       
-        precargarIngresoVehiculos(40, cocherasPre, vehiculosPre, parkings.get(0));
+            //*********INGRESOS VEHICULOS EN PARKING SEGUNDO EN LA LISTA******************     
+            precargarIngresoVehiculos(60, cocherasPre, vehiculosPre, parkings.get(1));
+            Precarga.ingresarVehiculo(cocherasPre.get(48).retornarCodigo(), vehiculosPre.get(78).retornarPatente(), parkings.get(1));
+            Precarga.egresarVehiculo(cocherasPre.get(48).retornarCodigo(), vehiculosPre.get(78).retornarPatente(), parkings.get(1));
+            //precargarIngresoVehiculos(15, cocherasPre, vehiculosPre, parkings.get(1));
+            precargarEgresoVehiculos(30, cocherasPre, vehiculosPre, parkings.get(1));
 
-        //*********INGRESOS VEHICULOS EN PARKING SEGUNDO EN LA LISTA******************     
-        precargarIngresoVehiculos(10, cocherasPre, vehiculosPre, parkings.get(1));
-        precargarIngresoVehiculos(15, cocherasPre, vehiculosPre, parkings.get(1));
-        precargarEgresoVehiculos(15, cocherasPre, vehiculosPre, parkings.get(1));
+            //*********INGRESOS VEHICULOS EN PARKING TERCER EN LA LISTA******************       
+            precargarIngresoVehiculos(40, cocherasPre, vehiculosPre, parkings.get(2));
+            precargarEgresoVehiculos(20, cocherasPre, vehiculosPre, parkings.get(2));
+            precargarIngresoVehiculos(2, cocherasPre, vehiculosPre, parkings.get(2));
 
-        //*********INGRESOS VEHICULOS EN PARKING TERCER EN LA LISTA******************       
-        precargarIngresoVehiculos(20, cocherasPre, vehiculosPre, parkings.get(2));
-        precargarEgresoVehiculos(10, cocherasPre, vehiculosPre, parkings.get(2));
+            //******Mostrar vista principal******
+            Principal principal = new Principal(parkings);
+            principal.setVisible(true);
 
-        //******Mostrar vista principal******
-        Principal principal = new Principal(parkings);
-        principal.setVisible(true);
-
+        } catch (ParkingException | TarifaException  pE) {
+            System.out.println(pE.getMessage());
+        }
+        
+      
+      
     }
 
     public static void precargarIngresoVehiculos(int cantidad, List<Cochera> cocheras, List<Vehiculo> vehiculos, Parking parking) throws EstadiaException, AnomaliaException {
-        for (int i = 0; i < cantidad; i++) {
-            Cochera cochera = cocheras.get(random.nextInt(cocheras.size()));
-            Vehiculo vehiculo = vehiculos.get(random.nextInt(vehiculos.size()));
-            Precarga.ingresarVehiculo(cochera.retornarCodigo(), vehiculo.getPatente(), parking);
+        try {
+            for (int i = 0; i < cantidad; i++) {
+                Cochera cochera = cocheras.get(random.nextInt(cocheras.size()));
+                Vehiculo vehiculo = vehiculos.get(random.nextInt(vehiculos.size()));
+                Precarga.ingresarVehiculo(cochera.retornarCodigo(), vehiculo.retornarPatente(), parking);
+            }
+        } catch (EstadiaException | AnomaliaException e) {
+            System.out.println(e.getMessage());
         }
+        
     }
 
     public static void precargarEgresoVehiculos(int cantidad, List<Cochera> cocheras, List<Vehiculo> vehiculos, Parking parking) throws EstadiaException, AnomaliaException {
-        for (int i = 0; i < cantidad; i++) {
-            Cochera cochera = cocheras.get(random.nextInt(cocheras.size()));
-            Vehiculo vehiculo = vehiculos.get(random.nextInt(vehiculos.size()));
-            Precarga.egresarVehiculo(cochera.retornarCodigo(), vehiculo.getPatente(), parking);
+        try {
+            for (int i = 0; i < cantidad; i++) {
+                Cochera cochera = cocheras.get(random.nextInt(cocheras.size()));
+                Vehiculo vehiculo = vehiculos.get(random.nextInt(vehiculos.size()));
+                Precarga.egresarVehiculo(cochera.retornarCodigo(), vehiculo.retornarPatente(), parking);
+            }
+        } catch (EstadiaException | AnomaliaException e) {
+            System.out.println(e.getMessage());
         }
+       
     }
 }

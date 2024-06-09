@@ -50,4 +50,8 @@ public class CarteleraController
            
         }
     }
+  
+    public void quitar() {
+        fachada.quitar(this);
+    }
 }

@@ -156,6 +156,8 @@ public class Precarga {
             String nombreCompleto = nombres[random.nextInt(nombres.length)] + " " + apellidos[random.nextInt(apellidos.length)];
             List<Vehiculo> vehiculos = new ArrayList<>();
             Propietario propietario = new Propietario(cedula, nombreCompleto, vehiculos);
+            double saldo = random.nextDouble(-10,100);           
+            propietario.setSaldo(saldo);
             propietario.Validar();
             propietarios.add(propietario);
         }
@@ -169,7 +171,7 @@ public class Precarga {
         Etiqueta[] etiquetas = {new Discapacitado(), new Electrico(), new Empleado()};
         Random random = new Random();
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 60; i++) {
             // Genera el estado aleatorio (50% de probabilidad de estar libre u ocupada)
             boolean estado = random.nextBoolean();
 

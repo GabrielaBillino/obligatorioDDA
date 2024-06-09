@@ -8,7 +8,6 @@ import dominio.Parking;
 import java.awt.event.ItemEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
-
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import vista.VistaTablero;
@@ -32,7 +31,7 @@ public class TableroControl
             column.setCellEditor(TablaNoEditable.getTablaNoEditable());
         }
 
-        //TODO crear id para que principal lo tenga cuando se cierra y lo borro de la sesion
+       
     }
     
     @Override
@@ -272,12 +271,12 @@ public class TableroControl
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblCantEstadia, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtMoneda)
-                            .addComponent(lblTotalFacturado)))
+                            .addComponent(lblTotalFacturado))
+                        .addComponent(lblCantEstadia, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblEstadia))
                 .addGap(21, 21, 21)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -318,6 +317,7 @@ public class TableroControl
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         if (opcion == JOptionPane.YES_OPTION) {
             this.setVisible(false);
+            
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
 

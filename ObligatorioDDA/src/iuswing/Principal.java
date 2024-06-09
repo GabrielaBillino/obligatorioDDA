@@ -29,6 +29,7 @@ public class Principal
         jMSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         jMTablero.setText("Tablero de control");
         jMTablero.addMouseListener(new java.awt.event.MouseAdapter() {

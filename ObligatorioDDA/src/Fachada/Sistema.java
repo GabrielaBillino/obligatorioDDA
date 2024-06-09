@@ -13,8 +13,8 @@ import java.util.List;
 
 public class Sistema extends Observable{
     
-    private static Sistema instancia = new Sistema();
-    private static SistemaParking controladorParking = new SistemaParking();
+    private static final Sistema instancia = new Sistema();
+    private static final SistemaParking controladorParking = new SistemaParking();
 
 
     public static Sistema getInstancia() {

@@ -70,7 +70,7 @@ public class Estadia implements Validable {
     public double getValorEstadia() {
         if (contieneHoudini() || contieneTransportador()) {
             return 0;
-        }
+        }        
         double valorEstadia = (precioBase() * tiempoEstadia() * factorDemandaIngreso) + totalMultas();
         return valorEstadia;
     }
@@ -101,8 +101,7 @@ public class Estadia implements Validable {
         if(horaEntrada==null || horaSalida==null){
             return 0;
         }
-        Duration duration = Duration.between(horaEntrada, horaSalida);
-        System.out.println("***************duracion estadia!!!!!!" + duration.toMinutes());
+        Duration duration = Duration.between(horaEntrada, horaSalida);       
         return duration.toMinutes();
     }
 
@@ -138,7 +137,7 @@ public class Estadia implements Validable {
     }
 
     public String retornarPatenteVehiculo() {
-        return this.vehiculo.getPatente();
+        return this.vehiculo.retornarPatente();
     }
 
     public String retornarCodCochera() {
